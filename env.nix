@@ -39,7 +39,7 @@ in
   ];
 
   security.acme = {
-    email = "info@otevrenamesta.cz";
+    email = "alert@otevrenamesta.cz";
     acceptTerms = true;
   };
 
