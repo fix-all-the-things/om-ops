@@ -133,7 +133,7 @@ in
           "localhost:9100"      = "status.otevrenamesta.cz";
 
           "37.205.14.138:9100"  = "mesta-services";
-          "37.205.14.138:10491" = "glpi.otevrenamesta.cz";
+          #"37.205.14.138:10491" = "glpi.otevrenamesta.cz";
           #"37.205.14.138:10591" = "wp.otevrenamesta.cz";
           "37.205.14.138:10791" = "nia.otevrenamesta.cz";
           "37.205.14.138:10991" = "matrix.otevrenamesta.cz";
