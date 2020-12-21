@@ -46,7 +46,7 @@ in
       };
       # asi nepoužívané
       "forum@otevrenamesta.cz" = {
-	  hashedPassword = hashes.forum_;
+          hashedPassword = hashes.forum_;
       };
       "user1@otevrenamesta.cz" = {
           hashedPassword = "${hashes.tt_}";
@@ -73,7 +73,7 @@ in
       };
 
       "webforum@otevrenamesta.cz" = {
-	  hashedPassword = "${hashes.webforum_}";
+        hashedPassword = "${hashes.webforum_}";
       };
 
       # Prometheus Alertmanager
