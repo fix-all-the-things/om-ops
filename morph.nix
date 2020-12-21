@@ -102,12 +102,12 @@ in
 
     fileSystems."/" =
       { device = "/dev/disk/by-uuid/2fe5b280-91fe-40e1-af64-9c814f03726b";
-	fsType = "ext4";
+        fsType = "ext4";
       };
 
     fileSystems."/boot" =
       { device = "/dev/disk/by-uuid/9af35a3b-7073-4fdb-afba-fc3d995016c9";
-	fsType = "ext4";
+        fsType = "ext4";
       };
   };
 
