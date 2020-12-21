@@ -25,6 +25,12 @@ in
       };
     };
     programs = {
+      git = {
+        enable = true;
+        userEmail = "info@otevrenamesta.cz";
+        userName = "Otevrena Mesta";
+      };
+
       ssh = {
         enable = true;
         controlMaster = "auto";
