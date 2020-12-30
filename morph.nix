@@ -181,11 +181,7 @@ in
 
   # qemu guest port 10322 (matomo)
   matomo = { config, pkgs, ... }: {
-    deployment = {
-      nixPath = [
-        { prefix = "nixpkgs"; path = pkgs2009omMatomo; }
-      ];
-    };
+    nixpkgs.pkgs = import pkgs2009omMatomo { };
 
     imports = [
       ./env.nix
