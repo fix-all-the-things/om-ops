@@ -6,6 +6,12 @@ let
     url = "https://github.com/NixOS/nixpkgs/archive/58f9c4c7d3a42c912362ca68577162e38ea8edfb.tar.gz";
     sha256 = "1517dy07jf4zhzknqbgm617lgjxsn7a6k1vgq61c67f6h55qs5ij";
   };
+
+  # due to geoip trouble, until https://github.com/NixOS/nixpkgs/pull/100617
+  pkgs2009omMatomo = builtins.fetchTarball {
+    url = "https://github.com/otevrenamesta/nixpkgs/archive/01b561cd8a867e0282745840c453d94064062991.tar.gz";
+    sha256 = "1mljn2q4l3h1rlfkvh215z3hxwwy0gyx1q65xcbair5krf6xfn3z";
+  };
 in
 {
   network =  {
@@ -175,6 +181,12 @@ in
 
   # qemu guest port 10322 (matomo)
   matomo = { config, pkgs, ... }: {
+    deployment = {
+      nixPath = [
+        { prefix = "nixpkgs"; path = pkgs2009omMatomo; }
+      ];
+    };
+
     imports = [
       ./env.nix
       ./profiles/qemu.nix
