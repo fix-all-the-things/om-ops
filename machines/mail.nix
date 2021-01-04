@@ -31,6 +31,7 @@ in
   mailserver = {
     enable = true;
     enableImap = true;
+    enableImapSsl = true;
     enablePop3 = true;
     enablePop3Ssl = true;
     fqdn = "mx.otevrenamesta.cz";
