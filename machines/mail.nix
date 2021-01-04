@@ -32,6 +32,7 @@ in
     enable = true;
     enableImap = true;
     enablePop3 = true;
+    enablePop3Ssl = true;
     fqdn = "mx.otevrenamesta.cz";
     domains = [ "otevrenamesta.cz" "try.otevrenamesta.cz" "dotace.praha3.cz" "dotace.praha12.cz" "dotace.praha14.cz" ];
     certificateScheme = 3; # use LetsEncrypt, requires vhost on proxy

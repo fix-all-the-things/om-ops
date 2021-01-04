@@ -54,6 +54,7 @@ in
        { destination = "192.168.122.100:143";   sourcePort = 143;}   # mail IMAP
        { destination = "192.168.122.100:587";   sourcePort = 587;}   # mail email message submission
        { destination = "192.168.122.100:993";   sourcePort = 993;}   # mail IMAPS, SSL
+       { destination = "192.168.122.100:995";   sourcePort = 995;}   # mail POP3S, SSL
        { destination = "192.168.122.100:4190";  sourcePort = 4190;}  # mail dovecot
        { destination = "192.168.122.100:12340"; sourcePort = 12340;} # mail dovecot
        { destination = "192.168.122.100:9100";  sourcePort = 10091;} # mail prometheus node collector
