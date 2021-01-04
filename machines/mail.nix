@@ -183,6 +183,12 @@ in
     #policydSPFExtraConfig = ''
     #  Whitelist = 192.168.122.101/32
     #'';
+
+    # disables lmtp_save_to_detail_mailbox
+    # which saves subaddressed emails into its own folders
+    # e.g. example+test@example.org ends in new test folder
+    # which is incompatible with discourse mailing list mode (POP3 polling)
+    lmtpSaveToDetailMailbox = "no";
   };
 
   # needed so that remote aliases (x@otevrenamesta.cz -> y@seznam.cz) work with strict (-all) SPF policies
