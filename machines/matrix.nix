@@ -115,7 +115,6 @@ in
       }
     ];
     app_service_config_files = [
-      gitterBridgeRegistration
       slackBridgeRegistration
 
       # NOTE needs to be copied manually after mautrix-facebook is first started
@@ -151,12 +150,6 @@ in
       # keep this in sync with ${riotPkg}/welcome.html
       locations."=/vesp-welcome.html".alias = ../media/matrix-welcome.html;
     };
-  };
-
-  services.matrix-appservice-gitter = {
-    enable = true;
-    configFile = ../secrets/matrix-appservice-gitter/gitter-config.yaml;
-    registrationFile = gitterBridgeRegistration;
   };
 
   services.matrix-appservice-slack = {
