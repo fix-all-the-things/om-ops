@@ -141,6 +141,7 @@ in
       "ondrej.profant@otevrenamesta.cz"   =      emails.op_;
       "pavla.kadlecova@otevrenamesta.cz"  =      emails.pk_;
       "stepan.strebl@otevrenamesta.cz"    =      emails.ss_;
+      "sorki@otevrenamesta.cz"            =      emails.srk_;
       "dsw2@otevrenamesta.cz"             =      "dsw2@lists.otevrenamesta.cz";
       "alert@otevrenamesta.cz"            =      [ emails.mm_ emails.ln_ emails.srk_ ];
 
