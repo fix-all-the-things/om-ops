@@ -129,9 +129,11 @@ in
 
       email:
         smtp_host: mx.otevrenamesta.cz
-        smtp_port: 587
-        smtp_user: matrix
-        smtp_password: ${(import ../secrets/matrix.nix).smtpPassword};
+        smtp_port: 25
+        # Disabled due to #22
+        # smtp_port: 587
+        # smtp_user: matrix
+        # smtp_password: ${(import ../secrets/matrix.nix).smtpPassword};
         require_transport_security: true
         notif_from: "Matrix <info@otevrenamesta.cz>"
         template_dir: ${../media/synapse-email-templates}
