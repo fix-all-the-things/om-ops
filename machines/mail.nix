@@ -74,6 +74,7 @@ in
         '';
       };
 
+      # Discourse
       "webforum@otevrenamesta.cz" = {
         hashedPassword = "${hashes.webforum_}";
       };
