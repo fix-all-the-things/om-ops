@@ -128,7 +128,7 @@ in
 
       email:
         smtp_host: mx.otevrenamesta.cz
-        smtp_port: 25
+        smtp_port: 587
         require_transport_security: true
         notif_from: "Matrix <info@otevrenamesta.cz>"
         template_dir: ${../media/synapse-email-templates}
