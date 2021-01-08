@@ -39,7 +39,7 @@ in
       url = "https://github.com/twisted/twisted/pull/1225.diff";
       sha256 = "14bk57b90n2kzd8mv9xngqzsr0dr7a05nj2mpkp6dmyhjsd3skih";
     };
-    customPython3 = super.python3.override {
+    customPython3 = pkgs.python3.override {
       packageOverrides = python-self: python-super: {
         twisted = python-super.twisted.overrideAttrs (attrs: {
           pname = "patched-Twisted";
