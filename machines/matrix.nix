@@ -135,7 +135,7 @@ in
         # smtp_user: matrix
         # smtp_password: ${(import ../secrets/matrix.nix).smtpPassword};
         require_transport_security: true
-        notif_from: "Matrix <info@otevrenamesta.cz>"
+        notif_from: "Matrix <matrix@otevrenamesta.cz>"
         template_dir: ${../media/synapse-email-templates}
     '';
 
