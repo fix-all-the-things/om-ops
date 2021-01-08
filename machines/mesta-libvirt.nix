@@ -37,6 +37,7 @@ in
 
           { destination = "[fda7:1646:3af8:666e:5054:ff:fe6b:6c86]:25"; sourcePort = 25; }
           { destination = "[fda7:1646:3af8:666e:5054:ff:fe6b:6c86]:143"; sourcePort = 143; }
+          { destination = "[fda7:1646:3af8:666e:5054:ff:fe6b:6c86]:465"; sourcePort = 465; }
           { destination = "[fda7:1646:3af8:666e:5054:ff:fe6b:6c86]:587"; sourcePort = 587; }
           { destination = "[fda7:1646:3af8:666e:5054:ff:fe6b:6c86]:993"; sourcePort = 993; }
           { destination = "[fda7:1646:3af8:666e:5054:ff:fe6b:6c86]:995"; sourcePort = 995; }
@@ -53,7 +54,8 @@ in
        { destination = "192.168.122.100:25";    sourcePort = 25;}    # mail SMTP
        { destination = "192.168.122.100:110";   sourcePort = 110;}   # mail POP3
        { destination = "192.168.122.100:143";   sourcePort = 143;}   # mail IMAP
-       { destination = "192.168.122.100:587";   sourcePort = 587;}   # mail email message submission
+       { destination = "192.168.122.100:465";   sourcePort = 465;}   # mail Message Submission, SSL
+       { destination = "192.168.122.100:587";   sourcePort = 587;}   # mail Message Submission
        { destination = "192.168.122.100:993";   sourcePort = 993;}   # mail IMAPS, SSL
        { destination = "192.168.122.100:995";   sourcePort = 995;}   # mail POP3S, SSL
        { destination = "192.168.122.100:4190";  sourcePort = 4190;}  # mail dovecot
