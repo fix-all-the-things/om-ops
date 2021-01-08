@@ -83,6 +83,11 @@ in
           hashedPassword = hashes.status_;
       };
 
+      # Matrix notifications and email confirmations
+      "matrix@otevrenamesta.cz" = {
+          hashedPassword = hashes.matrix_;
+      };
+
       ## domain @try.otevrenamesta.cz:
       "user1@try.otevrenamesta.cz" = {
           hashedPassword = "${hashes.tt_}";
