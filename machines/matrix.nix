@@ -56,6 +56,7 @@ in
       };
     })
     (import ../overlays/mautrix-facebook.nix)
+    (import ../overlays/matrix-appservice-slack.nix)
   ];
 
   environment.systemPackages = with pkgs; [

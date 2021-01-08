@@ -4,8 +4,6 @@ with lib;
 
 let
   cfg = config.services.matrix-appservice-slack;
-  pkg = pkgs.callPackage ../packages/matrix-appservice-slack { };
-
 in
 {
   ##### interface
@@ -35,7 +33,16 @@ in
         type = types.port;
         default = 6788;
         description = ''
-          Port to listen on for connections from Matrix Homeserver;
+          Port to listen on for connections from Matrix Homeserver.
+        '';
+      };
+
+      package = mkOption {
+        type = types.package;
+        default = pkgs.matrix-appservice-slack;
+        defaultText = "pkgs.matrix-appservice-slack";
+        description = ''
+          Which package to use for matrix-appservice-slack.
         '';
       };
     };
@@ -44,21 +51,21 @@ in
   ##### implementation
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkg ];
+    environment.systemPackages = [ cfg.package ];
 
     systemd.services.matrix-appservice-slack = {
       description = "Matrix <--> Slack bridge";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       serviceConfig = {
-        ExecStart = "${pkg}/bin/matrix-appservice-slack --config ${cfg.configFile} --file ${cfg.registrationFile} --port ${toString cfg.matrixPort}";
+        ExecStart = "${cfg.package}/bin/matrix-appservice-slack --config ${cfg.configFile} --file ${cfg.registrationFile} --port ${toString cfg.matrixPort}";
 
         User = "slackbridge";
         Group = "slackbridge";
 
         StateDirectory = "matrix-appservice-slack";
         # https://github.com/matrix-org/matrix-appservice-slack/pull/415
-        WorkingDirectory = "${pkg}/lib/node_modules/matrix-appservice-slack";
+        WorkingDirectory = "${cfg.package}/lib/node_modules/matrix-appservice-slack";
 
         CapabilityBoundingSet = "";
         NoNewPrivileges = true;
