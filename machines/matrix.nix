@@ -95,7 +95,7 @@ in
     enable = true;
     no_tls = true;
     server_name = "vesp.cz";
-    registration_shared_secret = with import ../secrets/matrix.nix; registration-secret;
+    registration_shared_secret = (import ../secrets/matrix.nix).registration-secret;
     public_baseurl = "https://matrix.vesp.cz/";
     database_type = "psycopg2";
     database_args = {
