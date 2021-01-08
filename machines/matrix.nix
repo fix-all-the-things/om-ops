@@ -39,19 +39,20 @@ in
       url = "https://github.com/twisted/twisted/pull/1225.diff";
       sha256 = "14bk57b90n2kzd8mv9xngqzsr0dr7a05nj2mpkp6dmyhjsd3skih";
     };
-  in [
-    (self: super: {
-      python3 = super.python3.override {
-        packageOverrides = python-self: python-super: {
-          twisted = python-super.twisted.overrideAttrs (attrs: {
-            pname = "patched-Twisted";
-            # package overrides patchPhase, adding patch to `patches` does nothing
-            patchPhase = attrs.patchPhase + ''
-              patch -p1 < ${twistedSmtpTLSv10Patch}
-            '';
-          });
-        };
+    customPython3 = super.python3.override {
+      packageOverrides = python-self: python-super: {
+        twisted = python-super.twisted.overrideAttrs (attrs: {
+          pname = "patched-Twisted";
+          # package overrides patchPhase, adding patch to `patches` does nothing
+          patchPhase = attrs.patchPhase + ''
+            patch -p1 < ${twistedSmtpTLSv10Patch}
+          '';
+        });
       };
+    };
+  in [
+    (self: super: rec {
+      matrix-synapse = super.matrix-synapse.override { python3 = customPython3; };
     })
     (import ../overlays/mautrix-facebook.nix)
     (import ../overlays/matrix-appservice-slack.nix)
