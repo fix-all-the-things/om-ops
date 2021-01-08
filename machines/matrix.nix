@@ -21,12 +21,10 @@ let
     embeddedPages.welcomeUrl = "/vesp-welcome.html";
   };
   riotPkg = pkgs.element-web.override { conf = riotConfig; };
-  gitterBridgeRegistration = ../secrets/matrix-appservice-gitter/gitter-registration.yaml;
   slackBridgeRegistration = ../secrets/matrix-appservice-slack/slack-registration.yaml;
 in
 {
   imports = [
-    ../modules/matrix-appservice-gitter.nix
     ../modules/matrix-appservice-slack.nix
     ../modules/mautrix-facebook.nix
   ];
