@@ -189,8 +189,9 @@ in
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [
-      8448  # Matrix federation and client connections
       80    # nginx+riot
+      8448  # Matrix federation and client connections
+      9898  # Slack bridge
     ];
   };
 }

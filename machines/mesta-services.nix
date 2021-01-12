@@ -79,6 +79,7 @@ in
       { destination = "192.168.122.109:9113"; sourcePort = 10993;}  # matrix prometheus nginx exporter
 
       { destination = "192.168.122.109:8448"; sourcePort = 10984;}  # matrix synapse (clients+federation)
+      { destination = "192.168.122.109:9898"; sourcePort = 10985;}  # matrix slack bridge
     ];
   };
 
