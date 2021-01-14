@@ -138,6 +138,8 @@ in
         require_transport_security: true
         notif_from: "Matrix <matrix@otevrenamesta.cz>"
         template_dir: ${../media/synapse-email-templates}
+        # Enable mail notifications
+        enable_notifs: true
     '';
 
     enable_registration = true;
