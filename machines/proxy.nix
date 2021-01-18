@@ -418,6 +418,7 @@
       };
 
       "riot.vesp.cz" = {
+        serverAliases = [ "element.vesp.cz" ];
         forceSSL = true;
         enableACME = true;
 
