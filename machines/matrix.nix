@@ -67,9 +67,6 @@ in
      domain = "vesp.cz";
   };
 
-  users.extraUsers.root.openssh.authorizedKeys.keys =
-    with import ../ssh-keys.nix; [ rh ];
-
   services.postgresql = {
     enable = true;
     ensureDatabases = [ "slack_bridge" ];
