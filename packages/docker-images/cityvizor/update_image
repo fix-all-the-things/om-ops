@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -ex
+
+if [ $# != 2 ]; then
+  echo "Usage: update_image IMGNAME TAG"
+  exit 1
+fi
+
+name=$1
+tag=$2
+
+nix run nixpkgs.nix-prefetch-docker -c nix-prefetch-docker \
+  --image-name cityvizor/${name} \
+  --image-tag ${tag} \
+  > ${name}.nix
