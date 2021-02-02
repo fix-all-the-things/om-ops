@@ -19,45 +19,7 @@ let
     '';
 in
 {
-  options = {
-    services.cityvizor = {
-      enable = mkEnableOption "CityVizor";
-
-      hostName = mkOption {
-        type = types.str;
-        default = "cityvizor";
-        description = ''
-          Host name where this application is going to be served.
-
-          Creates nginx vhost which you can further modify under
-          <option>services.nginx.virtualHosts."$${hostName}"</option>
-        '';
-      };
-
-      database = {
-        demoData.enable = mkEnableOption "loading of demo database";
-        # TODO: classics
-        # host, port, name, user, createLocally
-      };
-
-      proxy = {
-        enable = mkEnableOption "CityVizor nginx proxy";
-      };
-
-      server = {
-        enable = mkEnableOption "CityVizor server";
-      };
-
-      server-kotlin = {
-        enable = mkEnableOption "CityVizor server-kotlin";
-        maxHeapSize = mkOption {
-          type = types.str;
-          default = "128m";
-        };
-      };
-    };
-  };
-
+  options = import ./cityvizor-options.nix { inherit pkgs lib; };
   config = mkMerge [
     (mkIf cfg.enable {
 
