@@ -19,5 +19,9 @@ in
   networking.useDHCP = false;
 
   services.resolved.enable = false;
+
+  services.prometheus.exporters.node = {
+    disabledCollectors = [ "powersupplyclass" "hwmon" ];
+  };
 }
 
