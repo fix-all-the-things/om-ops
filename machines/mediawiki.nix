@@ -43,19 +43,11 @@ with lib;
     # Versions of extensions must match MediaWiki version!
     # After updating the extensions please also update the `warnings` expression below.
     extensions = {
-      VisualEditor = pkgs.fetchzip {
-        url = "https://extdist.wmflabs.org/dist/extensions/VisualEditor-REL1_34-74116a7.tar.gz";
-        sha256 = "12lwna2qlc80smba2ci4ig144ppq6b6rwm1jdcx9ghixy8ckzkfp";
-      };
-      ParserFunctions = pkgs.fetchzip {
-        url = "https://extdist.wmflabs.org/dist/extensions/ParserFunctions-REL1_34-4de6f30.tar.gz";
-        sha256 = "1rvlphcal24w92icma13ganxjcg541c11209ijfapqrlk8a5y1ks";
-      };
-      # after 20.09, see also https://github.com/NixOS/nixpkgs/pull/83436
-      ConfirmEdit = pkgs.fetchzip {
-        url = "https://extdist.wmflabs.org/dist/extensions/ConfirmEdit-REL1_34-a84d99c.tar.gz";
-        sha256 = "094np8zkivxs68vvd52096f3zxc1h8nk272zj9cbyb0zm7z8dc0i";
-      };
+      # builtins
+      VisualEditor = null;
+      ParserFunctions = null;
+      ConfirmEdit = null;
+
       Matomo = pkgs.fetchzip {
         url = "https://github.com/DaSchTour/matomo-mediawiki-extension/archive/v4.0.1.tar.gz";
         sha256 = "0g5rd3zp0avwlmqagc59cg9bbkn3r7wx7p6yr80s644mj6dlvs1b";
