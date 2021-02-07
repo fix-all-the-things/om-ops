@@ -254,7 +254,7 @@ in
       { device = "/dev/disk/by-uuid/9bdeed3f-a0de-4438-be71-357742e9a08b";
         fsType = "ext4";
       };
-  
+
     fileSystems."/boot" =
       { device = "/dev/disk/by-uuid/55759f28-3493-49be-be9a-4fe6847b2406";
         fsType = "ext4";
@@ -318,49 +318,6 @@ in
       { device = "/dev/disk/by-uuid/00552ecd-9bf6-4111-9339-d9180e2023e1";
         fsType = "ext4";
       };
-
-# FIXME does not work due to how we do NAT
-#    deployment = {
-#      healthChecks = {
-#        http = [
-#          {
-#            scheme = "http";
-#            port = 80;
-#            host = "otevrenamesta.cz";
-#            path = "/";
-#            description = "Nginx is up";
-#          }
-#          {
-#            scheme = "https";
-#            port = 443;
-#            host = "otevrenamesta.cz";
-#            path = "/";
-#            description = "Web is up";
-#          }
-#          {
-#            scheme = "https";
-#            port = 443;
-#            host = "www.otevrenamesta.cz";
-#            path = "/";
-#            description = "WWW is up";
-#          }
-#          {
-#            scheme = "https";
-#            port = 443;
-#            host = "forum.otevrenamesta.cz";
-#            path = "/latest";
-#            description = "Forum is up";
-#          }
-#          {
-#            scheme = "https";
-#            port = 443;
-#            host = "iot.otevrenamesta.cz";
-#            path = "/about";
-#            description = "IoT is up";
-#          }
-#        ];
-#      };
-#    };
   };
 
   status = { config, pkgs, ... }: {
