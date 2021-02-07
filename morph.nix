@@ -3,14 +3,15 @@ let
   # update with nix-prefetch-url --unpack <URL>
   # tracks nixos-20.09 branch
   pkgs2009 = builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/58f9c4c7d3a42c912362ca68577162e38ea8edfb.tar.gz";
-    sha256 = "1517dy07jf4zhzknqbgm617lgjxsn7a6k1vgq61c67f6h55qs5ij";
+    url = "https://github.com/NixOS/nixpkgs/archive/2b973d233906fb0483263bca71bb789cad61513e.tar.gz";
+    sha256 = "11h21zsas7xgdax6xs2lh3mz8spvdk8i63czysr4p69yir1h1cd7";
   };
 
   # due to geoip trouble, until https://github.com/NixOS/nixpkgs/pull/100617
+  # matomo branch
   pkgs2009omMatomo = builtins.fetchTarball {
-    url = "https://github.com/otevrenamesta/nixpkgs/archive/01b561cd8a867e0282745840c453d94064062991.tar.gz";
-    sha256 = "1mljn2q4l3h1rlfkvh215z3hxwwy0gyx1q65xcbair5krf6xfn3z";
+    url = "https://github.com/otevrenamesta/nixpkgs/archive/046a731cf1451ac0f622b93ce128123411d458ae.tar.gz";
+    sha256 = "0y68agpyr8qkyh82bji076gqc75l40ic6sinzfwm7mcnld5kvmkv";
   };
 in
 {
