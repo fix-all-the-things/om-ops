@@ -218,7 +218,7 @@ let
         name = "webmozart-assert-573381c0a64f155a0d9a23f4b0c797194805b925";
         src = fetchurl {
           url = https://api.github.com/repos/webmozart/assert/zipball/573381c0a64f155a0d9a23f4b0c797194805b925;
-          sha256 = "0pnxl10afp5q8hnnffbnr3z0dg0ddk6x05yzj5334bvzr63msvpz";
+          sha256 = "0pzsac8h8wdzwkk5mljvfapp4igw3z3hh4fc34lrfgw6jg3jzmyj";
         };
       };
     };
