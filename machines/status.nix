@@ -48,6 +48,10 @@ in
   {
     enable = true;
 
+    extraFlags = [
+      "--storage.tsdb.retention.time 365d"
+      "--storage.tsdb.retention.size 80GB"
+    ];
     #extraFlags = [ "--web.enable-admin-api" ];
     # delete data with label:
     # curl -X POST -g 'http://83.167.228.98:9090/api/v1/admin/tsdb/delete_series?match[]={instance="localhost:9100"}'
