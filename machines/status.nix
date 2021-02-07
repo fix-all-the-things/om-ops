@@ -131,6 +131,10 @@ in
         job_name = "grafana";
         static_configs = oneStaticTarget "localhost:3000";
       }
+      {
+        job_name = "alertmanager";
+        static_configs = oneStaticTarget "localhost:${toString config.services.prometheus.alertmanager.port}";
+      }
       # node collector
       (let
         instances = {
