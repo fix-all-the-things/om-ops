@@ -2,6 +2,7 @@
 
 let
   writeJson = name: tree: pkgs.writeText name (builtins.toJSON tree);
+  probeData = import ../data/probes.nix;
 in
 {
   users.users.niap = {
@@ -44,6 +45,16 @@ in
       regex = builtins.replaceStrings ["[" "]"] [".?" ".?"] address;
       replacement = replacement;
     };
+    # create blackbox target
+    mkBlackbox = module: targets: {
+      job_name = "blackbox_${module}";
+      metrics_path = "/probe";
+      params = {
+        module = [ module ];
+      };
+      static_configs = staticTargets targets;
+      relabel_configs = relabelTargets "localhost:9115";
+    };
   in
   {
     enable = true;
@@ -61,7 +72,98 @@ in
       enabledCollectors = [ "systemd" "logind" "processes" ];
       listenAddress = "127.0.0.1";
     };
-    # exporters.blackbox =
+
+    exporters.blackbox = {
+      enable = true;
+      configFile = writeJson "config.yml" {
+        modules.icmp-v4 = {
+          prober = "icmp";
+          icmp.preferred_ip_protocol = "ip4";
+        };
+
+        modules.icmp-v6 = {
+          prober = "icmp";
+          icmp.preferred_ip_protocol = "ip6";
+        };
+
+        modules.http-v4 = {
+          prober = "http";
+          timeout = "5s";
+          http = {
+            preferred_ip_protocol = "ip4";
+            ip_protocol_fallback = false;
+          };
+        };
+
+        modules.http-v4-ssl = {
+          prober = "http";
+          timeout = "5s";
+          http = {
+            fail_if_not_ssl = true;
+            preferred_ip_protocol = "ip4";
+            ip_protocol_fallback = false;
+          };
+        };
+
+        modules.http-v6 = {
+          prober = "http";
+          timeout = "5s";
+          http = {
+            preferred_ip_protocol = "ip6";
+            ip_protocol_fallback = false;
+          };
+        };
+
+        modules.http-v6-ssl = {
+          prober = "http";
+          timeout = "5s";
+          http = {
+            fail_if_not_ssl = true;
+            preferred_ip_protocol = "ip6";
+            ip_protocol_fallback = false;
+          };
+        };
+
+        modules.tcp-v4 = {
+          prober = "tcp";
+          timeout = "5s";
+          tcp = {
+            preferred_ip_protocol = "ip4";
+            ip_protocol_fallback = false;
+          };
+        };
+
+        modules.tcp-v4-tls = {
+          prober = "tcp";
+          timeout = "5s";
+          tcp = {
+            tls = true;
+            preferred_ip_protocol = "ip4";
+            ip_protocol_fallback = false;
+          };
+        };
+
+        modules.tcp-v6 = {
+          prober = "tcp";
+          timeout = "5s";
+          tcp = {
+            preferred_ip_protocol = "ip6";
+            ip_protocol_fallback = false;
+          };
+        };
+
+        modules.tcp-v6-tls = {
+          prober = "tcp";
+          timeout = "5s";
+          tcp = {
+            tls = true;
+            preferred_ip_protocol = "ip4";
+            ip_protocol_fallback = false;
+          };
+        };
+      };
+    };
+
 
     globalConfig = {
       scrape_interval = "15s";
@@ -234,6 +336,17 @@ in
         static_configs = staticTargets (lib.attrNames instances);
         relabel_configs = lib.mapAttrsToList relabelAddressInstance instances;
       })
+      # blackbox
+      (mkBlackbox "icmp-v4"     probeData.hosts)
+      (mkBlackbox "icmp-v6"     probeData.hosts)
+      (mkBlackbox "http-v4"     (map (x: "http://${x}")  probeData.websites))
+      (mkBlackbox "http-v6"     (map (x: "http://${x}")  probeData.websites))
+      (mkBlackbox "http-v4-ssl" (map (x: "https://${x}") probeData.websites))
+      (mkBlackbox "http-v6-ssl" (map (x: "https://${x}") probeData.websites))
+      (mkBlackbox "tcp-v4"      probeData.tcp)
+      (mkBlackbox "tcp-v6"      probeData.tcp)
+      (mkBlackbox "tcp-v4-tls"  probeData.tcpTls)
+      (mkBlackbox "tcp-v6-tls"  probeData.tcpTls)
     ];
 
     ruleFiles = [
