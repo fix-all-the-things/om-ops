@@ -63,13 +63,18 @@ in
             user = "root";
             identityFile = "~/.ssh/mesta_deploy";
           };
+          "mesta-libvirt" = {
+            hostname = "37.205.14.17";
+            user = "root";
+            identityFile = "~/.ssh/mesta_deploy";
+          };
           "mesta-services" = {
             hostname = "37.205.14.138";
             user = "root";
             identityFile = "~/.ssh/mesta_deploy";
           };
-          "mesta-libvirt" = {
-            hostname = "37.205.14.17";
+          "mesta-services-2" = {
+            hostname = "37.205.12.242";
             user = "root";
             identityFile = "~/.ssh/mesta_deploy";
           };
@@ -120,6 +125,16 @@ in
           "matrix" = {
             hostname = "37.205.14.138";
             port = 10922;
+            user = "root";
+            identityFile = "~/.ssh/mesta_deploy";
+          };
+          "pg" = {
+            hostname = "37.205.8.221";
+            user = "root";
+            identityFile = "~/.ssh/mesta_deploy";
+          };
+          "cv-beta" = {
+            hostname = "2a03:3b40:fe:a4::1";
             user = "root";
             identityFile = "~/.ssh/mesta_deploy";
           };
