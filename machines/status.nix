@@ -12,6 +12,10 @@ in
 
   networking.firewall.allowedTCPPorts = [ 80 443 9090 ];
 
+  environment.systemPackages = with pkgs; [
+    sqlite
+  ];
+
   services.prometheus = let
     exportersCfg = config.services.prometheus.exporters;
     relabelTargets = exporterTarget: [
