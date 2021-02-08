@@ -392,6 +392,11 @@ in
     enable = true;
     addr = "127.0.0.1"; #TODO
     analytics.reporting.enable = false;
+    auth.anonymous = {
+      enable = true;
+      org_name = "pub.otevrenamesta.cz";
+      org_role = "Viewer";
+    };
   };
 
   services.nginx = {
