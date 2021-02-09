@@ -47,6 +47,7 @@ in
         imports = [ ../env.nix ];
         environment.systemPackages = with pkgs; [
           minio-client
+          dnsutils
         ];
 
         networking.firewall.allowedTCPPorts = [ 8000 ];
