@@ -328,4 +328,13 @@ in
       ./machines/status.nix
     ];
   };
+
+  mesta-services-2 = { config, pkgs, ... }: {
+    imports = [
+      ./env.nix
+      ./profiles/ct.nix
+      ./profiles/exporter-node.nix
+      ./machines/mesta-services-2.nix
+    ];
+  };
 }
