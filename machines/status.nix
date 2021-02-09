@@ -260,6 +260,8 @@ in
           "37.205.14.17:10491"  = "proxy.otevrenamesta.cz";
           "37.205.14.17:10591"  = "wiki.vesp.cz";
 
+          "37.205.12.242:9100"  = "mesta-services-2";
+
           "[2a01:430:17:1::ffff:1309]:9100" = "dsw2.otevrenamesta.cz";
         };
       in {
