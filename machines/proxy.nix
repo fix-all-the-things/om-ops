@@ -114,6 +114,7 @@
           "dotace.praha14.cz"
           "praha4.dsw2.otevrenamesta.cz"
           "praha6.dsw2.otevrenamesta.cz"
+          "praha11.dsw2.otevrenamesta.cz"
           "tacr.dsw2.otevrenamesta.cz"
           "usti-nad-labem.dsw2.otevrenamesta.cz"
         ];
