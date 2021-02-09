@@ -2,8 +2,8 @@
 
 let
   vpsadminos = builtins.fetchTarball {
-    url = "https://github.com/vpsfreecz/vpsadminos/archive/a74c43f68034bfc4fe2c5d73ec7533b9d71e1be7.tar.gz";
-    sha256 = "1x59a1v7dph03czaq83hh22kqb393jq0hhz6hng3yy8gvv1ysybr";
+    url = "https://github.com/vpsfreecz/vpsadminos/archive/a7097badbafb29efd11e495df8546067a0d06637.tar.gz";
+    sha256 = "1hs65azpziqgwsldj4afk005pwjwvyyq919hzfl0qh5hiniv424r";
   };
 in
 {
