@@ -19,7 +19,12 @@ let
 in
 {
   time.timeZone = "Europe/Amsterdam";
-  networking.nameservers = [ "208.67.222.222" "208.67.220.220" ];
+  networking.nameservers = [
+    "1.1.1.1"
+    "208.67.222.222"
+    "208.67.220.220"
+    "2606:4700:4700::1111"
+  ];
   services.openssh.enable = true;
   services.openssh.startWhenNeeded = false; # workaround https://github.com/NixOS/nixpkgs/pull/97989
   nix.useSandbox = true;
