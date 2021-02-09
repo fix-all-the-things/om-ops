@@ -404,6 +404,8 @@ in
         };
       };
 
+      /*
+      # disabled for now
       "p7.otevrenamesta.cz" = {
         forceSSL = false;
         enableACME = true;
@@ -418,6 +420,7 @@ in
           };
         };
       };
+      */
 
      "projekty.otevrenamesta.cz" = {
         forceSSL = true;
