@@ -1,6 +1,14 @@
 { config, pkgs, ... }:
 let
   data = import ../data;
+  recommendedProxy = ''
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Forwarded-Server $host;
+  '';
 in
 {
   networking = {
@@ -64,6 +72,7 @@ in
         locations = {
           "/" = {
             proxyPass = "http://${data.hosts.mesta-services-2.addr.pub.ipv4}:80";
+            extraConfig = recommendedProxy;
           };
         };
       };
@@ -689,6 +698,7 @@ in
         locations = {
           "/" = {
             proxyPass = "http://${data.hosts.mesta-services-2.addr.pub.ipv4}:80";
+            extraConfig = recommendedProxy;
           };
         };
       };
