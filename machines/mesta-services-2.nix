@@ -159,7 +159,7 @@ in
           enable = true;
           proxyPort = 3128;
           extraConfig = ''
-            acl v6ct src 2a03:3b40:fe:a4::1
+            acl localnet src 2a03:3b40:fe:a4::1
             cache deny all
           '';
         };
