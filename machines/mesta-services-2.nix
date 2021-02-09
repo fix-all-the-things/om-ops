@@ -14,16 +14,19 @@ in
 
   networking.firewall.allowedTCPPorts = [
     22 # forwarded to shells ct
+    80 # nginx
     3128 # squid ct, has its own acl
   ];
 
   # restrict incoming connections to proxy.otevrenamesta.cz only
   # to prevent X-Real-Ip: etc header spoofing
   networking.firewall.extraCommands = ''
+    iptables -I INPUT -i lo -j ACCEPT
     iptables -I INPUT -p tcp -m multiport --dports ${proxyPorts} ! -s ${proxyIp} -j DROP
     iptables -I INPUT -p tcp -m multiport --dports ${statusPorts} ! -s ${statusIp} -j DROP
   '';
   networking.firewall.extraStopCommands = ''
+    iptables -I INPUT -i lo -j ACCEPT
     iptables -D INPUT -p tcp -m multiport --dports ${proxyPorts} ! -s ${proxyIp} -j DROP || true
     iptables -D INPUT -p tcp -m multiport --dports ${statusPorts} ! -s ${statusIp} -j DROP || true
   '';
