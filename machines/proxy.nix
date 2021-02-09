@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
-
+let
+  data = import ../data;
+in
 {
   networking = {
     firewall.allowedTCPPorts = [ 80 443 ];
@@ -51,6 +53,17 @@
               proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
               proxy_set_header X-Forwarded-Proto $scheme;
             '';
+          };
+        };
+      };
+
+      "minio.cityvizor.cz" = {
+        serverAliases = [ "minio.otevrenamesta.cz" ];
+        forceSSL = true;
+        enableACME = true;
+        locations = {
+          "/" = {
+            proxyPass = "http://${data.hosts.mesta-services-2.addr.pub.ipv4}:80";
           };
         };
       };
@@ -669,6 +682,18 @@
           };
         };
       };
+
+      "users.otevrenamesta.cz" = {
+        forceSSL = true;
+        enableACME = true;
+        locations = {
+          "/" = {
+            proxyPass = "http://${data.hosts.mesta-services-2.addr.pub.ipv4}:80";
+          };
+        };
+      };
+
+
     };
   };
 }
