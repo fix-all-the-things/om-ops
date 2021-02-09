@@ -135,6 +135,8 @@ in
       config = { config, pkgs, ... }: {
         imports = [ ];
 
+        networking.firewall.allowedTCPPorts = [ 9000 ];
+
         services.minio = {
           enable = true;
           browser = true;
