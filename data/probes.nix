@@ -1,9 +1,5 @@
 let
-  domains = {
-    cv = "cityvizor.cz";
-    om = "otevrenamesta.cz";
-    vesp = "vesp.cz";
-  };
+  domains = import ./domains.nix;
 in
 {
   # icmp probes
