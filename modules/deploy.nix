@@ -75,6 +75,7 @@ in
           };
           "mesta-services-2" = {
             hostname = "37.205.12.242";
+            port = 12322;
             user = "root";
             identityFile = "~/.ssh/mesta_deploy";
           };
@@ -130,11 +131,13 @@ in
           };
           "pg" = {
             hostname = "37.205.8.221";
+            port = 12322;
             user = "root";
             identityFile = "~/.ssh/mesta_deploy";
           };
           "cv-beta" = {
             hostname = "2a03:3b40:fe:a4::1";
+            port = 12322;
             user = "root";
             identityFile = "~/.ssh/mesta_deploy";
           };
