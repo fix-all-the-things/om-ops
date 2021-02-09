@@ -26,7 +26,6 @@ in
     "2606:4700:4700::1111"
   ];
   services.openssh.enable = true;
-  services.openssh.startWhenNeeded = false; # workaround https://github.com/NixOS/nixpkgs/pull/97989
   nix.useSandbox = true;
   nix.buildCores = 0;
   systemd.tmpfiles.rules = [ "d /tmp 1777 root root 7d" ];
