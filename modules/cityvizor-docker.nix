@@ -45,6 +45,11 @@ in
   options = import ./cityvizor-options.nix { inherit pkgs lib; };
   config = mkMerge [
     (mkIf cfg.enable  {
+      services.cityvizor = {
+        server.enable = mkDefault true;
+        proxy.enable = mkDefault true;
+      };
+
       networking.firewall.allowedTCPPorts = [ 80 ];
 
       nixpkgs.overlays = [
@@ -94,7 +99,7 @@ in
         };
       };
 
-      services.nginx = {
+      services.nginx = optionalAttrs cfg.proxy.enable {
         enable = true;
         recommendedOptimisation = true;
         recommendedProxySettings = true;
