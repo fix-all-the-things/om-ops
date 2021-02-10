@@ -6,6 +6,11 @@ let
   cfg = config.services.cityvizor;
   baseDir = "/var/lib/cityvizor";
 
+  # nix branch, pin at some point
+  cvSrc = "https://github.com/otevrenamesta/cityvizor/archive/nix.tar.gz";
+  cvOverlay =
+    import "${builtins.fetchTarball cvSrc}/overlay.nix";
+
   cvServerImage = pkgs.dockerTools.pullImage
   {
     imageName = "cityvizor/cityvizor-server";
@@ -72,7 +77,10 @@ in
     (mkIf cfg.enable  {
       networking.firewall.allowedTCPPorts = [ 80 ];
 
-      nixpkgs.overlays = [ (import ../overlays/docker-images.nix) ];
+      nixpkgs.overlays = [
+        cvOverlay
+        (import ../overlays/docker-images.nix)
+      ];
 
       virtualisation.docker = {
         enable = true;
