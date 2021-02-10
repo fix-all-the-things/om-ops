@@ -66,12 +66,6 @@ with lib;
       enable = mkEnableOption "CityVizor server";
     };
 
-    server-kotlin = {
-      enable = mkEnableOption "CityVizor server-kotlin";
-      maxHeapSize = mkOption {
-        type = types.str;
-        default = "128m";
-      };
     };
   };
 }

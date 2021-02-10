@@ -114,7 +114,6 @@ in
           cv-landing-page = {
             image = "cityvizor/landing-page:latest";
             imageFile = pkgs.docker-images.cityvizor.landing-page;
-            dependsOn = [ "cv-server-kotlin" ];
             ports = [ "8001:80" ];
           };
         };
@@ -150,12 +149,6 @@ in
             };
             "/api" = {
               proxyPass = "http://api";
-            };
-            "/api/v1/citysync" = {
-              proxyPass = "http://localhost:6000";
-            };
-            "/api/v2" = {
-              proxyPass = "http://localhost:6000";
             };
           };
         };

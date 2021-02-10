@@ -26,7 +26,6 @@ in
       services.cityvizor = {
         database.demoData.enable = mkDefault true;
         server.enable = mkDefault true;
-        server-kotlin.enable = mkDefault true;
         proxy.enable = mkDefault true;
       };
 
@@ -63,13 +62,6 @@ in
             "/api" = {
               proxyPass = "http://localhost:3000";
             };
-          } // optionalAttrs (cfg.server-kotlin.enable) {
-            "/api/v1/citysync" = {
-              proxyPass = "http://localhost:8080";
-            };
-            "/api/v2" = {
-              proxyPass = "http://localhost:8080";
-            };
           };
         };
       };
@@ -96,28 +88,6 @@ in
 
           User = "postgres";
           Group = "postgres";
-        };
-      };
-    })
-
-    (mkIf (cfg.server-kotlin.enable) {
-      systemd.services.server-kotlin = {
-        description = "CityVizor Kotlin Server";
-        wantedBy = [ "multi-user.target" ];
-        requires = [ "init-cv-db.service" ];
-        after    = [ "init-cv-db.service" ];
-        environment = {
-          JDBC_URL = "jdbc:postgresql://localhost:5432/cv?user=cvuser";
-        };
-
-        serviceConfig = {
-          ExecStart = ''
-            ${pkgs.jre}/bin/java \
-            -jar \
-            -Xmx${cfg.server-kotlin.maxHeapSize} \
-            ${pkgs.cityvizor.server-kotlin}/server-0.0.5.jar
-          '';
-          User = user;
         };
       };
     })
