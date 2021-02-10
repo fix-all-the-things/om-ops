@@ -11,46 +11,16 @@ let
   cvOverlay =
     import "${builtins.fetchTarball cvSrc}/overlay.nix";
 
-  cvServerImage = pkgs.dockerTools.pullImage
-  {
-    imageName = "cityvizor/cityvizor-server";
-    imageDigest = "sha256:5cc05c1c0b340e31d22bdbd0aec96adf9133d4f7f8f696815afa455f67ba4cf0";
-    sha256 = "0kj06glaibyv6dxgr4xdxxqwbn1nskwkz3xdihl6r3cp4fdfz973";
-    finalImageName = "cityvizor/cityvizor-server";
-    finalImageTag = "prod";
-  };
-  cvModded = pkgs.dockerTools.buildImage {
-    name = "cv-server-modded";
-    tag = "latest";
-    fromImage = cvServerImage;
-    diskSize = 2333;
-    runAsRoot =  ''
-      #!${pkgs.runtimeShell}
-      mkdir -p /data
-      ls -l /
-      ls -lR /user
-      sed -i 's~bin/bash~bin/bash -ex~g' /user/src/app/entrypoint.sh
-      sed -i 's/0.0.0.0/::/' /user/src/app/environment/environment.system.js
-    '';
-  };
   # postgres is a pg super-user
   demoDump = user: pkgs.runCommand "db-demo-for-user-${user}.sql" {}
     ''
       sed 's/postgres/${user}/g' ${pkgs.cityvizor.db-demo-dump} > $out
     '';
 
-
   makeServer = hostPort: {
     image = "cityvizor/cityvizor-server:latest";
     imageFile = pkgs.docker-images.cityvizor.cityvizor-server;
-    # image = "cv-server-modded:latest";
-    #imageFile = cvModded;
-    # only for modded
-    #workdir = "/user/src/app/";
-    #entrypoint = "./entrypoint.sh";
     cmd = [ "-mserver" ];
-    # create admin..
-    #cmd = [ "-mserver" "-a" ];
     ports = [ "${builtins.toString hostPort}:3000" ];
     environment = {
       DATABASE_NAME = cfg.database.name;
@@ -92,9 +62,6 @@ in
         enable = true;
         #extraOptions = "--ipv6"; #--fixed-cidr-v6=2001:dac:1::/64";
       };
-
-      /*
-      */
 
       virtualisation.oci-containers= {
         backend = "podman";
