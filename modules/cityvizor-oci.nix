@@ -113,9 +113,9 @@ in
         '';
         upstreams = {
           "api".servers = {
-            "localhost:${toString cfg.server.port}" = {};
+            "127.0.0.1:${toString cfg.server.port}" = {};
           } // listToAttrs (map (num: {
-              name = "localhost:${toString (cfg.server.port + num)}";
+              name = "127.0.0.1:${toString (cfg.server.port + num)}";
               value = {};
             }) (range 1 cfg.server.redundantInstances));
         };
@@ -128,10 +128,10 @@ in
               return = "302 /landing";
             };
             "/" = {
-              proxyPass = "http://localhost:8000";
+              proxyPass = "http://127.0.0.1:8000";
             };
             "/landing" = {
-              proxyPass = "http://localhost:8001/landing/";
+              proxyPass = "http://127.0.0.1:8001/landing/";
             };
             "/api" = {
               proxyPass = "http://api";
