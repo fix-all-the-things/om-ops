@@ -99,6 +99,15 @@ in
         };
       };
 
+      systemd.tmpfiles.rules = let
+        writable = [ "app" "client" "data" ];
+      in
+      [
+        "d  ${baseDir}                     0511 root root - -"
+      ] ++ (flip map writable (d:
+        "d  ${baseDir}/${d}                0700 root root - -"
+      ));
+
       services.nginx = optionalAttrs cfg.proxy.enable {
         enable = true;
         recommendedOptimisation = true;
