@@ -55,9 +55,9 @@ let
     environment = {
       DATABASE_NAME = cfg.database.name;
       DATABASE_HOST = cfg.database.host;
+      DATABASE_PORT = builtins.toString cfg.database.port;
       DATABASE_USERNAME = cfg.database.user;
-      #XXX: ignored by cv
-      #DATABASE_PORT = builtins.toString cfg.database.port;
+      DATABASE_SSL = builtins.toString cfg.database.enableSSL;
       # XXX
       EDESKY_API_KEY = "sample";
       # XXX
@@ -65,7 +65,7 @@ let
       NODE_ENV = "system";
     };
     volumes = [
-      "/etc/hosts:/etc/hosts" # to be able to reach pg
+      "/etc/hosts:/etc/hosts" # to be able to reach external pg
       "/var/lib/cityvizor:/user/src/app/data"
     ];
  };

@@ -20,6 +20,8 @@ with lib;
     database = {
       demoData.enable = mkEnableOption "loading of demo database";
 
+      enableSSL = mkEnableOption "SSL for database connection";
+
       host = mkOption {
         type = types.str;
         #default = "localhost";
