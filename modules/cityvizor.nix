@@ -12,6 +12,7 @@ let
   user = "cv";
   group = "cv";
 
+
   # postgres is a pg super-user
   demoDump = user: pkgs.runCommand "db-demo-for-user-${user}.sql" {}
     ''
@@ -24,7 +25,6 @@ in
     (mkIf cfg.enable {
 
       services.cityvizor = {
-        database.demoData.enable = mkDefault true;
         server.enable = mkDefault true;
         proxy.enable = mkDefault true;
       };
