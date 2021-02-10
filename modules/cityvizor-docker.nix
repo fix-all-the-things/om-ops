@@ -77,25 +77,18 @@ in
             ports = [ "8000:80" ];
           };
 
-          cv-server = makeServer 3000;
-          cv-server-2 = makeServer 3001;
-
-          cv-server-kotlin = {
-            image = "cityvizor/server-kotlin:prod";
-            imageFile = pkgs.docker-images.cityvizor.server-kotlin;
-            environment = {
-              JDBC_URL = "jdbc:postgresql://${cfg.database.host}:${builtins.toString cfg.database.port}/${cfg.database.name}?user=${cfg.database.user}";
-            };
-            ports = [ "6000:8080" ];
-            volumes = [ "/etc/hosts:/etc/hosts" ];
-          };
+          cv-server = makeServer cfg.server.port;
 
           cv-landing-page = {
             image = "cityvizor/landing-page:latest";
             imageFile = pkgs.docker-images.cityvizor.landing-page;
             ports = [ "8001:80" ];
           };
-        };
+        }
+        // listToAttrs (map (num: {
+              name = "cv-server-${toString num}";
+              value = (makeServer (cfg.server.port + num)) // { dependsOn = [ "cv-server" ]; };
+            })(range 1 cfg.server.redundantInstances));
       };
 
       systemd.tmpfiles.rules = let

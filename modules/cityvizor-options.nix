@@ -66,6 +66,14 @@ with lib;
 
     server = {
       enable = mkEnableOption "CityVizor server";
+      port = mkOption {
+        type = types.port;
+        default = 3000;
+      };
+      redundantInstances = mkOption {
+        type = types.int;
+        default = 2;
+      };
     };
 
     containerBackend = mkOption {
