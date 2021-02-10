@@ -76,18 +76,34 @@ with lib;
       };
     };
 
-    containerBackend = mkOption {
-      type = types.enum [ "docker" "podman" ];
-      default = "podman";
-    };
+    containers = {
+      backend = mkOption {
+        type = types.enum [ "docker" "podman" ];
+        default = "podman";
+        description = ''
+          OCI container runtime to use
+        '';
+      };
 
-    pinnedContainers = mkOption {
-      type = types.bool;
-      default = true;
-      description = ''
-        Use pinned container images. If set to false
-        backend will pull these from registry.
-      '';
+      extraOptions = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = ''
+          Extra options for container backend run command.
+        '';
+        example = literalExample ''
+          [ "--cgroup-manager=cgroupfs" ]
+        '';
+      };
+
+      pinned = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          Use pinned container images. If set to false
+          backend will pull these from registry.
+        '';
+      };
     };
   };
 }

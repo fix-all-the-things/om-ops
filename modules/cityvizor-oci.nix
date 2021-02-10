@@ -21,6 +21,7 @@ let
     image = "cityvizor/cityvizor-server:latest";
     cmd = [ "-mserver" ];
     ports = [ "${builtins.toString hostPort}:3000" ];
+    extraOptions = cfg.containers.extraOptions;
     environment = {
       DATABASE_NAME = cfg.database.name;
       DATABASE_HOST = cfg.database.host;
@@ -37,7 +38,7 @@ let
       "/etc/hosts:/etc/hosts" # to be able to reach external pg
       "/var/lib/cityvizor:/user/src/app/data"
     ];
-  } // optionalAttrs cfg.pinnedContainers {
+  } // optionalAttrs cfg.containers.pinned {
     imageFile = pkgs.docker-images.cityvizor.cityvizor-server;
   };
 in
@@ -58,24 +59,25 @@ in
         (import ../overlays/docker-images.nix)
       ];
 
-      virtualisation.docker = optionalAttrs (cfg.containerBackend == "docker") {
+      virtualisation.docker = optionalAttrs (cfg.containers.backend == "docker") {
         enable = true;
         extraOptions = "--userland-proxy=false";
       };
 
-      virtualisation.podman = optionalAttrs (cfg.containerBackend == "podman") {
+      virtualisation.podman = optionalAttrs (cfg.containers.backend == "podman") {
         enable = true;
         dockerCompat = true;
       };
 
       virtualisation.oci-containers= {
-        backend = cfg.containerBackend;
+        backend = cfg.containers.backend;
         containers = {
           cv-client = {
             image = "cityvizor/cityvizor-client:latest";
             dependsOn = [ "cv-server" ];
             ports = [ "8000:80" ];
-          } // optionalAttrs cfg.pinnedContainers {
+            extraOptions = cfg.containers.extraOptions;
+          } // optionalAttrs cfg.containers.pinned {
             imageFile = pkgs.docker-images.cityvizor.cityvizor-client;
           };
 
@@ -84,7 +86,8 @@ in
           cv-landing-page = {
             image = "cityvizor/landing-page:latest";
             ports = [ "8001:80" ];
-          } // optionalAttrs cfg.pinnedContainers {
+            extraOptions = cfg.containers.extraOptions;
+          } // optionalAttrs cfg.containers.pinned {
             imageFile = pkgs.docker-images.cityvizor.landing-page;
           };
         }
