@@ -38,13 +38,13 @@ with lib;
 
       name = mkOption {
         type = types.str;
-        default = "cvdb";
+        default = "cvprod";
         description = "Database name.";
       };
 
       user = mkOption {
         type = types.nullOr types.str;
-        default = "cvuser";
+        default = "cvproduser";
         description = "Database user.";
       };
 
