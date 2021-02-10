@@ -136,7 +136,7 @@ in
 
       services.postgresql = optionalAttrs cfg.database.createLocally {
         enable = true;
-        package = cfg.postgresql-package;
+        enableTCPIP = true;
         ensureDatabases = [ cfg.database.name ];
         ensureUsers = [{
           name = cfg.database.user;
@@ -144,13 +144,18 @@ in
             "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
           };
         }];
+        authentication = ''
+          host ${cfg.database.name} ${cfg.database.user} 127.0.0.1/32 trust
+          host ${cfg.database.name} ${cfg.database.user} ::1/128      trust
+        '';
       };
 
     })
+
     (mkIf cfg.database.demoData.enable {
       systemd.services.init-cv-db = {
-        description = "CityVizor database initialization";
-        after = [ "postgresql.service" ];
+        description = "CityVizor demo database initialization";
+        wantedBy = [ "multi-user.target" ];
         serviceConfig = {
           Type = "oneshot";
           ExecStart = pkgs.writeShellScript "init-cv-db-script" ''
@@ -168,10 +173,8 @@ in
             touch ${baseDir}/db-init-done
             '');
         };
-      };
-    })
-
-    (mkIf (cfg.server-kotlin.enable) {
+      }
+      // optionalAttrs cfg.database.createLocally { after = [ "postgresql.service" ]; };
     })
 
   ];
