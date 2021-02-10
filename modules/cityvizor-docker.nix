@@ -112,19 +112,24 @@ in
         '';
         upstreams = {
           "api".servers = {
-            "localhost:3000" = {};
-            "localhost:3001" = {};
-          };
+            "localhost:${toString cfg.server.port}" = {};
+          } // listToAttrs (map (num: {
+              name = "localhost:${toString (cfg.server.port + num)}";
+              value = {};
+            }) (range 1 cfg.server.redundantInstances));
         };
 
         virtualHosts.${cfg.hostName} = {
           default = true;
           http2 = true;
           locations = {
+            "=/" = {
+              return = "302 /landing";
+            };
             "/" = {
               proxyPass = "http://localhost:8000";
             };
-            "/landing/" = {
+            "/landing" = {
               proxyPass = "http://localhost:8001/landing/";
             };
             "/api" = {
