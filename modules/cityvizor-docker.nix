@@ -57,19 +57,18 @@ in
         (import ../overlays/docker-images.nix)
       ];
 
-      virtualisation.docker = {
+      virtualisation.docker = optionalAttrs (cfg.containerBackend == "docker") {
         enable = true;
-        #extraOptions = "--ipv6 --fixed-cidr-v6=2001:dac:1::/64 --userland-proxy=false";
         extraOptions = "--userland-proxy=false";
       };
 
-      virtualisation.podman = {
+      virtualisation.podman = optionalAttrs (cfg.containerBackend == "podman") {
         enable = true;
-        #extraOptions = "--ipv6"; #--fixed-cidr-v6=2001:dac:1::/64";
+        dockerCompat = true;
       };
 
       virtualisation.oci-containers= {
-        backend = "podman";
+        backend = cfg.containerBackend;
         containers = {
           cv-client = {
             image = "cityvizor/cityvizor-client:latest";

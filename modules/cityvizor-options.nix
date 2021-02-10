@@ -68,6 +68,9 @@ with lib;
       enable = mkEnableOption "CityVizor server";
     };
 
+    containerBackend = mkOption {
+      type = types.enum [ "docker" "podman" ];
+      default = "podman";
     };
   };
 }
