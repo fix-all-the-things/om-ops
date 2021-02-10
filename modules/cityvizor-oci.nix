@@ -19,7 +19,6 @@ let
 
   makeServer = hostPort: {
     image = "cityvizor/cityvizor-server:latest";
-    imageFile = pkgs.docker-images.cityvizor.cityvizor-server;
     cmd = [ "-mserver" ];
     ports = [ "${builtins.toString hostPort}:3000" ];
     environment = {
@@ -38,7 +37,9 @@ let
       "/etc/hosts:/etc/hosts" # to be able to reach external pg
       "/var/lib/cityvizor:/user/src/app/data"
     ];
- };
+  } // optionalAttrs cfg.pinnedContainers {
+    imageFile = pkgs.docker-images.cityvizor.cityvizor-server;
+  };
 in
 
 {
@@ -72,17 +73,19 @@ in
         containers = {
           cv-client = {
             image = "cityvizor/cityvizor-client:latest";
-            imageFile = pkgs.docker-images.cityvizor.cityvizor-client;
             dependsOn = [ "cv-server" ];
             ports = [ "8000:80" ];
+          } // optionalAttrs cfg.pinnedContainers {
+            imageFile = pkgs.docker-images.cityvizor.cityvizor-client;
           };
 
           cv-server = makeServer cfg.server.port;
 
           cv-landing-page = {
             image = "cityvizor/landing-page:latest";
-            imageFile = pkgs.docker-images.cityvizor.landing-page;
             ports = [ "8001:80" ];
+          } // optionalAttrs cfg.pinnedContainers {
+            imageFile = pkgs.docker-images.cityvizor.landing-page;
           };
         }
         // listToAttrs (map (num: {

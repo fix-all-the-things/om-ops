@@ -80,5 +80,14 @@ with lib;
       type = types.enum [ "docker" "podman" ];
       default = "podman";
     };
+
+    pinnedContainers = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Use pinned container images. If set to false
+        backend will pull these from registry.
+      '';
+    };
   };
 }
