@@ -19,13 +19,14 @@ in
   users.extraUsers.root.openssh.authorizedKeys.keys =
     with import ../ssh-keys.nix; [ ms vs ];
 
-  networking.firewall.allowedTCPPorts = [ 80 ];
+  networking.firewall.allowedTCPPorts = [ 80 15432 ];
 
   networking.nameservers = [ "2606:4700:4700::1111" ];
 
   # restrict connections to prometheus exporters to status.otevrenamesta.cz only
   # restrict connections to pg to specific hosts
   networking.firewall.extraCommands = ''
+    ip6tables -I INPUT -p tcp --dport 15432 -j DROP
     ip6tables -I INPUT -p tcp -m multiport --dports ${statusPorts} ! -s ${statusIp} -j DROP
     ip6tables -I INPUT -p tcp -m multiport --dports ${proxyPorts} ! -s ${proxyIp} -j DROP
     iptables -I INPUT -i lo -j ACCEPT
@@ -34,6 +35,7 @@ in
     iptables -D INPUT -i lo -j ACCEPT || true
     ip6tables -D INPUT -p tcp -m multiport --dports ${statusPorts} ! -s ${statusIp} -j DROP || true
     ip6tables -D INPUT -p tcp -m multiport --dports ${proxyPorts} ! -s ${proxyIp} -j DROP || true
+    ip6tables -D INPUT -p tcp --dport 15432 -j DROP || true
   '';
 
   # ipv6 only ct, this allows to reach v4 only docker registry
@@ -47,9 +49,26 @@ in
     };
     database = {
       host = "pg.cityvizor.cz";
+      port = 15432;
       name = "cvbeta";
       user = "cvbetauser";
       enableSSL = true;
     };
   };
+
+  # hack around v4 container not able to access v6 pg
+  systemd.services.socat-bridge = {
+    wantedBy = [ "multi-user.target" ];
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.socat}/bin/socat tcp-listen:15432,reuseaddr,fork tcp6:pg.cityvizor.cz:5432";
+      Restart = "always";
+    };
+  };
+
+  networking.extraHosts = ''
+    pg.cityvizor.cz 10.88.0.1
+  '';
+  # end of hack
 }
