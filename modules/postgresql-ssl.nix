@@ -51,6 +51,10 @@ in
         forceSSL = true;
         enableACME = true;
         serverAliases = cfg.serverAliases;
+        root = mkDefault (pkgs.runCommand "hello-document-root" {} ''
+          mkdir $out
+          echo "Hello from ${fqdn}" > $out/index.html
+        '');
       };
     };
 
