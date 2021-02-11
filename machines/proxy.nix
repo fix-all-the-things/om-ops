@@ -65,6 +65,17 @@ in
         };
       };
 
+      "beta.cityvizor.cz" = {
+        forceSSL = true;
+        enableACME = true;
+        locations = {
+          "/" = {
+            proxyPass = "http://[${data.hosts.cv-beta.addr.pub.ipv6}]:80";
+            extraConfig = recommendedProxy;
+          };
+        };
+      };
+
       "minio.cityvizor.cz" = {
         serverAliases = [ "minio.otevrenamesta.cz" ];
         forceSSL = true;
