@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   vimCustom = (pkgs.vimUtils.makeCustomizable pkgs.vim).customize {
     name = "vim";
@@ -19,7 +19,7 @@ let
 in
 {
   time.timeZone = "Europe/Amsterdam";
-  networking.nameservers = [
+  networking.nameservers = lib.mkDefault [
     "1.1.1.1"
     "208.67.222.222"
     "208.67.220.220"
