@@ -16,7 +16,7 @@ in
 
   services.openssh.ports = [ 12322 ];
 
-  networking.firewall.allowedTCPPorts = [ 5432 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 5432 ];
 
   # restrict connections to prometheus exporters to status.otevrenamesta.cz only
   # restrict connections to pg to specific hosts
