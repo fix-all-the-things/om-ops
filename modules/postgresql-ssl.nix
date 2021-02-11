@@ -24,6 +24,13 @@ in
           Must have DNS record for ACME to work.
         '';
       };
+      serverAliases = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = ''
+          Additional names to include in certificate.
+        '';
+      };
     };
   };
 
@@ -43,6 +50,7 @@ in
       virtualHosts."${fqdn}" = {
         forceSSL = true;
         enableACME = true;
+        serverAliases = cfg.serverAliases;
       };
     };
 
