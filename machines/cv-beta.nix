@@ -21,9 +21,9 @@ in
   # restrict connections to prometheus exporters to status.otevrenamesta.cz only
   # restrict connections to pg to specific hosts
   networking.firewall.extraCommands = ''
-    iptables -I INPUT -i lo -j ACCEPT
     ip6tables -I INPUT -p tcp -m multiport --dports ${statusPorts} ! -s ${statusIp} -j DROP
     ip6tables -I INPUT -p tcp -m multiport --dports ${proxyPorts} ! -s ${proxyIp} -j DROP
+    iptables -I INPUT -i lo -j ACCEPT
   '';
   networking.firewall.extraStopCommands = ''
     iptables -D INPUT -i lo -j ACCEPT || true
