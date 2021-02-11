@@ -14,6 +14,8 @@ in
     ../modules/postgresql-ssl.nix
   ];
 
+  services.openssh.ports = [ 12322 ];
+
   networking.firewall.allowedTCPPorts = [ 5432 ];
 
   # restrict connections to prometheus exporters to status.otevrenamesta.cz only
