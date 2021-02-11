@@ -62,13 +62,13 @@ in
     wants = [ "network-online.target" ];
     after = [ "network-online.target" ];
     serviceConfig = {
-      ExecStart = "${pkgs.socat}/bin/socat tcp-listen:15432,reuseaddr,fork tcp6:pg.cityvizor.cz:5432";
+      ExecStart = "${pkgs.socat}/bin/socat tcp-listen:15432,reuseaddr,fork tcp6:[${data.hosts.pg.addr.pub.ipv6}]:5432";
       Restart = "always";
     };
   };
 
   networking.extraHosts = ''
-    pg.cityvizor.cz 10.88.0.1
+    10.88.0.1 pg.cityvizor.cz
   '';
   # end of hack
 }
