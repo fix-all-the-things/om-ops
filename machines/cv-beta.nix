@@ -16,6 +16,9 @@ in
 
   services.openssh.ports = [ 12322 ];
 
+  users.extraUsers.root.openssh.authorizedKeys.keys =
+    with import ../ssh-keys.nix; [ ms vs ];
+
   networking.firewall.allowedTCPPorts = [ 5432 ];
   networking.nameservers = [ "2606:4700:4700::1111" ];
 
