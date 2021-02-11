@@ -86,24 +86,4 @@ in
        { destination = "192.168.122.105:9100";  sourcePort = 10591;} # mediawiki prometheus node collector
      ];
   };
-
-  #boot.enableContainers = true;
-
-  # BAD!
-  #networking.bridges.brct.interfaces = [ "venet0" ];
-  #networking.interfaces.brct.ipv6.addresses = [
-  #     { address = "2a03:3b40:fe:3d:8000::"; prefixLength = 65; }
-  #   ];
-
-  #containers.test = {
-  #  privateNetwork = true;
-  #  #hostBridge = "brct";
-  #  localAddress6 = "2a03:3b40:fe:3d:8000::1/65";
-  #  config = 
-  #    { config, pkgs, ... }:
-  #    {
-  #      networking.firewall.allowedTCPPorts = [ 80 ];
-  #      services.nginx.enable = true;
-  #    };
-  #};
 }
