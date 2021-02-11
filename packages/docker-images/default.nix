@@ -1,0 +1,4 @@
+{ callPackage }:
+{
+  cityvizor = callPackage ./cityvizor {};
+}

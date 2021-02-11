@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -ex
+
+if [ $# != 1 ]; then
+  echo "Usage: update_all TAG"
+  echo "typically 'latest' or 'prod'"
+  exit 1
+fi
+
+tag=$1
+
+for i in *.nix; do
+    test $i == default.nix && continue
+    ./update_image $( basename $i .nix ) ${tag}
+done
