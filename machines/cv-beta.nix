@@ -5,7 +5,7 @@ let
   statusIp = data.hosts.status.addr.pub.ipv6;
   statusPorts = "9100";
 
-  proxyIp = data.hosts.status.addr.pub.ipv6;
+  proxyIp = data.hosts.proxy.addr.pub.ipv6;
   proxyPorts = "80";
 in
 {
