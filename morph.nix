@@ -346,4 +346,13 @@ in
       ./machines/pg.nix
     ];
   };
+
+  cv-beta = { config, pkgs, ...}: {
+    imports = [
+      ./env.nix
+      ./profiles/ct.nix
+      ./profiles/exporter-node.nix
+      ./machines/cv-beta.nix
+    ];
+  };
 }
