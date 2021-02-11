@@ -337,4 +337,13 @@ in
       ./machines/mesta-services-2.nix
     ];
   };
+
+  pg = { config, pkgs, ...}: {
+    imports = [
+      ./env.nix
+      ./profiles/ct.nix
+      ./profiles/exporter-node.nix
+      ./machines/pg.nix
+    ];
+  };
 }
