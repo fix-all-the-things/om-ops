@@ -24,7 +24,7 @@ in
   networking.nameservers = [ "2606:4700:4700::1111" ];
 
   # restrict connections to prometheus exporters to status.otevrenamesta.cz only
-  # restrict connections to pg to specific hosts
+  # restrict connections to nginx to proxy
   networking.firewall.extraCommands = ''
     ip6tables -I INPUT -p tcp --dport 15432 -j DROP
     ip6tables -I INPUT -p tcp -m multiport --dports ${statusPorts} ! -s ${statusIp} -j DROP
