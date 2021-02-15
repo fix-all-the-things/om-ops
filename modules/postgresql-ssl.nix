@@ -68,18 +68,25 @@ in
       serviceConfig.SupplementaryGroups = [ config.security.acme.certs."${fqdn}".group ];
     };
 
-    security.acme.certs = optionalAttrs cfg.enableACME {
-      "${fqdn}" = {
-        postRun = ''
-          test -d ${config.services.postgresql.dataDir} || {
-            echo "No postgres dataDir yet, not updating"
-            exit 0
-          }
+    systemd.services.postgresql-config-reload = let
+      sslService = "acme-${fqdn}.service";
+      sslTarget = "acme-finished-${fqdn}.target";
+    in optionalAttrs cfg.enableACME {
+      wants = [ "postgresql.service" ];
+      wantedBy = [ sslService "multi-user.target" ];
+      before = [ sslTarget ];
+      after = [ sslService ];
+      unitConfig.ConditionPathExists = config.services.postgresql.dataDir;
+      serviceConfig = {
+        Type = "oneshot";
+        TimeoutSec = 60;
+        ExecCondition = "/run/current-system/systemd/bin/systemctl -q is-active postgresql.service";
+        ExecStart = pkgs.writeShellScript "postgresql-cert-reload" ''
           echo "Copying updated certs"
 
           ${copyCerts}
 
-          systemctl reload postgresql
+          /run/current-system/systemd/bin/systemctl reload postgresql.service
         '';
       };
     };
