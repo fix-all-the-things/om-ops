@@ -8,6 +8,7 @@ let
   # IP address for containers on host side
   ctHostIp = "192.168.123.1";
   ctMinioIp = "192.168.123.2";
+  ctParo2Ip = "192.168.123.3";
 in
 {
   services.openssh.ports = [ 12322 ];
@@ -167,6 +168,28 @@ in
       };
     };
 
+    paro2 = {
+      autoStart = true;
+      privateNetwork = true;
+      hostAddress = ctHostIp;
+      localAddress = ctParo2Ip;
+      forwardPorts = [ { protocol = "tcp"; hostPort = 9001; containerPort = 80; } ];
+
+      config = { config, pkgs, ... }: {
+        imports = [
+          ../modules/paro2.nix
+        ];
+
+        networking.firewall.allowedTCPPorts = [ 80 ];
+
+        services.paro2 = {
+          enable = true;
+          hostName = "paro2.otevrenamesta.cz";
+          privateKeyFile = "/var/lib/paro2/private.key";
+        };
+      };
+    };
+
     /*
     template = {
       autoStart = true;
@@ -193,6 +216,16 @@ in
           };
         };
       };
+
+      "paro2.otevrenamesta.cz" = {
+        serverAliases = [ "paro.vxk.cz" ];
+        locations = {
+          "/" = {
+            proxyPass = "http://${ctHostIp}:9001";
+          };
+        };
+      };
+
       "users.otevrenamesta.cz" = {
         locations = {
           "/" = {
