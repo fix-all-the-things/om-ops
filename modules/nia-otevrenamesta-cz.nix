@@ -28,7 +28,7 @@ in
 
       configFile = mkOption {
         type = types.path;
-        example = "/run/keys/nia-config.php";
+        example = "/var/lib/nia-otevrenamesta-cz/config.php";
         description = ''
           Path to the file that will be used as <filename>config/app.php</filename>.
         '';
@@ -36,7 +36,7 @@ in
 
       privateKeyFile = mkOption {
         type = types.path;
-        example = "/run/keys/private.key";
+        example = "/run/keys/nia.private.key";
         description = ''
           Path to the file that will be used as <filename>config/private.key</filename>.
         '';
