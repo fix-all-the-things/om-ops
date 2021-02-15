@@ -177,6 +177,7 @@ in
 
       config = { config, pkgs, ... }: {
         imports = [
+          ../env.nix
           ../modules/paro2.nix
         ];
 
