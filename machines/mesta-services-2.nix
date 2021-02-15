@@ -182,6 +182,8 @@ in
 
         networking.firewall.allowedTCPPorts = [ 80 ];
 
+        users.extraUsers.root.openssh.authorizedKeys.keys = with import ../ssh-keys.nix; [ ms vk ];
+
         services.paro2 = {
           enable = true;
           hostName = "paro2.otevrenamesta.cz";
