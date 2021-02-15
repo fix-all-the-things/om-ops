@@ -182,6 +182,7 @@ in
 
         networking.firewall.allowedTCPPorts = [ 80 ];
 
+        services.openssh.enable = true;
         users.extraUsers.root.openssh.authorizedKeys.keys = with import ../ssh-keys.nix; [ ms vk ];
 
         services.paro2 = {
