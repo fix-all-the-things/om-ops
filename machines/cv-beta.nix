@@ -57,6 +57,13 @@ in
     };
   };
 
+  environment = {
+    systemPackages = with pkgs; [ postgresql_12 ];
+    shellAliases = {
+      "psql.beta" = "psql -h 10.88.0.1 -p 15432 -U cvbetauser cvbeta";
+    };
+  };
+
   # hack around v4 container not able to access v6 pg
   systemd.services.socat-bridge = {
     wantedBy = [ "multi-user.target" ];
