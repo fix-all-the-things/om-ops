@@ -104,6 +104,15 @@ with lib;
           backend will pull these from registry.
         '';
       };
+
+      tag = mkOption {
+        type = types.str;
+        default = "master";
+        example = "5-1-0";
+        description = ''
+          Container image tag to use.
+        '';
+      };
     };
   };
 }

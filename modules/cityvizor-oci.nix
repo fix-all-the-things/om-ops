@@ -18,7 +18,7 @@ let
     '';
 
   makeServer = hostPort: {
-    image = "cityvizor/cityvizor-server:latest";
+    image = "cityvizor/cityvizor-server:${cfg.containers.tag}";
     cmd = [ "-mserver" ];
     ports = [ "${builtins.toString hostPort}:3000" ];
     extraOptions = cfg.containers.extraOptions;
@@ -73,7 +73,7 @@ in
         backend = cfg.containers.backend;
         containers = {
           cv-client = {
-            image = "cityvizor/cityvizor-client:latest";
+            image = "cityvizor/cityvizor-client:${cfg.containers.tag}";
             dependsOn = [ "cv-server" ];
             ports = [ "8000:80" ];
             extraOptions = cfg.containers.extraOptions;
@@ -84,7 +84,7 @@ in
           cv-server = makeServer cfg.server.port;
 
           cv-landing-page = {
-            image = "cityvizor/landing-page:latest";
+            image = "cityvizor/landing-page:${cfg.containers.tag}";
             ports = [ "8001:80" ];
             extraOptions = cfg.containers.extraOptions;
           } // optionalAttrs cfg.containers.pinned {
