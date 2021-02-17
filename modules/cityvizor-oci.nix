@@ -90,6 +90,13 @@ in
           } // optionalAttrs cfg.containers.pinned {
             imageFile = pkgs.docker-images.cityvizor.landing-page;
           };
+
+          # worker uses the same image as server
+          # with different cmd and no ports
+          cv-worker = (makeServer 0) // {
+            cmd =  [ "-mworker" ];
+            ports = [];
+          };
         }
         // listToAttrs (map (num: {
               name = "cv-server-${toString num}";
