@@ -46,6 +46,7 @@ in
     containers = {
       pinned = false;
       extraOptions = [ "--cgroup-manager=cgroupfs" ];
+      tag = "staging";
     };
     database = {
       host = "pg.cityvizor.cz";
