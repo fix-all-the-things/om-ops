@@ -79,13 +79,16 @@ let
               )
           )
 
+
       ${lib.optionalString (nodes.machine.config.services.cityvizor.server.redundantInstances != 0)
       ''
       machine.wait_for_open_port("${builtins.toString (serverPort + 1)}")
       with subtest("check access to redundant server instance(s)"):
           print(machine.succeed("curl 127.0.0.1:${builtins.toString (serverPort + 1)}"))
       ''}
-      # keep to avoid blank line linting
+
+      with subtest("check that no npm ERRs are present in logs"):
+          print(machine.fail("journalctl | grep -q ERR"))
     '';
   };
 in
