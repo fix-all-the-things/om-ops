@@ -89,6 +89,8 @@ let
 
       with subtest("check that no npm ERRs are present in logs"):
           print(machine.fail("journalctl | grep -q ERR"))
+
+      print(machine.succeed("docker ps"))
     '';
   };
 in
