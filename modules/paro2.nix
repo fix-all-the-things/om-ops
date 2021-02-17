@@ -80,14 +80,6 @@ in
           type = types.port;
         };
       };
-
-      privateKeyFile = mkOption {
-        type = types.path;
-        example = "/run/keys/paro2.private.key";
-        description = ''
-          Path to the file that will be used as <filename>config/private.key</filename>.
-        '';
-      };
     };
   };
 
@@ -184,7 +176,6 @@ in
       "d  ${baseDir}                      0511 ${user} ${group} - -"
       "C  ${baseDir}/config               -    -       -        - ${pkg}/config"
       "L+ ${baseDir}/config/app_local.php -    -       -        - ${cfg.configFile}"
-      "L+ ${baseDir}/config/private.key   -    -       -        - ${cfg.privateKeyFile}"
       "d  ${baseDir}/secrets              0770 ${user} ${group} - -"
     ] ++ (flip map writable (d:
       "d  ${baseDir}/${d}                 0700 ${user} ${group} - -"

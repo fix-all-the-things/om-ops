@@ -189,7 +189,6 @@ in
         services.paro2 = {
           enable = true;
           hostName = "paro2.otevrenamesta.cz";
-          privateKeyFile = "/var/lib/paro2/private.key";
         };
       };
     };

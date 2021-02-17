@@ -10,10 +10,7 @@ import <nixpkgs/nixos/tests/make-test-python.nix> ({pkgs, ...}: rec {
       ../modules/paro2.nix
     ];
 
-    services.paro2 = {
-      enable = true;
-      privateKeyFile = "/run/keys/paro2.private.key";
-    };
+    services.paro2.enable = true;
 
   };
 
