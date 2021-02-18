@@ -22,6 +22,7 @@ let
       services.cityvizor = {
         enable = true;
         containers.backend = backend;
+        containers.tag = "staging";
         database = {
           createLocally = true;
           demoData.enable = true;
