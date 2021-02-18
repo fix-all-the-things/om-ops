@@ -17,6 +17,8 @@ let
       sed 's/postgres/${user}/g' ${pkgs.cityvizor.db-demo-dump} > $out
     '';
 
+  images = pkgs.docker-images.cityvizor."${cfg.containers.tag}";
+
   makeServer = hostPort: {
     image = "cityvizor/cityvizor-server:${cfg.containers.tag}";
     cmd = [ "-mserver" ];
@@ -39,7 +41,7 @@ let
       "/var/lib/cityvizor:/user/src/app/data"
     ];
   } // optionalAttrs cfg.containers.pinned {
-    imageFile = pkgs.docker-images.cityvizor.cityvizor-server;
+    imageFile = images.cityvizor-server;
   };
 in
 
@@ -78,7 +80,7 @@ in
             ports = [ "8000:80" ];
             extraOptions = cfg.containers.extraOptions;
           } // optionalAttrs cfg.containers.pinned {
-            imageFile = pkgs.docker-images.cityvizor.cityvizor-client;
+            imageFile = images.cityvizor-client;
           };
 
           cv-server = makeServer cfg.server.port;
@@ -88,7 +90,7 @@ in
             ports = [ "8001:80" ];
             extraOptions = cfg.containers.extraOptions;
           } // optionalAttrs cfg.containers.pinned {
-            imageFile = pkgs.docker-images.cityvizor.landing-page;
+            imageFile = images.landing-page;
           };
 
           # worker uses the same image as server
