@@ -43,6 +43,11 @@ let
   } // optionalAttrs cfg.containers.pinned {
     imageFile = images.cityvizor-server;
   };
+
+  ctNetLocalhost = {
+    docker = "172.17.0.1";
+    podman = "10.88.0.1";
+  };
 in
 
 {
@@ -54,7 +59,13 @@ in
         proxy.enable = mkDefault true;
       };
 
-      networking.firewall.allowedTCPPorts = [ 80 ];
+      networking.firewall.allowedTCPPorts = [
+        80
+        6379 # redis only binds to internal container network
+      ];
+      networking.extraHosts = ''
+        ${ctNetLocalhost."${cfg.containers.backend}"} redis.cityvizor.otevrenamesta
+      '';
 
       nixpkgs.overlays = [
         cvOverlay
@@ -114,6 +125,19 @@ in
       ] ++ (flip map writable (d:
         "d  ${baseDir}/${d}                0700 root root - -"
       ));
+
+      services.redis = {
+        enable = true;
+        bind = ctNetLocalhost."${cfg.containers.backend}";
+      };
+
+      systemd.services.redis = {
+        # redis needs to bind to network created by backend
+        # so wait until it exists
+        after = [ "${cfg.containers.backend}-cv-landing-page.service" ];
+        requires = [ "${cfg.containers.backend}-cv-landing-page.service" ];
+        serviceConfig.Restart = "always";
+      };
 
       services.nginx = optionalAttrs cfg.proxy.enable {
         enable = true;
