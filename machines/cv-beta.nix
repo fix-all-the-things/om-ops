@@ -58,7 +58,10 @@ in
   };
 
   environment = {
-    systemPackages = with pkgs; [ postgresql_12 ];
+    systemPackages = with pkgs; [
+      cntr
+      postgresql_12
+    ];
     shellAliases = {
       "psql.beta" = "psql -h 10.88.0.1 -p 15432 -U cvbetauser cvbeta";
     };
