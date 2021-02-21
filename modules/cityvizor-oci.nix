@@ -38,7 +38,7 @@ let
     };
     volumes = [
       "/etc/hosts:/etc/hosts" # to be able to reach external pg
-      "/var/lib/cityvizor:/user/src/app/data"
+      "/var/lib/cityvizor/data:/home/node/app/data"
     ];
   } // optionalAttrs cfg.containers.pinned {
     imageFile = images.cityvizor-server;
@@ -48,6 +48,9 @@ let
     docker = "172.17.0.1";
     podman = "10.88.0.1";
   };
+
+  user = "cv";
+  group = user;
 in
 
 {
@@ -117,13 +120,24 @@ in
             })(range 1 cfg.server.redundantInstances));
       };
 
+      users.users.${user} = {
+        inherit group;
+        home = baseDir;
+        isSystemUser = true;
+        uid = 1000;
+      };
+
+      users.groups.${group} = {
+        gid = 1000;
+      };
+
       systemd.tmpfiles.rules = let
         writable = [ "app" "client" "data" ];
       in
       [
-        "d  ${baseDir}                     0511 root root - -"
+        "d  ${baseDir}                     0511 ${user} ${group} - -"
       ] ++ (flip map writable (d:
-        "d  ${baseDir}/${d}                0700 root root - -"
+        "d  ${baseDir}/${d}                0700 ${user} ${group} - -"
       ));
 
       services.redis = {
