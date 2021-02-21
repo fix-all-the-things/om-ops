@@ -40,6 +40,7 @@ in
     git
     nmap
     tcpdump
+    wireguard
   ];
 
   security.acme = {
