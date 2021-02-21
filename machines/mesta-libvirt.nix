@@ -66,8 +66,8 @@ in
 
        { destination = "192.168.122.103:9100";  sourcePort = 10391;} # matomo prometheus node collector
 
-       { destination = "192.168.122.104:80";  sourcePort = 80;}      # proxy web
-       { destination = "192.168.122.104:443"; sourcePort = 443;}     # proxy ssl
+       { destination = "192.168.122.104:80";    sourcePort = 80;}    # proxy web
+       { destination = "192.168.122.104:443";   sourcePort = 443;}   # proxy ssl
        { destination = "192.168.122.104:9100";  sourcePort = 10491;} # proxy prometheus node collector
        { destination = "192.168.122.104:9113";  sourcePort = 10493;} # proxy prometheus nginx collector
 
