@@ -138,7 +138,7 @@ in
         requires = [ "${cfg.containers.backend}-cv-landing-page.service" ];
         serviceConfig.Restart = "always";
         serviceConfig.RestartSec = 1;
-        unitConfig.startLimitBurst = 1000000;
+        unitConfig.startLimitIntervalSec = 0;
       };
 
       services.nginx = optionalAttrs cfg.proxy.enable {
