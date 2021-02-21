@@ -22,8 +22,6 @@ in
 
   networking.firewall.allowedTCPPorts = [ 80 15432 ];
 
-  networking.nameservers = [ "2606:4700:4700::1111" ];
-
   # restrict connections to prometheus exporters to status.otevrenamesta.cz only
   # restrict connections to nginx to proxy
   networking.firewall.extraCommands = ''
