@@ -1,22 +1,23 @@
-otevrenamesta.cz configuration
-==============================
+# otevrenamesta.cz configuration
 
-1. Install [Morph](https://github.com/DBCDK/morph).
+## Install [Morph](https://github.com/DBCDK/morph).
 
-    ~~~~~ nix
+```nix
     environment.systemPackages = with pkgs; [
       morph
     ];
-    ~~~~~
+```
 
-2. Deploy environment
+## Deploy environment
 
-    ~~~~~ bash
-    morph deploy morph.nix switch
-    ~~~~~
+```bash
+morph deploy morph.nix switch
+```
 
-3. or deploy a single machine
+## Deploy a single machine
 
-    ~~~~~ bash
-    morph deploy --on=<machine_name> morph.nix switch
-    ~~~~~
+```bash
+morph deploy --on=<machine_name> morph.nix switch
+```
+
+More in [docs/Morph.md](./docs/Morph.md).
