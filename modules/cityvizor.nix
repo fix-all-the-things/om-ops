@@ -10,7 +10,7 @@ let
   cfg = config.services.cityvizor;
   baseDir = "/var/lib/cityvizor";
   user = "cv";
-  group = "cv";
+  group = user;
 
 
   # postgres is a pg super-user
