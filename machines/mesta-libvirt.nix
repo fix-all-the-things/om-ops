@@ -31,9 +31,11 @@ in
         network = "fda7:1646:3af8:666e::/64";
         hostAddress = "fda7:1646:3af8:666e::1";
         forwardPorts = [
+          # proxy
           { destination = "[fda7:1646:3af8:666e:5054:ff:fe27:cbe]:80";  sourcePort = 80; }
           { destination = "[fda7:1646:3af8:666e:5054:ff:fe27:cbe]:443"; sourcePort = 443; }
 
+          # mail
           { destination = "[fda7:1646:3af8:666e:5054:ff:fe6b:6c86]:25"; sourcePort = 25; }
           { destination = "[fda7:1646:3af8:666e:5054:ff:fe6b:6c86]:143"; sourcePort = 143; }
           { destination = "[fda7:1646:3af8:666e:5054:ff:fe6b:6c86]:465"; sourcePort = 465; }
