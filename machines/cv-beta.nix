@@ -84,10 +84,7 @@ in
 
   om.wireguard = {
     enable = true;
-    ips = [
-      "${data.hosts.cv-beta.addr.priv.ipv4}/32"
-      "${data.hosts.cv-beta.addr.priv.ipv6}/128"
-    ];
+    # route ipv4 traffic thru wg, since we don't have external v4 address
     allowedIPs = [ "0.0.0.0/0" ];
   };
 }

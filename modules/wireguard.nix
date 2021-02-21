@@ -11,6 +11,10 @@ in
       enable = mkEnableOption "Enable OM wireguard";
       ips = mkOption {
         type = types.listOf types.str;
+        default = [
+          "${data.hosts.${config.networking.hostName}.addr.priv.ipv4}/32"
+          "${data.hosts.${config.networking.hostName}.addr.priv.ipv6}/128"
+        ];
       };
       allowedIPs = mkOption {
         type = types.listOf types.str;

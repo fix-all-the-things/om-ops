@@ -102,11 +102,5 @@ in
     runAsLocalSuperUser = true;
   };
 
-  om.wireguard = {
-    enable = true;
-    ips = [
-      "${data.hosts.cv-beta.addr.priv.ipv4}/32"
-      "${data.hosts.cv-beta.addr.priv.ipv6}/128"
-    ];
-  };
+  om.wireguard.enable = true;
 }
