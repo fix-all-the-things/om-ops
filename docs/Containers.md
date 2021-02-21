@@ -7,13 +7,12 @@ Containers defined via `virtualisation.oci-containers.containers.<name>`
 have generated services `docker-<name>.service` or `podman-<name>.service` respectively.
 
 With `podman` backend, enabling `virtualisation.podman.dockerCompat` aliases
-`podman` command to `docker` command, the rest of this guide uses `docker <..>` but you
-can use `podman <..>` if you prefer.
+`podman` command to `docker` command, the rest of this guide uses `podman <..>` but you
+can use `docker <..>` if you prefer.
 
 When `virtualisation.oci-containers.containers.<name>.imageFile` is set
 the image is imported from Nix store. When not set it is downloaded
-from Docker registry based on configured tag, restarting the service
-triggers update of the container.
+from Docker registry based on configured tag.
 
 ## Toggling all services
 
@@ -27,11 +26,30 @@ Respectively for `docker` backend and start/restart operations.
 
 ## Resetting to clean state
 
+### Delete all images
+
+Warning: This will stop all containers first, only use on development/staging
+environments.
+
+To remove all stored images use:
+
+```
+podman rmi --force --all
+```
+
+Next service start triggers download of all images (if not pinned using `imageFile`):
+
+```
+systemctl start podman-\*
+```
+
+### System reset
+
 If you need to clean all images and containers, stop everything
 and issue system reset:
 
 ```
-docker system reset
+podman system reset
 ```
 
 ## Debugging containers
