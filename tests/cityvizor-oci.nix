@@ -38,6 +38,15 @@ let
         host ${config.services.cityvizor.database.name} ${config.services.cityvizor.database.user} 172.0.0.0/8 trust
       '';
       networking.firewall.allowedTCPPorts = [ 5432 ];
+      environment.systemPackages =
+      let
+        testRunner = pkgs.writers.writePython3Bin "test-runner"
+          {
+            libraries = [ pkgs.python3Packages.selenium ];
+          } (builtins.readFile ./selenium/cityvizor.py);
+       in
+         [ pkgs.firefox-unwrapped pkgs.geckodriver testRunner ];
+
 
       virtualisation.memorySize = 2*1024;
       virtualisation.diskSize = 5*1024;
@@ -91,6 +100,12 @@ let
 
       with subtest("check that no npm ERRs are present in logs"):
           print(machine.fail("journalctl | grep -q ERR"))
+
+      with subtest("run selenium test"):
+          machine.succeed("mkdir pics")
+          machine.succeed("PYTHONUNBUFFERED=1 test-runner | systemd-cat -t test-runner")
+
+      machine.copy_from_vm("pics", "")
 
       print(machine.succeed("docker ps"))
     '';
