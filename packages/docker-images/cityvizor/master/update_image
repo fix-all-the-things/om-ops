@@ -11,6 +11,7 @@ name=$1
 tag=$2
 
 nix run nixpkgs.nix-prefetch-docker -c nix-prefetch-docker \
+  --quiet \
   --image-name cityvizor/${name} \
   --image-tag ${tag} \
   > ${name}.nix
