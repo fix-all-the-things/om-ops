@@ -12,6 +12,7 @@ in
 
   imports = [
     ../modules/postgresql-ssl.nix
+    ../modules/wireguard.nix
   ];
 
   services.openssh.ports = [ 12322 ];
@@ -99,5 +100,13 @@ in
     enable = true;
     openFirewall = true;
     runAsLocalSuperUser = true;
+  };
+
+  om.wireguard = {
+    enable = true;
+    ips = [
+      "${data.hosts.cv-beta.addr.priv.ipv4}/32"
+      "${data.hosts.cv-beta.addr.priv.ipv6}/128"
+    ];
   };
 }

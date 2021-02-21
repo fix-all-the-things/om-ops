@@ -12,6 +12,7 @@ in
 
   imports = [
     ../modules/cityvizor-oci.nix
+    ../modules/wireguard.nix
   ];
 
   services.openssh.ports = [ 12322 ];
@@ -82,4 +83,13 @@ in
     10.88.0.1 pg.cityvizor.cz
   '';
   # end of hack
+
+  om.wireguard = {
+    enable = true;
+    ips = [
+      "${data.hosts.cv-beta.addr.priv.ipv4}/32"
+      "${data.hosts.cv-beta.addr.priv.ipv6}/128"
+    ];
+    allowedIPs = [ "0.0.0.0/0" ];
+  };
 }

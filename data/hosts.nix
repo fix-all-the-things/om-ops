@@ -1,8 +1,17 @@
 rec {
   mesta-libvirt = {
-    addr.pub = {
-      ipv4 = "37.205.14.17";
-      ipv6 = "2a03:3b40:fe:3d::";
+    addr = {
+      pub = {
+        ipv4 = "37.205.14.17";
+        ipv6 = "2a03:3b40:fe:3d::";
+      };
+      priv = {
+        ipv4 = "10.23.42.1";
+        ipv6 = "fc00::1";
+      };
+    };
+    wg = {
+      publicKey = "aAEaJiZ2o1ZykkeafQ8bzsBJIxQN1ByZdZ0akstnEyI=";
     };
   };
 
@@ -31,15 +40,33 @@ rec {
   };
 
   pg = {
-    addr.pub = {
-      ipv4 = "37.205.8.221";
-      ipv6 = "2a01:430:17:1::ffff:1380";
+    addr = {
+      pub = {
+        ipv4 = "37.205.8.221";
+        ipv6 = "2a01:430:17:1::ffff:1380";
+      };
+      priv = {
+        ipv4 = "10.23.42.10";
+        ipv6 = "fc00::10";
+      };
+    };
+    wg = {
+      publicKey = "QLelIUxKvxWwtWitNpHlbr52gXhiVnyvIpW/1x3nfSc=";
     };
   };
 
   cv-beta = {
-    addr.pub = {
-      ipv6 = "2a03:3b40:fe:a4::1";
+    addr ={
+      pub = {
+        ipv6 = "2a03:3b40:fe:a4::1";
+      };
+      priv = {
+        ipv4 = "10.23.42.100";
+        ipv6 = "fc00::100";
+      };
+    };
+    wg = {
+      publicKey = "of+cs4hngTCEnpBCqA5ajpDxqDU2atQ8L6brhFs+4T4=";
     };
   };
 
@@ -48,4 +75,6 @@ rec {
       ipv4 = "37.205.14.126";
     };
   };
+
+  wireguard = mesta-libvirt;
 }

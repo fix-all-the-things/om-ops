@@ -4,6 +4,7 @@ let
   extIf = "venet0";
   statusIp = "83.167.228.98";
   statusPorts = "9100,9113,9154,7980";
+  data = import ../data;
 in
 {
   imports = [
@@ -52,6 +53,8 @@ in
   };
 
   networking.nat = {
+     externalInterface = extIf;
+     internalInterfaces = [ "wg0" ];
      forwardPorts = [
        { destination = "192.168.122.100:25";    sourcePort = 25;}    # mail SMTP
        { destination = "192.168.122.100:110";   sourcePort = 110;}   # mail POP3
@@ -77,5 +80,31 @@ in
 
        { destination = "192.168.122.105:9100";  sourcePort = 10591;} # mediawiki prometheus node collector
      ];
+  };
+
+  # wireguard
+  networking.firewall.allowedUDPPorts = [ 23333 ];
+  networking.wireguard.interfaces.wg0 = {
+    ips = [
+      "${data.hosts.mesta-libvirt.addr.priv.ipv4}/32"
+      "${data.hosts.mesta-libvirt.addr.priv.ipv6}/128"
+    ];
+    listenPort = 23333;
+    privateKeyFile = "/secrets/wireguard/private";
+
+    peers =
+    let makePeer = host:
+      let hostData = data.hosts.${host};
+      in { allowedIPs = [
+            "${hostData.addr.priv.ipv4}/32"
+            "${hostData.addr.priv.ipv6}/128"
+          ];
+          inherit (hostData.wg) publicKey;
+         };
+
+    in map makePeer [
+      "pg"
+      "cv-beta"
+    ];
   };
 }
