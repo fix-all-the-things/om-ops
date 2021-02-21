@@ -1,3 +1,8 @@
+# Module for configuring libvirt with static NixOS networking
+# instead of using libvirt managed bridge.
+#
+# Note: Make sure to enable KVM and TUN/TAP features if running in VPS
+
 { config, lib, pkgs, ... }:
 with lib;
 
@@ -91,8 +96,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    warnings = [ "Make sure to enable KVM and TUN/TAP features" ];
-
     system.activationScripts.libvirtImages = ''
       mkdir -p /var/lib/libvirt/images
     '';
