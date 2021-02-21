@@ -84,6 +84,7 @@ let
       ${lib.optionalString (nodes.machine.config.services.cityvizor.server.redundantInstances != 0)
       ''
       machine.wait_for_open_port("${builtins.toString (serverPort + 1)}")
+      machine.succeed("sleep 10")
       with subtest("check access to redundant server instance(s)"):
           print(machine.succeed("curl 127.0.0.1:${builtins.toString (serverPort + 1)}"))
       ''}
