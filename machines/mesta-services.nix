@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   brDev = config.virtualisation.libvirtd.networking.bridgeName;
+  extIf = "venet0";
   proxyIp = "37.205.14.17";
   proxyPorts = "80,8000,8001,8002,8008,8080";
   statusIp = "83.167.228.98";
@@ -19,6 +20,7 @@ in
     enable = true;
     networking = {
       enable = true;
+      externalInterface = extIf;
       infiniteLeaseTime = true;
       ipv6 = {
         network = "fda7:1646:3af8:666d::/64";

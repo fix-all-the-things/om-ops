@@ -5,7 +5,6 @@ let
   cfg = config.virtualisation.libvirtd.networking;
   v6Enabled = cfg.ipv6.network != null;
   v6PLen = toInt (elemAt (splitString "/" cfg.ipv6.network) 1);
-  extIf = "venet0";
 in
 {
   options = {
@@ -16,6 +15,12 @@ in
         type = types.str;
         default = "br0";
         description = "Name of the bridged interface for use by libvirt guests";
+      };
+
+      externalInterface = mkOption {
+        type = types.str;
+        example = "venet0";
+        description = "Name of the external interface for NAT masquerade";
       };
 
       infiniteLeaseTime = mkOption {
@@ -95,22 +100,22 @@ in
     networking.nat = {
        enable = true;
        internalInterfaces = [ cfg.bridgeName ];
-       externalInterface = extIf;
+       externalInterface = cfg.externalInterface;
 
      } // optionalAttrs v6Enabled {
        extraCommands = (flip concatMapStrings cfg.ipv6.forwardPorts (f: ''
-         ip6tables -w -t nat -I PREROUTING -i ${extIf} -p ${f.proto} --dport ${toString f.sourcePort} -j DNAT --to-destination ${f.destination}
+         ip6tables -w -t nat -I PREROUTING -i ${cfg.externalInterface} -p ${f.proto} --dport ${toString f.sourcePort} -j DNAT --to-destination ${f.destination}
        ''))
        + ''
-         ip6tables -w -t nat -I POSTROUTING -o ${extIf} -j MASQUERADE
+         ip6tables -w -t nat -I POSTROUTING -o ${cfg.externalInterface} -j MASQUERADE
        '';
 
        # XXX removing element from forwardPorts won't work, we should use custom chain and flush it instead
        extraStopCommands = (flip concatMapStrings cfg.ipv6.forwardPorts (f: ''
-         ip6tables -w -t nat -D PREROUTING -i ${extIf} -p ${f.proto} --dport ${toString f.sourcePort} -j DNAT --to-destination ${f.destination} || true
+         ip6tables -w -t nat -D PREROUTING -i ${cfg.externalInterface} -p ${f.proto} --dport ${toString f.sourcePort} -j DNAT --to-destination ${f.destination} || true
        ''))
        + ''
-         ip6tables -w -t nat -D POSTROUTING -o ${extIf} -j MASQUERADE || true
+         ip6tables -w -t nat -D POSTROUTING -o ${cfg.externalInterface} -j MASQUERADE || true
        '';
      };
 
