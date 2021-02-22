@@ -54,6 +54,15 @@ in
       user = "cvbetauser";
       enableSSL = true;
     };
+    worker.s3 = {
+      host = "minio.cityvizor.cz";
+      port = 80;
+      cdnHost = "https://minio.cityvizor.cz";
+      privateBucket = "cityvizor-test";
+      publicBucket = "cityvizor-test-public";
+      accessKey = (import ../secrets/minio-cityvizor-test.nix).accessKey;
+      secretKey = (import ../secrets/minio-cityvizor-test.nix).secretKey;
+    };
   };
 
   environment = {
