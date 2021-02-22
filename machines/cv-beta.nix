@@ -63,6 +63,8 @@ in
       accessKey = (import ../secrets/minio-cityvizor-test.nix).accessKey;
       secretKey = (import ../secrets/minio-cityvizor-test.nix).secretKey;
     };
+
+    landing-page.settings.trackingHtml = builtins.readFile ../files/cityvizor-matomo.html;
   };
 
   environment = {
