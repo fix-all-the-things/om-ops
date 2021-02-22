@@ -76,6 +76,30 @@ with lib;
       };
     };
 
+    landing-page = {
+      settings = mkOption rec {
+        type = types.attrs;
+        apply = recursiveUpdate default;
+        default = {
+          aboutAppHtml = "";
+          aboutUsHtml  = "";
+          contactHtml  = "";
+          footerHtml   = "";
+          homeHtml     = "";
+          trackingHtml = "";
+          whyHtml      = "";
+        };
+        example = literalExample ''
+          {
+            trackingHtml = "<p>No tracking here</p>";
+          }
+        '';
+        description = ''
+          landing-page/cfg/content.json as Nix attribute set.
+        '';
+      };
+    };
+
     s3 = {
       host = mkOption {
         type = types.str;

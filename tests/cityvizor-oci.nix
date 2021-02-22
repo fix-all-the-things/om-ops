@@ -32,6 +32,7 @@ let
           accessKey = "dummy";
           secretKey = "snake-oil";
         };
+        landing-page.settings.trackingHtml = "<h3>Very customized</h3>";
       };
 
       networking.primaryIPAddress = "192.168.1.1";
@@ -79,6 +80,9 @@ let
 
       with subtest("check landing page"):
           machine.succeed("curl -s localhost/landing")
+
+      with subtest("check that cutomization propagates"):
+          machine.succeed("curl -s localhost/landing/cfg/content.json | grep customized")
 
       with subtest("check profile page"):
           machine.succeed("curl -s localhost/praha12")

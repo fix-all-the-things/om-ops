@@ -56,6 +56,8 @@ let
     podman = "10.88.0.1";
   };
 
+  contentJSON = pkgs.writeText "content.json" (builtins.toJSON cfg.landing-page.settings);
+
   user = "cv";
   group = user;
 in
@@ -109,6 +111,9 @@ in
           cv-landing-page = {
             image = "cityvizor/landing-page:${cfg.containers.tag}";
             ports = [ "8001:80" ];
+            volumes = [
+              "${contentJSON}:/usr/share/nginx/html/cfg/content.json"
+            ];
             extraOptions = cfg.containers.extraOptions;
           } // optionalAttrs cfg.containers.pinned {
             imageFile = images.landing-page;
