@@ -1,7 +1,7 @@
 {
   imageName = "cityvizor/cityvizor-server";
-  imageDigest = "sha256:8a704da8ee14533d2637d0a4ee20ea8c0c2f85d9d9b71baf26d31172dd48a759";
-  sha256 = "06g9qcqk8jzqqwhpn557003lqsklp0cdc98qvc7vajdz67prvb83";
+  imageDigest = "sha256:735c3a896e1ae5be35fbf924d4f7dbb41bb67ca7b2819bd91ed8a7a788653935";
+  sha256 = "12svjq2xsj7w34apmizd89nzvf0gib94iv646ddg5xibj3cajsvp";
   finalImageName = "cityvizor/cityvizor-server";
   finalImageTag = "staging";
 }
