@@ -136,6 +136,7 @@ in
       "jiri.marek@otevrenamesta.cz"       =      emails.jm_;
       "ladislav.nesnera@otevrenamesta.cz" =      emails.ln_;
       "marcel.kolaja@otevrenamesta.cz"    =      emails.mk_;
+      "marek.sebera@otevrenamesta.cz"     =      emails.ms2_;
       "martin.sebek@otevrenamesta.cz"     =      emails.ms_;
       "olmr@otevrenamesta.cz"             =      emails.vo_;
       "ondrej.profant@otevrenamesta.cz"   =      emails.op_;
