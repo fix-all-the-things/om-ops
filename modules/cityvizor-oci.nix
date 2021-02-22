@@ -45,7 +45,7 @@ let
     };
     volumes = [
       "/etc/hosts:/etc/hosts" # to be able to reach external pg
-      "/var/lib/cityvizor/data:/home/node/app/data"
+      "/var/lib/cityvizor/data:/home/node/data"
     ];
   } // optionalAttrs cfg.containers.pinned {
     imageFile = images.cityvizor-server;
