@@ -38,7 +38,7 @@ in
       users.groups.${group} = {};
 
       systemd.tmpfiles.rules = let
-        writable = [ "app" "client" "data" ];
+        writable = [ "app" "client" "data" "imports" ];
       in
       [
         "d  ${baseDir}                     0511 ${user} ${group} - -"
