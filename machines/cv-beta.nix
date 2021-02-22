@@ -54,7 +54,7 @@ in
       user = "cvbetauser";
       enableSSL = true;
     };
-    worker.s3 = {
+    s3 = {
       host = "minio.cityvizor.cz";
       port = 80;
       cdnHost = "https://minio.cityvizor.cz";

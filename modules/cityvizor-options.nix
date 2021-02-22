@@ -76,34 +76,32 @@ with lib;
       };
     };
 
-    worker = {
-      s3 = {
-        host = mkOption {
-          type = types.str;
-          default = "minio";
-        };
-        cdnHost = mkOption {
-          type = types.str;
-          default = "https://minio";
-        };
-        port = mkOption {
-          type = types.port;
-          default = 80;
-        };
-        privateBucket = mkOption {
-          type = types.str;
-          default = "cityvizor";
-        };
-        publicBucket = mkOption {
-          type = types.str;
-          default = "cityvizor-public";
-        };
-        accessKey = mkOption {
-          type = types.str;
-        };
-        secretKey = mkOption {
-          type = types.str;
-        };
+    s3 = {
+      host = mkOption {
+        type = types.str;
+        default = "minio";
+      };
+      cdnHost = mkOption {
+        type = types.str;
+        default = "https://minio";
+      };
+      port = mkOption {
+        type = types.port;
+        default = 80;
+      };
+      privateBucket = mkOption {
+        type = types.str;
+        default = "cityvizor";
+      };
+      publicBucket = mkOption {
+        type = types.str;
+        default = "cityvizor-public";
+      };
+      accessKey = mkOption {
+        type = types.str;
+      };
+      secretKey = mkOption {
+        type = types.str;
       };
     };
 

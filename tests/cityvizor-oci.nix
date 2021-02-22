@@ -28,7 +28,7 @@ let
           demoData.enable = true;
           host = "192.168.1.1";
         };
-        worker.s3 = {
+        s3 = {
           accessKey = "dummy";
           secretKey = "snake-oil";
         };

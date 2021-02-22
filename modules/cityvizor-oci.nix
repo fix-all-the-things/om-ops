@@ -35,6 +35,13 @@ let
       # XXX
       JWT_SECRET = "secret";
       NODE_ENV = "system";
+      S3_HOST = cfg.s3.host;
+      S3_CDN_HOST = cfg.s3.cdnHost;
+      S3_PORT = toString cfg.s3.port;
+      S3_PRIVATE_BUCKET = cfg.s3.privateBucket;
+      S3_PUBLIC_BUCKET = cfg.s3.publicBucket;
+      S3_ACCESS_KEY = cfg.s3.accessKey;
+      S3_SECRET_KEY = cfg.s3.secretKey;
     };
     volumes = [
       "/etc/hosts:/etc/hosts" # to be able to reach external pg
@@ -109,19 +116,10 @@ in
 
           # worker uses the same image as server
           # with different cmd and no ports
-          cv-worker = lib.recursiveUpdate (makeServer 0) ({
+          cv-worker = (makeServer 0) // {
             cmd =  [ "-mworker" ];
             ports = [];
-            environment = with cfg.worker.s3; {
-              S3_HOST = host;
-              S3_CDN_HOST = cdnHost;
-              S3_PORT = toString port;
-              S3_PRIVATE_BUCKET = privateBucket;
-              S3_PUBLIC_BUCKET = publicBucket;
-              S3_ACCESS_KEY = accessKey;
-              S3_SECRET_KEY = secretKey;
-            };
-          });
+          };
         }
         // listToAttrs (map (num: {
               name = "cv-server-${toString num}";
