@@ -38,7 +38,7 @@ in
   '';
 
   # ipv6 only ct, this allows to reach v4 only docker registry
-  networking.proxy.default = "http://[${data.hosts.mesta-services-2.addr.pub.ipv6}]:3128";
+  # networking.proxy.default = "http://[${data.hosts.mesta-services-2.addr.pub.ipv6}]:3128";
 
   services.cityvizor = {
     enable = true;
