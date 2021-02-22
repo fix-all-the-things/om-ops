@@ -101,6 +101,9 @@ in
             image = "cityvizor/cityvizor-client:${cfg.containers.tag}";
             dependsOn = [ "cv-server" ];
             ports = [ "8000:80" ];
+            volumes = [
+              "${contentJSON}:/usr/share/nginx/html/assets/js/content.json"
+            ];
             extraOptions = cfg.containers.extraOptions;
           } // optionalAttrs cfg.containers.pinned {
             imageFile = images.cityvizor-client;
