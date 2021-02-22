@@ -109,10 +109,19 @@ in
 
           # worker uses the same image as server
           # with different cmd and no ports
-          cv-worker = (makeServer 0) // {
+          cv-worker = lib.recursiveUpdate (makeServer 0) ({
             cmd =  [ "-mworker" ];
             ports = [];
-          };
+            environment = with cfg.worker.s3; {
+              S3_HOST = host;
+              S3_CDN_HOST = cdnHost;
+              S3_PORT = toString port;
+              S3_PRIVATE_BUCKET = privateBucket;
+              S3_PUBLIC_BUCKET = publicBucket;
+              S3_ACCESS_KEY = accessKey;
+              S3_SECRET_KEY = secretKey;
+            };
+          });
         }
         // listToAttrs (map (num: {
               name = "cv-server-${toString num}";
