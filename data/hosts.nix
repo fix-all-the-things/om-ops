@@ -82,7 +82,7 @@ rec {
       };
     };
     wg = {
-      publicKey = "fixme";
+      publicKey = "KTiPL+6nrMhdo3MvheVBeU60MaCjEzNgF6UGiYqvKhA=";
     };
   };
 

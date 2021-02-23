@@ -105,6 +105,7 @@ in
     in map makePeer [
       "pg"
       "cv-beta"
+      "cv-prod"
     ];
   };
 }
