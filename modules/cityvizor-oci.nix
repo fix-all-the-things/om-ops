@@ -160,14 +160,14 @@ in
         bind = ctNetLocalhost."${cfg.containers.backend}";
       };
 
-      systemd.services.redis = {
-        # redis needs to bind to network created by backend
-        # so wait until it exists
-        after = [ "${cfg.containers.backend}-cv-landing-page.service" ];
-        requires = [ "${cfg.containers.backend}-cv-landing-page.service" ];
-        serviceConfig.Restart = "always";
-        serviceConfig.RestartSec = 1;
-        unitConfig.startLimitIntervalSec = 0;
+      systemd.services.redis.serviceConfig = {
+        Restart = "always";
+        RestartSec = 5;
+        # this changes to
+        # unitConfig.startLimitIntervalSec = 0;
+        # with 21.05 and no StartLimitBurst is needed
+        StartLimitIntervalSec = 0;
+        StartLimitBurst = 0;
       };
 
       services.nginx = optionalAttrs cfg.proxy.enable {
