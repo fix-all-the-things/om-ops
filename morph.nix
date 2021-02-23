@@ -355,4 +355,13 @@ in
       ./machines/cv-beta.nix
     ];
   };
+
+  cv-prod = { config, pkgs, ...}: {
+    imports = [
+      ./env.nix
+      ./profiles/ct.nix
+      ./profiles/exporter-node.nix
+      ./machines/cv-prod.nix
+    ];
+  };
 }

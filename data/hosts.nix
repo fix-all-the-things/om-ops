@@ -71,8 +71,18 @@ rec {
   };
 
   cv-prod = {
-    addr.pub = {
-      ipv4 = "37.205.14.126";
+    addr = {
+      pub = {
+        ipv4 = "37.205.14.126";
+        ipv6 = "2a01:430:17:1::ffff:336";
+      };
+      priv = {
+        ipv4 = "10.23.42.101";
+        ipv6 = "fc00::101";
+      };
+    };
+    wg = {
+      publicKey = "fixme";
     };
   };
 
