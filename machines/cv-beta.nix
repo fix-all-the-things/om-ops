@@ -64,7 +64,14 @@ in
       secretKey = (import ../secrets/minio-cityvizor-test.nix).secretKey;
     };
 
-    landing-page.settings.trackingHtml = builtins.readFile ../files/cityvizor-matomo.html;
+    landing-page.settings.tracking.html = [
+      (builtins.readFile ../files/cityvizor-matomo.html)
+      (builtins.readFile ../files/cityvizor-google-analytics.html)
+    ];
+    landing-page.settings.tracking.js = [
+      (builtins.readFile ../files/cityvizor-matomo.js)
+      (builtins.readFile ../files/cityvizor-google-analytics.js)
+    ];
   };
 
   environment = {
