@@ -67,7 +67,7 @@ in
     smtp = {
       enable = true;
       host = "mx.otevrenamesta.cz";
-      user = "cvprod";
+      user = "cvprod@otevrenamesta.cz";
       password = (import ../secrets/cityvizor.nix).smtpPassword;
     };
 
