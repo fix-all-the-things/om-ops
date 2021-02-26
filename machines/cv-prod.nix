@@ -71,13 +71,11 @@ in
       password = (import ../secrets/cityvizor.nix).smtpPassword;
     };
 
-
-
     landing-page.settings.tracking.html = [
       (builtins.readFile ../files/cityvizor-matomo.html)
       (builtins.readFile ../files/cityvizor-google-analytics.html)
     ];
-    landing-page.settings.tracking.js = [
+    landing-page.settings.tracking.scripts = [
       (builtins.readFile ../files/cityvizor-matomo.js)
       (builtins.readFile ../files/cityvizor-google-analytics.js)
     ];
