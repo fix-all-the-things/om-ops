@@ -232,6 +232,19 @@ in
         '';
       };
 
+      environment.systemPackages =
+      let backend = cfg.containers.backend;
+          tag = cfg.containers.tag;
+      in
+      lib.optional (!cfg.containers.pinned)
+        (pkgs.writeScriptBin "cityvizor-update"
+        ''
+          ${backend} pull docker.io/cityvizor/cityvizor-client:${tag}
+          ${backend} pull docker.io/cityvizor/cityvizor-server:${tag}
+          ${backend} pull docker.io/cityvizor/landing-page:${tag}
+          systemctl restart ${backend}-cv-\*
+        '');
+
     })
 
     (mkIf cfg.database.demoData.enable {

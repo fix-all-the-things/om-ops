@@ -24,6 +24,17 @@ systemctl stop podman-\*
 
 Respectively for `docker` backend and start/restart operations.
 
+## Updating containers
+
+Example for CityVizor:
+
+```
+docker pull docker.io/cityvizor/cityvizor-client:<tag>
+docker pull docker.io/cityvizor/cityvizor-server:<tag>
+docker pull docker.io/cityvizor/landing-page:<tag>
+systemctl restart podman-cv-\*
+```
+
 ## Resetting to clean state
 
 ### Delete all images
