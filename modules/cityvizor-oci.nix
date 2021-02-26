@@ -108,7 +108,7 @@ in
             dependsOn = [ "cv-server" ];
             ports = [ "8000:80" ];
             volumes = [
-              "${contentJSON}:/usr/share/nginx/html/assets/js/content.json"
+              "${baseDir}/content.json:/usr/share/nginx/html/assets/js/content.json"
             ];
             extraOptions = cfg.containers.extraOptions;
           } // optionalAttrs cfg.containers.pinned {
@@ -121,7 +121,7 @@ in
             image = "cityvizor/landing-page:${cfg.containers.tag}";
             ports = [ "8001:80" ];
             volumes = [
-              "${contentJSON}:/usr/share/nginx/html/cfg/content.json"
+              "${baseDir}/content.json:/usr/share/nginx/html/cfg/content.json"
             ];
             extraOptions = cfg.containers.extraOptions;
           } // optionalAttrs cfg.containers.pinned {
@@ -157,6 +157,7 @@ in
       in
       [
         "d  ${baseDir}                     0511 ${user} ${group} - -"
+        "L+ ${baseDir}/content.json        -    ${user} ${group} - ${contentJSON}"
       ] ++ (flip map writable (d:
         "d  ${baseDir}/${d}                0700 ${user} ${group} - -"
       ));
