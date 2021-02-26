@@ -89,6 +89,14 @@ in
           hashedPassword = hashes.matrix_;
       };
 
+      # Cityvizor feedback
+      "cvbeta@otevrenamesta.cz" = {
+          hashedPassword = hashes.cvbeta_;
+      };
+      "cvprod@otevrenamesta.cz" = {
+          hashedPassword = hashes.cvprod_;
+      };
+
       ## domain @try.otevrenamesta.cz:
       "user1@try.otevrenamesta.cz" = {
           hashedPassword = "${hashes.tt_}";
