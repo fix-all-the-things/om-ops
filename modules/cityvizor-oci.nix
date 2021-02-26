@@ -42,6 +42,12 @@ let
       S3_PUBLIC_BUCKET = cfg.s3.publicBucket;
       S3_ACCESS_KEY = cfg.s3.accessKey;
       S3_SECRET_KEY = cfg.s3.secretKey;
+    } // optionalAttrs cfg.smtp.enable {
+      EMAIL_SMTP = cfg.smtp.host;
+      EMAIL_PORT = toString cfg.smtp.port;
+      EMAIL_USER = cfg.smtp.user;
+      EMAIL_ADDRESS = cfg.smtp.address;
+      EMAIL_PASSWORD = cfg.smtp.password;
     };
     volumes = [
       "/etc/hosts:/etc/hosts" # to be able to reach external pg

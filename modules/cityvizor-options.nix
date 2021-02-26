@@ -128,6 +128,32 @@ with lib;
         type = types.str;
       };
     };
+    smtp = {
+      enable = mkEnableOption "SMTP";
+      host = mkOption {
+        description = "SMTP host to connect to";
+        default = "localhost";
+        type = types.str;
+      };
+      port = mkOption {
+        description = "SMTP port";
+        default = 465;
+        type = types.port;
+      };
+      address = mkOption {
+        description = "Feedback destination email address";
+        default = "cityvizor@otevrenamesta.cz";
+        type = types.str;
+      };
+      user = mkOption {
+        description = "SMTP user name";
+        type = types.str;
+      };
+      password = mkOption {
+        description = "SMTP password";
+        type = types.str;
+      };
+    };
 
     containers = {
       backend = mkOption {
