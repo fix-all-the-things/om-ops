@@ -29,10 +29,17 @@ Respectively for `docker` backend and start/restart operations.
 Example for CityVizor:
 
 ```
-docker pull docker.io/cityvizor/cityvizor-client:<tag>
-docker pull docker.io/cityvizor/cityvizor-server:<tag>
-docker pull docker.io/cityvizor/landing-page:<tag>
+podman pull docker.io/cityvizor/cityvizor-client:<tag>
+podman pull docker.io/cityvizor/cityvizor-server:<tag>
+podman pull docker.io/cityvizor/landing-page:<tag>
 systemctl restart podman-cv-\*
+```
+
+### Generalized
+
+```
+podman images | grep -v ^REPO | sed 's/ \+/:/g' | cut -d: -f1,2 | grep -v none | xargs -L1 podman pull
+systemctl restart podman-\*
 ```
 
 ## Resetting to clean state
