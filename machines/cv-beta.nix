@@ -63,6 +63,12 @@ in
       accessKey = (import ../secrets/minio-cityvizor-test.nix).accessKey;
       secretKey = (import ../secrets/minio-cityvizor-test.nix).secretKey;
     };
+    smtp = {
+      enable = true;
+      host = "mx.otevrenamesta.cz";
+      user = "cvbeta";
+      password = (import ../secrets/cityvizor-beta.nix).smtpPassword;
+    };
 
     landing-page.settings.tracking.html = [
       (builtins.readFile ../files/cityvizor-matomo.html)
