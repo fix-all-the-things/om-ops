@@ -239,9 +239,11 @@ in
       lib.optional (!cfg.containers.pinned)
         (pkgs.writeScriptBin "cityvizor-update"
         ''
+          set -ex
           ${backend} pull docker.io/cityvizor/cityvizor-client:${tag}
           ${backend} pull docker.io/cityvizor/cityvizor-server:${tag}
           ${backend} pull docker.io/cityvizor/landing-page:${tag}
+          echo "Restarting services"
           systemctl restart ${backend}-cv-\*
         '');
 
