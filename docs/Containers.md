@@ -40,7 +40,7 @@ podman rmi --force --all
 Next service start triggers download of all images (if not pinned using `imageFile`):
 
 ```
-systemctl start podman-\*
+systemctl restart podman-\*
 ```
 
 ### System reset
