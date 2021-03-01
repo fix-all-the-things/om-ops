@@ -30,6 +30,8 @@ in
   nix.buildCores = 0;
   systemd.tmpfiles.rules = [ "d /tmp 1777 root root 7d" ];
 
+  boot.loader.grub.configurationLimit = lib.mkDefault 10;
+
   environment.systemPackages = with pkgs; [
     htop
     lynx
