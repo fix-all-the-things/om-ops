@@ -5,6 +5,10 @@ let
   probeData = import ../data/probes.nix;
 in
 {
+  imports = [
+    ../modules/wireguard.nix
+  ];
+
   users.users.niap = {
     description = "NIA proxy user (no shell, port forwarding only)";
     shell = "${pkgs.shadow}/bin/nologin";
@@ -416,4 +420,6 @@ in
       };
     };
   };
+
+  om.wireguard.enable = true;
 }

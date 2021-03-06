@@ -10,7 +10,10 @@ in
 {
   imports = [
     ../modules/libvirt.nix
+    ../modules/wireguard.nix
   ];
+
+  om.wireguard.enable = true;
 
   environment.systemPackages = with pkgs; [
      nmap

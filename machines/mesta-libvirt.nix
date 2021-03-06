@@ -103,9 +103,12 @@ in
          };
 
     in map makePeer [
-      "pg"
       "cv-beta"
       "cv-prod"
+      "mesta-services"
+      "mesta-services-2"
+      "pg"
+      "status"
     ];
   };
 }

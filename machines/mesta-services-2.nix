@@ -11,6 +11,12 @@ let
   ctParo2Ip = "192.168.123.3";
 in
 {
+  imports = [
+    ../modules/wireguard.nix
+  ];
+
+  om.wireguard.enable = true;
+
   services.openssh.ports = [ 12322 ];
 
   networking.firewall.allowedTCPPorts = [
