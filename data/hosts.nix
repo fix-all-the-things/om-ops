@@ -18,25 +18,43 @@ rec {
   proxy = mesta-libvirt;
 
   mesta-services = {
-    addr.pub = {
-      ipv4 = "37.205.14.138";
-      ipv6 = "2a03:3b40:fe:32::";
+    addr = {
+      pub = {
+        ipv4 = "37.205.14.138";
+        ipv6 = "2a03:3b40:fe:32::";
+      };
+      priv = {
+        ipv4 = "10.23.42.2";
+        ipv6 = "fc00::2";
+      };
     };
   };
 
   mesta-services-2 = {
-    addr.pub = {
-      ipv4 = "37.205.12.242";
-      ipv6 = "2a03:3b40:fe:1b::1";
+    addr = {
+      pub = {
+        ipv4 = "37.205.12.242";
+        ipv6 = "2a03:3b40:fe:1b::1";
+      };
+      priv = {
+        ipv4 = "10.23.42.3";
+        ipv6 = "fc00::3";
+      };
     };
   };
 
   status = {
-    addr.pub = {
-      ipv4 = "83.167.228.98";
-      ipv6 = "2a01:430:17:1::ffff:5";
+    addr = {
+      pub = {
+        ipv4 = "83.167.228.98";
+        ipv6 = "2a01:430:17:1::ffff:5";
+      };
+      priv = {
+        ipv4 = "10.23.42.9";
+        ipv6 = "fc00::9";
+      };
+      int.ipv4 = "172.16.9.18";
     };
-    addr.int.v4 = "172.16.9.18";
   };
 
   pg = {
