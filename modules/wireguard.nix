@@ -18,7 +18,7 @@ in
       };
       allowedIPs = mkOption {
         type = types.listOf types.str;
-        default = [ "10.23.42.0/24" ];
+        default = [ "10.23.42.0/24" "fc00::/64" ];
       };
 
       allowedIPsAsRoutes = mkOption {
