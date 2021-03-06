@@ -199,6 +199,7 @@ in
         services.paro2 = {
           enable = true;
           hostName = "paro2.otevrenamesta.cz";
+          database.createLocally = true;
         };
       };
     };
