@@ -190,6 +190,11 @@ in
         };
     };
 
+    services.mysqlBackup = lib.optionalAttrs cfg.database.createLocally {
+      enable = true;
+      databases = [ cfg.database.name ];
+    };
+
     systemd.services.nginx.after = lib.optional cfg.database.createLocally "mysql.service";
     systemd.services.paro2-init = {
       wantedBy = [ "multi-user.target" ];
