@@ -4,13 +4,16 @@ with lib;
 
 let
   cfg = config.services.paro2;
-  pkg = import ../packages/participativni-rozpocet { inherit pkgs; };
   baseDir = "/var/lib/paro2";
   user = "paro2";
-  dbName = user;
   group = user;
+  devDir = "/var/www/paro2";
 
-  # XXX: switch mail to tls
+  phpPackage = pkgs.php74.buildEnv {
+    extensions = { enabled, all }: with all;
+      enabled ++ [ redis ];
+  };
+
   generatedConfig = pkgs.writeText "config.php" ''
   <?php
   return [
@@ -23,27 +26,30 @@ let
               'host' => 'localhost',
               'unix_socket' => '/run/mysqld/mysqld.sock',
               'username' => '${user}',
-              'database' => '${dbName}',
+              'database' => '${cfg.database.name}',
           ],
       ],
       'EmailTransport' => [
           'default' => [
               'host' => '${cfg.smtp.host}',
               'port' => ${builtins.toString cfg.smtp.port},
-              'username' => null,
-              'password' => null,
+              'username' => ${showNull cfg.smtp.user},
+              'password' => ${showNull cfg.smtp.password},
               'client' => null,
-              'tls' => false,
+              'tls' => ${toString cfg.smtp.tls},
           ],
       ],
   ];
   '';
+
+  showNull = x: if isNull x then "null" else x;
 in
 {
   options = {
     services.paro2 = {
       enable = mkEnableOption "participativni rozpocet 2";
       debug = mkEnableOption "debugging";
+      develop = mkEnableOption "mutable deployment for development";
 
       hostName = mkOption {
         type = types.str;
@@ -65,6 +71,26 @@ in
         '';
       };
 
+      package = mkOption {
+        type = types.path;
+        default = import ../packages/participativni-rozpocet { inherit pkgs; };
+      };
+
+      database = {
+        createLocally = mkOption {
+          type = types.bool;
+          default = false;
+          description = "Whether to create a local database automatically.";
+        };
+
+        name = mkOption {
+          type = types.str;
+          default = "paro2";
+          description = "Database name.";
+
+        };
+      };
+
       smtp = {
         enable = mkEnableOption "SMTP";
 
@@ -76,22 +102,41 @@ in
 
         port = mkOption {
           description = "SMTP port";
-          default = 25;
           type = types.port;
         };
+
+        user = mkOption {
+          description = "SMTP user name";
+          type = types.nullOr types.str;
+          default = null;
+        };
+
+        password = mkOption {
+          description = "SMTP password";
+          type = types.nullOr types.str;
+          default = null;
+        };
+
+        tls = mkEnableOption "SMTP TLS";
       };
     };
   };
 
   config = mkIf cfg.enable {
 
+    services.paro2 = {
+      debug = mkDefault cfg.develop;
+      database.createLocally = mkDefault cfg.develop;
+      smtp = {
+        port = mkDefault 587;
+        tls = mkDefault true;
+      };
+    };
+
     services.phpfpm.pools.paro2 = {
       inherit user;
       inherit group;
-      phpPackage = pkgs.php74.buildEnv {
-        extensions = { enabled, all }: with all;
-          enabled ++ [ redis ];
-      };
+      inherit phpPackage;
       settings = mapAttrs (name: mkDefault) {
         "listen.owner" = "nginx";
         "listen.group" = "nginx";
@@ -103,7 +148,7 @@ in
         "pm.max_spare_servers" = 3;
         "pm.max_requests" = 500;
       };
-      phpEnv = {
+      phpEnv = optionalAttrs (!cfg.develop) {
         "APPDIR_LOGS" = "${baseDir}/logs";
         "APPDIR_TMP" = "${baseDir}/tmp";
         "APPDIR_CACHE" = "${baseDir}/tmp/cache";
@@ -114,7 +159,10 @@ in
     services.nginx.enable = true;
     services.nginx.virtualHosts.${cfg.hostName} = {
       default = true;
-      root = "${pkg}/webroot";
+      root =
+        if cfg.develop
+          then "${devDir}/webroot"
+          else "${cfg.package}/webroot";
 
       locations."/" = {
         index = "index.php";
@@ -131,18 +179,23 @@ in
 
     services.redis.enable = true;
 
-    services.mysql = {
+    services.mysql = lib.optionalAttrs cfg.database.createLocally {
       enable = true;
       bind = "127.0.0.1";
       package = pkgs.mariadb;
-      ensureDatabases = [ dbName ];
+      ensureDatabases = [ cfg.database.name ];
       ensureUsers = lib.singleton
         { name = "${user}";
-          ensurePermissions = { "${dbName}.*" = "ALL PRIVILEGES"; };
+          ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
         };
     };
 
-    systemd.services.nginx.after = [ "mysql.service" ];
+    services.mysqlBackup = lib.optionalAttrs cfg.database.createLocally {
+      enable = true;
+      databases = [ cfg.database.name ];
+    };
+
+    systemd.services.nginx.after = lib.optional cfg.database.createLocally "mysql.service";
     systemd.services.paro2-init = {
       wantedBy = [ "multi-user.target" ];
       before = [ "phpfpm-paro2.service" ];
@@ -163,8 +216,20 @@ in
 
     users.users.${user} = {
       inherit group;
-      home = baseDir;
+      home =
+        if cfg.develop
+          then devDir
+          else baseDir;
       isSystemUser = true;
+      # allow login when mutable
+      useDefaultShell = cfg.develop;
+
+      packages = optionals cfg.develop (with pkgs; [
+        git
+        mariadb
+        phpPackage
+        phpPackage.packages.composer
+      ]);
     };
 
     users.groups.${group} = {};
@@ -174,12 +239,25 @@ in
     in
     [
       "d  ${baseDir}                      0511 ${user} ${group} - -"
-      "C  ${baseDir}/config               -    -       -        - ${pkg}/config"
+      "C  ${baseDir}/config               -    -       -        - ${cfg.package}/config"
       "L+ ${baseDir}/config/app_local.php -    -       -        - ${cfg.configFile}"
       "d  ${baseDir}/secrets              0770 ${user} ${group} - -"
     ] ++ (flip map writable (d:
       "d  ${baseDir}/${d}                 0700 ${user} ${group} - -"
-    ));
+    )) ++ optionals cfg.develop [
+      "C  ${devDir}                       0750 ${user} nginx    - ${cfg.package}"
+      "Z  ${devDir}                       0750 ${user} nginx    -"
+      "C  ${devDir}/config/app_local.php  0750 ${user} nginx    - ${cfg.configFile}"
+    ];
+
+    # bin/cake
+    environment = optionalAttrs cfg.develop {
+      homeBinInPath = true;
+      shellAliases = {
+        bake = "cake bake";
+        "mariadb.${cfg.database.name}" = "mariadb ${cfg.database.name}";
+      };
+    };
 
   };
 }

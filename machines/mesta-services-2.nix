@@ -9,6 +9,7 @@ let
   ctHostIp = "192.168.123.1";
   ctMinioIp = "192.168.123.2";
   ctParo2Ip = "192.168.123.3";
+  ctParo2BetaIp = "192.168.123.4";
 in
 {
   imports = [
@@ -195,13 +196,43 @@ in
 
         services.openssh.enable = true;
         users.extraUsers.root.openssh.authorizedKeys.keys = with import ../ssh-keys.nix; [ ms vk ];
+        users.extraUsers.paro2.openssh.authorizedKeys.keys = with import ../ssh-keys.nix; [ ms vk ];
 
         services.paro2 = {
           enable = true;
           hostName = "paro2.otevrenamesta.cz";
+          database.createLocally = true;
         };
       };
     };
+
+    paro2-beta = {
+      autoStart = true;
+      privateNetwork = true;
+      hostAddress = ctHostIp;
+      localAddress = ctParo2BetaIp;
+      forwardPorts = [ { protocol = "tcp"; hostPort = 9002; containerPort = 80; } ];
+
+      config = { config, pkgs, ... }: {
+        imports = [
+          ../env.nix
+          ../modules/paro2.nix
+        ];
+
+        networking.firewall.allowedTCPPorts = [ 80 ];
+
+        services.openssh.enable = true;
+        users.extraUsers.root.openssh.authorizedKeys.keys = with import ../ssh-keys.nix; [ ms vk ];
+        users.extraUsers.paro2.openssh.authorizedKeys.keys = with import ../ssh-keys.nix; [ ms vk ];
+
+        services.paro2 = {
+          enable = true;
+          develop = true;
+          hostName = "beta.paro2.otevrenamesta.cz";
+        };
+      };
+    };
+
 
     /*
     template = {
@@ -235,6 +266,14 @@ in
         locations = {
           "/" = {
             proxyPass = "http://${ctHostIp}:9001";
+          };
+        };
+      };
+
+      "beta.paro2.otevrenamesta.cz" = {
+        locations = {
+          "/" = {
+            proxyPass = "http://${ctHostIp}:9002";
           };
         };
       };
