@@ -138,7 +138,18 @@ in
         // listToAttrs (map (num: {
               name = "cv-server-${toString num}";
               value = (makeServer (cfg.server.port + num)) // { dependsOn = [ "cv-server" ]; };
-            })(range 1 cfg.server.redundantInstances));
+            })(range 1 cfg.server.redundantInstances))
+        // optionalAttrs cfg.demo.enable {
+            cv-demo = {
+              image = "cityvizor/cityvizor-demo:${cfg.containers.tag}";
+              ports = [ "8002:80" ];
+              extraOptions = cfg.containers.extraOptions;
+            } // optionalAttrs cfg.containers.pinned {
+              imageFile = images.cityvizor-demo;
+            };
+        };
+
+
       };
 
       users.users.${user} = {
@@ -196,21 +207,31 @@ in
             }) (range 1 cfg.server.redundantInstances));
         };
 
-        virtualHosts.${cfg.hostName} = {
-          default = true;
-          http2 = true;
-          locations = {
-            "=/" = {
-              return = "302 /landing";
+        virtualHosts = {
+          "${cfg.hostName}" = {
+            default = true;
+            http2 = true;
+            locations = {
+              "=/" = {
+                return = "302 /landing";
+              };
+              "/" = {
+                proxyPass = "http://127.0.0.1:8000";
+              };
+              "/landing" = {
+                proxyPass = "http://127.0.0.1:8001/landing/";
+              };
+              "/api" = {
+                proxyPass = "http://api";
+              };
             };
-            "/" = {
-              proxyPass = "http://127.0.0.1:8000";
-            };
-            "/landing" = {
-              proxyPass = "http://127.0.0.1:8001/landing/";
-            };
-            "/api" = {
-              proxyPass = "http://api";
+          };
+        } // optionalAttrs cfg.demo.enable {
+          "demo.${cfg.hostName}" = {
+            locations = {
+              "/" = {
+                proxyPass = "http://127.0.0.1:8002";
+              };
             };
           };
         };
@@ -241,6 +262,9 @@ in
         ''
           set -ex
           ${backend} pull docker.io/cityvizor/cityvizor-client:${tag}
+          ${optionalString cfg.demo.enable ''
+            ${backend} pull docker.io/cityvizor/cityvizor-demo:${tag}
+          ''}
           ${backend} pull docker.io/cityvizor/cityvizor-server:${tag}
           ${backend} pull docker.io/cityvizor/landing-page:${tag}
           echo "Restarting services"

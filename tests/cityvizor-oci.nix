@@ -23,6 +23,7 @@ let
         enable = true;
         containers.backend = backend;
         containers.tag = "staging";
+        demo.enable = true;
         database = {
           createLocally = true;
           demoData.enable = true;
@@ -67,6 +68,7 @@ let
       machine.wait_for_unit("postgresql.service")
       machine.wait_for_unit("${backend}-cv-server.service")
       machine.wait_for_unit("${backend}-cv-client.service")
+      machine.wait_for_unit("${backend}-cv-demo.service")
       machine.wait_for_unit("${backend}-cv-landing-page.service")
       machine.wait_for_unit("${backend}-cv-worker.service")
       machine.wait_for_unit("nginx.service")

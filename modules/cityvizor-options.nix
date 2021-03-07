@@ -76,6 +76,7 @@ with lib;
       };
     };
 
+    demo.enable = mkEnableOption "Demo container and endpoint";
     landing-page = {
       settings = mkOption rec {
         type = types.attrs;
