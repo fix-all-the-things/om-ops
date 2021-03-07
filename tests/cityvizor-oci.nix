@@ -87,6 +87,13 @@ let
       with subtest("check profile page"):
           machine.succeed("curl -s localhost/praha12")
 
+      with subtest("check profiles api response"):
+          print(
+              machine.succeed(
+                  "curl -s localhost/api/public/profiles | ${pkgs.jq}/bin/jq"
+              )
+          )
+
       with subtest("check profile api response"):
           machine.succeed(
               "curl -s localhost/api/public/profiles/praha12 | ${pkgs.jq}/bin/jq"
