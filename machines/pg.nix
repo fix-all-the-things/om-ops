@@ -4,9 +4,6 @@ let
   replicationSlot = "main_wal_receiver";
   pgPackage = pkgs.postgresql_12;
   data = import ../data;
-
-  statusIp = data.hosts.status.addr.pub.ipv4;
-  statusPorts = "9100,9187";
 in
 {
 
@@ -17,22 +14,25 @@ in
 
   services.openssh.ports = [ 12322 ];
 
-  networking.firewall.allowedTCPPorts = [ 80 443 5432 ];
+  networking.firewall = {
+    allowedTCPPorts = [ 80 443 5432 ];
+    interfaces.wg0.allowedTCPPorts = with config.services.prometheus.exporters; [
+      node.port
+      postgres.port
+    ];
 
-  # restrict connections to prometheus exporters to status.otevrenamesta.cz only
-  # restrict connections to pg to specific hosts
-  networking.firewall.extraCommands = ''
-    iptables -I INPUT -p tcp -m multiport --dports ${statusPorts} ! -s ${statusIp} -j DROP
-    iptables -I INPUT -p tcp --dport 5432 ! -s ${data.hosts.cv-prod.addr.pub.ipv4} -j DROP
-    ip6tables -I INPUT -p tcp --dport 5432 ! -s ${data.hosts.cv-beta.addr.pub.ipv6} -j DROP
-    iptables -I INPUT -i lo -j ACCEPT
-  '';
-  networking.firewall.extraStopCommands = ''
-    iptables -D INPUT -i lo -j ACCEPT || true
-    iptables -D INPUT -p tcp -m multiport --dports ${statusPorts} ! -s ${statusIp} -j DROP || true
-    iptables -D INPUT -p tcp --dport 5432 ! -s ${data.hosts.cv-prod.addr.pub.ipv4} -j DROP || true
-    ip6tables -D INPUT -p tcp --dport 5432 ! -s ${data.hosts.cv-beta.addr.pub.ipv6} -j DROP || true
-  '';
+    # restrict connections to pg to specific hosts
+    extraCommands = ''
+      iptables -I INPUT -p tcp --dport 5432 ! -s ${data.hosts.cv-prod.addr.pub.ipv4} -j DROP
+      ip6tables -I INPUT -p tcp --dport 5432 ! -s ${data.hosts.cv-beta.addr.pub.ipv6} -j DROP
+      iptables -I INPUT -i lo -j ACCEPT
+    '';
+    extraStopCommands = ''
+      iptables -D INPUT -i lo -j ACCEPT || true
+      iptables -D INPUT -p tcp --dport 5432 ! -s ${data.hosts.cv-prod.addr.pub.ipv4} -j DROP || true
+      ip6tables -D INPUT -p tcp --dport 5432 ! -s ${data.hosts.cv-beta.addr.pub.ipv6} -j DROP || true
+    '';
+  };
 
   boot.kernel.sysctl."kernel.shmmax" = 1073741824; # 1024M
   services.postgresql = {
@@ -96,10 +96,12 @@ in
     enable = true;
   };
 
-  services.prometheus.exporters.postgres = {
-    enable = true;
-    openFirewall = true;
-    runAsLocalSuperUser = true;
+  services.prometheus.exporters = {
+    node.openFirewall = false;
+    postgres = {
+      enable = true;
+      runAsLocalSuperUser = true;
+    };
   };
 
   om.wireguard.enable = true;
