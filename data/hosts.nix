@@ -28,6 +28,9 @@ rec {
         ipv6 = "fc00::2";
       };
     };
+    wg = {
+      publicKey = "/fApBe80FZQngUtDj+ipisf/FeqZCK+UDlETMGV9aFY=";
+    };
   };
 
   mesta-services-2 = {
@@ -40,6 +43,9 @@ rec {
         ipv4 = "10.23.42.3";
         ipv6 = "fc00::3";
       };
+    };
+    wg = {
+      publicKey = "emKv5LxjFgAexf92dQjySMWLqiXUvsxYV+8LNBK44DQ=";
     };
   };
 
@@ -54,6 +60,9 @@ rec {
         ipv6 = "fc00::9";
       };
       int.ipv4 = "172.16.9.18";
+    };
+    wg = {
+      publicKey = "NnaPs4QlJzybVQgD0airoaRfR1jVB4OrN9v83ZrUUh4=";
     };
   };
 
