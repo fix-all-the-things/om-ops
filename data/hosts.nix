@@ -97,6 +97,14 @@ rec {
     };
   };
 
+  cv-beta-2 = {
+    addr = {
+      pub = {
+        ipv6 = "2a03:3b40:fe:134::1";
+      };
+    };
+  };
+
   cv-prod = {
     addr = {
       pub = {
