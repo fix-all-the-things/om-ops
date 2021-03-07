@@ -2,9 +2,10 @@
 let
   brDev = config.virtualisation.libvirtd.networking.bridgeName;
   extIf = "venet0";
-  proxyIp = "37.205.14.17";
+  data = import ../data;
+  proxyIp = data.hosts.proxy.addr.pub.ipv4;
   proxyPorts = "80,8000,8001,8002,8008,8080";
-  statusIp = "83.167.228.98";
+  statusIp =  data.hosts.status.addr.pub.ipv4;
   statusPorts = "9100,9187,9113";
 in
 {
@@ -48,7 +49,7 @@ in
     iptables -I INPUT -i lo -j ACCEPT
     iptables -I INPUT -p tcp -m multiport --dports ${proxyPorts} ! -s ${proxyIp} -j DROP
     iptables -I INPUT -p tcp -m multiport --dports ${statusPorts} ! -s ${statusIp} -j DROP
-    ip6tables -I INPUT -p tcp -m multiport --dports ${proxyPorts} -j DROP
+    ip6tables -I INPUT -p tcp -m multiport --dports ${proxyPorts} ! -s ${data.hosts.proxy.addr.pub.ipv6} -j DROP
     ip6tables -I INPUT -p tcp -m multiport --dports ${statusPorts} -j DROP
   '';
   networking.firewall.extraStopCommands = ''
@@ -57,7 +58,7 @@ in
     iptables -D INPUT -i lo -j ACCEPT || true
     iptables -D INPUT -p tcp -m multiport --dports ${proxyPorts} ! -s ${proxyIp} -j DROP || true
     iptables -D INPUT -p tcp -m multiport --dports ${statusPorts} ! -s ${statusIp} -j DROP || true
-    ip6tables -D INPUT -p tcp -m multiport --dports ${proxyPorts} -j DROP || true
+    ip6tables -D INPUT -p tcp -m multiport --dports ${proxyPorts} ! -s ${data.hosts.proxy.addr.pub.ipv6} -j DROP || true
     ip6tables -D INPUT -p tcp -m multiport --dports ${statusPorts} -j DROP || true
   '';
 
