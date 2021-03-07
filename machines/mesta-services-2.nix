@@ -196,6 +196,7 @@ in
 
         services.openssh.enable = true;
         users.extraUsers.root.openssh.authorizedKeys.keys = with import ../ssh-keys.nix; [ ms vk ];
+        users.extraUsers.paro2.openssh.authorizedKeys.keys = with import ../ssh-keys.nix; [ ms vk ];
 
         services.paro2 = {
           enable = true;
@@ -222,6 +223,7 @@ in
 
         services.openssh.enable = true;
         users.extraUsers.root.openssh.authorizedKeys.keys = with import ../ssh-keys.nix; [ ms vk ];
+        users.extraUsers.paro2.openssh.authorizedKeys.keys = with import ../ssh-keys.nix; [ ms vk ];
 
         services.paro2 = {
           enable = true;
