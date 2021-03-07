@@ -48,6 +48,8 @@ in
     iptables -I INPUT -i lo -j ACCEPT
     iptables -I INPUT -p tcp -m multiport --dports ${proxyPorts} ! -s ${proxyIp} -j DROP
     iptables -I INPUT -p tcp -m multiport --dports ${statusPorts} ! -s ${statusIp} -j DROP
+    ip6tables -I INPUT -p tcp -m multiport --dports ${proxyPorts} -j DROP
+    ip6tables -I INPUT -p tcp -m multiport --dports ${statusPorts} -j DROP
   '';
   networking.firewall.extraStopCommands = ''
     iptables -D FORWARD -o ${brDev} -p tcp -m multiport --dports ${proxyPorts} ! -s ${proxyIp} -j DROP || true
@@ -55,6 +57,8 @@ in
     iptables -D INPUT -i lo -j ACCEPT || true
     iptables -D INPUT -p tcp -m multiport --dports ${proxyPorts} ! -s ${proxyIp} -j DROP || true
     iptables -D INPUT -p tcp -m multiport --dports ${statusPorts} ! -s ${statusIp} -j DROP || true
+    ip6tables -D INPUT -p tcp -m multiport --dports ${proxyPorts} -j DROP || true
+    ip6tables -D INPUT -p tcp -m multiport --dports ${statusPorts} -j DROP || true
   '';
 
   networking.nat = {
