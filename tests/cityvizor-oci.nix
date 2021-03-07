@@ -23,6 +23,7 @@ let
         enable = true;
         containers.backend = backend;
         containers.tag = "staging";
+        containers.enableCustomCNI = backend == "podman";
         demo.enable = true;
         database = {
           createLocally = true;

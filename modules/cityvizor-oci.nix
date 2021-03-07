@@ -59,7 +59,9 @@ let
 
   ctNetLocalhost = {
     docker = "172.17.0.1";
-    podman = "10.88.0.1";
+    podman = if cfg.containers.enableCustomCNI
+      then "10.77.0.1"
+      else "10.88.0.1";
   };
 
   contentJSON = pkgs.writeText "content.json" (builtins.toJSON cfg.landing-page.settings);
@@ -75,7 +77,14 @@ in
       services.cityvizor = {
         server.enable = mkDefault true;
         proxy.enable = mkDefault true;
+        containers.extraOptions = optional cfg.containers.enableCustomCNI "--net=podman-ipv6";
       };
+
+      assertions = [
+        { assertion = cfg.containers.enableCustomCNI -> cfg.containers.backend == "podman";
+          message = "enableCustomCNI requires podman backend";
+        }
+      ];
 
       networking.firewall.allowedTCPPorts = [
         80
@@ -292,10 +301,14 @@ in
           # Run as root (Prefixed with +)
           ExecStartPost = "+" + (pkgs.writeShellScript "init-cv-db-script-post" ''
             touch ${baseDir}/db-init-done
-            '');
+          '');
         };
       }
       // optionalAttrs cfg.database.createLocally { after = [ "postgresql.service" ]; };
+    })
+
+    (mkIf cfg.containers.enableCustomCNI  {
+      environment.etc."cni/net.d/10-podman-ipv6-bridge.conflist".text = builtins.readFile ../files/10-podman-ipv6-bridge.conflist;
     })
 
   ];

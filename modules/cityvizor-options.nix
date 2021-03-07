@@ -157,6 +157,7 @@ with lib;
     };
 
     containers = {
+      enableCustomCNI = mkEnableOption "Custom podman CNI with IPv6";
       backend = mkOption {
         type = types.enum [ "docker" "podman" ];
         default = "podman";
