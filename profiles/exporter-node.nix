@@ -3,6 +3,6 @@
   services.prometheus.exporters.node = {
     enable = true;
     enabledCollectors = [ "systemd" "logind" "processes" ];
-    openFirewall = true;
+    openFirewall = lib.mkDefault true;
   };
 }
