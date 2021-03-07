@@ -16,6 +16,8 @@ let
       };
     };
   };
+
+  scripts = pkgs.callPackage ./packages/scripts.nix { };
 in
 {
   time.timeZone = "Europe/Amsterdam";
@@ -49,6 +51,7 @@ in
     nmap
     tcpdump
     wireguard
+    scripts.wgKeygen
   ];
 
   security.acme = {
