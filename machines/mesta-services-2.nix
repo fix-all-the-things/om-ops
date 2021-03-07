@@ -33,7 +33,7 @@ in
     iptables -I INPUT -p tcp -m multiport --dports ${statusPorts} ! -s ${statusIp} -j DROP
   '';
   networking.firewall.extraStopCommands = ''
-    iptables -I INPUT -i lo -j ACCEPT
+    iptables -D INPUT -i lo -j ACCEPT || true
     iptables -D INPUT -p tcp -m multiport --dports ${proxyPorts} ! -s ${proxyIp} -j DROP || true
     iptables -D INPUT -p tcp -m multiport --dports ${statusPorts} ! -s ${statusIp} -j DROP || true
   '';
