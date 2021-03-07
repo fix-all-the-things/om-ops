@@ -20,6 +20,7 @@ in
     "lists.${domains.om}"
     "navstevnost.${domains.om}"
     "nia.${domains.om}"
+    "pg.${domains.om}"
     "projekty.${domains.om}"
     "soubory.${domains.om}"
     "status.${domains.om}"
