@@ -2,7 +2,9 @@
 
 let
   writeJson = name: tree: pkgs.writeText name (builtins.toJSON tree);
-  probeData = import ../data/probes.nix;
+  data = import ../data;
+  probeData = data.probes;
+  hosts = data.hosts;
 in
 {
   imports = [
@@ -267,6 +269,8 @@ in
           "37.205.12.242:9100"  = "mesta-services-2";
 
           "[2a01:430:17:1::ffff:1309]:9100" = "dsw2.otevrenamesta.cz";
+
+          "[${hosts.pg.addr.priv.ipv6}]:9100" = "pg.otevrenamesta.cz";
         };
       in {
         job_name = "node";
@@ -334,8 +338,10 @@ in
       })
       # postresql
       (let
+        defaultPort = toString config.services.prometheus.exporters.postgres.port;
         instances = {
           "37.205.14.138:10997" = "matrix.otevrenamesta.cz";
+          "[${hosts.pg.addr.priv.ipv6}]:${defaultPort}" = "pg.otevrenamesta.cz";
         };
       in {
         job_name = "postgresql";
