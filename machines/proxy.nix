@@ -61,6 +61,7 @@ in
       };
 
       "beta.cityvizor.cz" = {
+        serverAliases = [ "demo.beta.cityvizor.cz" ];
         forceSSL = true;
         enableACME = true;
         locations = {
