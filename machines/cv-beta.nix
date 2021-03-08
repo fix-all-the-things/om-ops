@@ -42,7 +42,9 @@ in
 
   services.cityvizor = {
     enable = true;
+    hostName = "beta.cityvizor.cz";
     containers = {
+      enableCustomCNI = true;
       pinned = false;
       extraOptions = [ "--cgroup-manager=cgroupfs" ];
       tag = "staging";
