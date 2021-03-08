@@ -48,7 +48,7 @@ in
       tag = "staging";
     };
     database = {
-      host = "pg-wg";
+      host = "pg.otevrenamesta.cz";
       name = "cvbeta";
       user = "cvbetauser";
       enableSSL = true;
@@ -86,12 +86,12 @@ in
       postgresql_12
     ];
     shellAliases = {
-      "psql.beta" = "psql -h pg-wg -U cvbetauser cvbeta";
+      "psql.beta" = "psql -h pg.otevrenamesta.cz -U cvbetauser cvbeta";
     };
   };
 
   networking.extraHosts = ''
-    ${data.hosts.pg.addr.priv.ipv6} pg-wg
+    ${data.hosts.pg.addr.priv.ipv6} pg.otevrenamesta.cz
   '';
 
   om.wireguard = {
