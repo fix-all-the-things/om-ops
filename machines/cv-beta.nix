@@ -53,6 +53,7 @@ in
       user = "cvbetauser";
       enableSSL = true;
     };
+    demo.enable = true;
     s3 = {
       host = "minio.cityvizor.cz";
       port = 80;
