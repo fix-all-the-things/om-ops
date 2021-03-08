@@ -25,10 +25,12 @@ in
     extraCommands = ''
       iptables -I INPUT -p tcp --dport 5432 ! -s ${data.hosts.cv-prod.addr.pub.ipv4} -j DROP
       ip6tables -I INPUT -p tcp --dport 5432 ! -s ${data.hosts.cv-beta.addr.pub.ipv6} -j DROP
+      ip46tables -I INPUT -i wg0 -j ACCEPT
       iptables -I INPUT -i lo -j ACCEPT
     '';
     extraStopCommands = ''
       iptables -D INPUT -i lo -j ACCEPT || true
+      ip46tables -D INPUT -i wg0 -j ACCEPT || true
       iptables -D INPUT -p tcp --dport 5432 ! -s ${data.hosts.cv-prod.addr.pub.ipv4} -j DROP || true
       ip6tables -D INPUT -p tcp --dport 5432 ! -s ${data.hosts.cv-beta.addr.pub.ipv6} -j DROP || true
     '';
@@ -68,6 +70,7 @@ in
     authentication = ''
       hostssl cvprod cvproduser ${data.hosts.cv-prod.addr.pub.ipv4}/32 trust
       hostssl cvbeta cvbetauser ${data.hosts.cv-beta.addr.pub.ipv6}/128 trust
+      hostssl cvbeta cvbetauser ${data.hosts.cv-beta.addr.priv.ipv6}/128 trust
       # - sample
       # hostssl replication ${replicationUser} 127.0.0.1/32 trust
     '';
