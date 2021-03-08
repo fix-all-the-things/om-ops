@@ -85,7 +85,7 @@ rec {
   cv-beta = {
     addr ={
       pub = {
-        ipv6 = "2a03:3b40:fe:a4::1";
+        ipv6 = "2a03:3b40:fe:134::1";
       };
       priv = {
         ipv4 = "10.23.42.100";
@@ -93,15 +93,7 @@ rec {
       };
     };
     wg = {
-      publicKey = "of+cs4hngTCEnpBCqA5ajpDxqDU2atQ8L6brhFs+4T4=";
-    };
-  };
-
-  cv-beta-2 = {
-    addr = {
-      pub = {
-        ipv6 = "2a03:3b40:fe:134::1";
-      };
+      publicKey = "3lrRjxG7w5VctvI9lPcloBBICsf2mbbWWQM3mc0vGiw=";
     };
   };
 

@@ -136,14 +136,8 @@ in
             identityFile = "~/.ssh/mesta_deploy";
           };
           "cv-beta" = {
-            hostname = "2a03:3b40:fe:a4::1";
-            port = 12322;
-            user = "root";
-            identityFile = "~/.ssh/mesta_deploy";
-          };
-          "cv-beta-2" = {
             hostname = "2a03:3b40:fe:134::1";
-            port = 22;
+            port = 12322;
             user = "root";
             identityFile = "~/.ssh/mesta_deploy";
           };
