@@ -20,12 +20,11 @@ in
   users.extraUsers.root.openssh.authorizedKeys.keys =
     with import ../ssh-keys.nix; [ ms vs ];
 
-  networking.firewall.allowedTCPPorts = [ 80 15432 ];
+  networking.firewall.allowedTCPPorts = [ 80 ];
 
   # restrict connections to prometheus exporters to status.otevrenamesta.cz only
   # restrict connections to nginx to proxy
   networking.firewall.extraCommands = ''
-    ip6tables -I INPUT -p tcp --dport 15432 -j DROP
     ip6tables -I INPUT -p tcp -m multiport --dports ${statusPorts} ! -s ${statusIp} -j DROP
     ip6tables -I INPUT -p tcp -m multiport --dports ${proxyPorts} ! -s ${proxyIp} -j DROP
     iptables -I INPUT -i lo -j ACCEPT
@@ -34,7 +33,6 @@ in
     iptables -D INPUT -i lo -j ACCEPT || true
     ip6tables -D INPUT -p tcp -m multiport --dports ${statusPorts} ! -s ${statusIp} -j DROP || true
     ip6tables -D INPUT -p tcp -m multiport --dports ${proxyPorts} ! -s ${proxyIp} -j DROP || true
-    ip6tables -D INPUT -p tcp --dport 15432 -j DROP || true
   '';
 
   # ipv6 only ct, this allows to reach v4 only docker registry
@@ -50,8 +48,7 @@ in
       tag = "staging";
     };
     database = {
-      host = "pg.cityvizor.cz";
-      port = 15432;
+      host = "pg-wg";
       name = "cvbeta";
       user = "cvbetauser";
       enableSSL = true;
@@ -88,29 +85,17 @@ in
       postgresql_12
     ];
     shellAliases = {
-      "psql.beta" = "psql -h 10.88.0.1 -p 15432 -U cvbetauser cvbeta";
-    };
-  };
-
-  # hack around v4 container not able to access v6 pg
-  systemd.services.socat-bridge = {
-    wantedBy = [ "multi-user.target" ];
-    wants = [ "network-online.target" ];
-    after = [ "network-online.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.socat}/bin/socat tcp-listen:15432,reuseaddr,fork tcp6:[${data.hosts.pg.addr.pub.ipv6}]:5432";
-      Restart = "always";
+      "psql.beta" = "psql -h pg-wg -U cvbetauser cvbeta";
     };
   };
 
   networking.extraHosts = ''
-    10.88.0.1 pg.cityvizor.cz
+    ${data.hosts.pg.addr.priv.ipv6} pg-wg
   '';
-  # end of hack
 
   om.wireguard = {
     enable = true;
     # route ipv4 traffic thru wg, since we don't have external v4 address
-    allowedIPs = [ "0.0.0.0/0" ];
+    allowedIPs = [ "0.0.0.0/0" "fc00::/64" ];
   };
 }
