@@ -5,13 +5,11 @@ let
 in
 {
   imports = [
-    # local copy, get rid of it after upgrading to 20.03
-    # delete ../packages/sympa/ as well
-    ../modules/sympa-overrides.nix
-    ../modules/sympa.nix
   ];
 
-  disabledModules = [ "services/mail/sympa.nix" ];
+  nixpkgs.overlays = [
+    (import ../overlays/sympa.nix)
+  ];
 
   environment.systemPackages = with pkgs; [ vim ];
 
