@@ -1,7 +1,7 @@
 {
   imageName = "cityvizor/cityvizor-server";
-  imageDigest = "sha256:68dea7bfe8f4bf77134af887565317c136aca00ce2cb3bfae29c6307b5aac123";
-  sha256 = "0vzva8wvpjdfqnbii6ykpzyhxqkvl1r67nv523h0hsx04zlbl9wf";
+  imageDigest = "sha256:f6e8270eba762536bf227dee660bfe8715282ba1b317c733c5f3e9b56c9cf68c";
+  sha256 = "1m6lm6d3svdd2bgs155aqhb80lddlvrhwpwlai0xig672cf2ypqj";
   finalImageName = "cityvizor/cityvizor-server";
   finalImageTag = "master";
 }
