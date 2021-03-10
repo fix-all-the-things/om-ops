@@ -58,7 +58,7 @@ in
         webHost = "lists.otevrenamesta.cz";
       };
     };
-    listMasters = [ "nesnera@email.cz" "ladislav.nesnera@liberix.cz" ];
+    listMasters = [ "ladislav.nesnera@otevrenamesta.cz" "ladislav.nesnera@liberix.cz" ];
     web = {
       enable = true;
       fcgiProcs = 2;
