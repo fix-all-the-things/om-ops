@@ -42,6 +42,7 @@ in
 
   services.cityvizor = {
     enable = true;
+    hostName = "cityvizor.cz";
     containers = {
       # XXX: pin and use proper tag
       pinned = false;
@@ -55,6 +56,7 @@ in
       user = "cvproduser";
       enableSSL = true;
     };
+    demo.enable = true;
     s3 = {
       host = "minio.cityvizor.cz";
       port = 80;
