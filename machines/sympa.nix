@@ -43,7 +43,11 @@ in
   };
 
   # workaround https reverse proxy
-  services.nginx.virtualHosts."lists.otevrenamesta.cz".locations."/".extraConfig = ''
+  # mkForce until backport lands https://github.com/NixOS/nixpkgs/pull/115727 (20.09)
+  services.nginx.virtualHosts."lists.otevrenamesta.cz".locations."/".extraConfig = lib.mkForce ''
+    include ${config.services.nginx.package}/conf/fastcgi_params;
+    fastcgi_pass unix:/run/sympa/wwsympa.socket;
+
     fastcgi_param HTTPS on;
   '';
 
