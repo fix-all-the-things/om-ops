@@ -46,10 +46,7 @@ in
       "universal@otevrenamesta.cz" = {
           hashedPassword = "${hashes.uu_}";
       };
-      # asi nepoužívané
-      "forum@otevrenamesta.cz" = {
-          hashedPassword = hashes.forum_;
-      };
+
       "user1@otevrenamesta.cz" = {
           hashedPassword = "${hashes.tt_}";
 
