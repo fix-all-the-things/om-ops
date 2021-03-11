@@ -30,6 +30,7 @@ let
       DATABASE_PORT = builtins.toString cfg.database.port;
       DATABASE_USERNAME = cfg.database.user;
       DATABASE_SSL = builtins.toString cfg.database.enableSSL;
+      URL = "https://${cfg.hostName}";
       # XXX
       EDESKY_API_KEY = "sample";
       # XXX
