@@ -47,12 +47,46 @@ in
           hashedPassword = "${hashes.uu_}";
       };
 
+      ## User accounts
+
+      "jiri.marek@otevrenamesta.cz" = {
+          hashedPassword = "${hashes.jm_}";
+          sieveScript = ''
+               redirect "${emails.jm_}";
+          '';
+      };
+
+      "ladislav.nesnera@otevrenamesta.cz" = {
+          hashedPassword = "${hashes.ln_}";
+          sieveScript = ''
+               redirect "${emails.ln_}";
+          '';
+      };
+
+      "lucie.smolka@otevrenamesta.cz" = {
+          hashedPassword = "${hashes.ls_}";
+          sieveScript = ''
+               redirect "${emails.ls_}";
+          '';
+      };
+
+      "pavla.kadlecova@otevrenamesta.cz" = {
+          hashedPassword = "${hashes.pk_}";
+          sieveScript = ''
+               redirect "${emails.pk_}";
+          '';
+      };
+
       "dmarc@otevrenamesta.cz" = {
         hashedPassword = hashes.dmarc_;
 
         sieveScript = ''
           redirect "${emails.mm_}";
         '';
+      };
+
+      "test1@otevrenamesta.cz" = {
+          hashedPassword = "${hashes.t1_}";
       };
 
       # Discourse
@@ -99,15 +133,11 @@ in
       "informace@otevrenamesta.cz"        =      "info@lists.otevrenamesta.cz";
       "iot@otevrenamesta.cz"              =      [ emails.ln_ emails.zg_ ];
       "jiri.hlavenka@otevrenamesta.cz"    =      emails.jh_;
-      "jiri.marek@otevrenamesta.cz"       =      emails.jm_;
-      "ladislav.nesnera@otevrenamesta.cz" =      emails.ln_;
-      "lucie.smolka@otevrenamesta.cz"     =      emails.ls_;
       "marcel.kolaja@otevrenamesta.cz"    =      emails.mk_;
       "marek.sebera@otevrenamesta.cz"     =      emails.ms2_;
       "martin.sebek@otevrenamesta.cz"     =      emails.ms_;
       "olmr@otevrenamesta.cz"             =      emails.vo_;
       "ondrej.profant@otevrenamesta.cz"   =      emails.op_;
-      "pavla.kadlecova@otevrenamesta.cz"  =      emails.pk_;
       "stepan.strebl@otevrenamesta.cz"    =      emails.ss_;
       "sorki@otevrenamesta.cz"            =      emails.srk_;
       "dsw2@otevrenamesta.cz"             =      "dsw2@lists.otevrenamesta.cz";
