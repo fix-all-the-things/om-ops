@@ -40,6 +40,7 @@ in
     loginAccounts = {
 
       ## domain @otevrenamesta.cz:
+
       "projekty@otevrenamesta.cz" = {
           hashedPassword = "${hashes.pp_}";
       };
@@ -135,7 +136,7 @@ in
       "iot@otevrenamesta.cz"              =      [ emails.ln_ emails.zg_ ];
 
       "alex.prsalu@otevrenamesta.cz"      =      emails.ap_;
-      "danidel.kolar@otevrenamesta.cz"    =      emails.dk_;
+      "daniel.kolar@otevrenamesta.cz"     =      emails.dk_;
       "jiri.hlavenka@otevrenamesta.cz"    =      emails.jh_;
       "marcel.kolaja@otevrenamesta.cz"    =      emails.mk_;
       "marek.sebera@otevrenamesta.cz"     =      emails.ms2_;
