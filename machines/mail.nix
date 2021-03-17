@@ -128,10 +128,13 @@ in
     # aliases for virtual users and mailing lists
     forwards = {
       # virtual users
+      "alert@otevrenamesta.cz"            =      [ emails.mm_ emails.ln_ emails.srk_ ];
       "cityvizor@otevrenamesta.cz"        =      [ emails.pk_ emails.ln_ emails.cv_ ];
-      "danidel.kolar@otevrenamesta.cz"    =      emails.dk_;
+      "dsw2@otevrenamesta.cz"             =      "dsw2@lists.otevrenamesta.cz";
       "informace@otevrenamesta.cz"        =      "info@lists.otevrenamesta.cz";
       "iot@otevrenamesta.cz"              =      [ emails.ln_ emails.zg_ ];
+
+      "danidel.kolar@otevrenamesta.cz"    =      emails.dk_;
       "jiri.hlavenka@otevrenamesta.cz"    =      emails.jh_;
       "marcel.kolaja@otevrenamesta.cz"    =      emails.mk_;
       "marek.sebera@otevrenamesta.cz"     =      emails.ms2_;
@@ -140,8 +143,6 @@ in
       "ondrej.profant@otevrenamesta.cz"   =      emails.op_;
       "stepan.strebl@otevrenamesta.cz"    =      emails.ss_;
       "sorki@otevrenamesta.cz"            =      emails.srk_;
-      "dsw2@otevrenamesta.cz"             =      "dsw2@lists.otevrenamesta.cz";
-      "alert@otevrenamesta.cz"            =      [ emails.mm_ emails.ln_ emails.srk_ ];
 
       # virtual lists
       "listmaster@otevrenamesta.cz"             = "listmaster@lists.otevrenamesta.cz";
