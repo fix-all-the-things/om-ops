@@ -47,22 +47,6 @@ in
           hashedPassword = "${hashes.uu_}";
       };
 
-      "user1@otevrenamesta.cz" = {
-          hashedPassword = "${hashes.tt_}";
-
-          aliases = [
-              "userX@otevrenamesta.cz"
-          ];
-      };
-      "user2@otevrenamesta.cz" = {
-          hashedPassword = "${hashes.tt_}";
-
-          sieveScript = '' 
-               redirect "${emails.ln_}";
-               redirect "${emails.lng_}";
-          ''; 
-      };
-
       "dmarc@otevrenamesta.cz" = {
         hashedPassword = hashes.dmarc_;
 
