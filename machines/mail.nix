@@ -94,30 +94,7 @@ in
           hashedPassword = hashes.cvprod_;
       };
 
-      ## domain @try.otevrenamesta.cz:
-      "user1@try.otevrenamesta.cz" = {
-          hashedPassword = "${hashes.tt_}";
-
-          aliases = [
-              "userX@try.otevrenamesta.cz"
-              "userY@try.otevrenamesta.cz"
-          ];
-      };
-      "user2@try.otevrenamesta.cz" = {
-          hashedPassword = "${hashes.tt_}";
-      };
-      "user3@try.otevrenamesta.cz" = {
-          hashedPassword = "${hashes.tt_}";
-      };
-      "info2@try.otevrenamesta.cz" = {
-          hashedPassword = "${hashes.tt_}";
-
-          sieveScript = '' 
-               redirect "${emails.ln_}";
-               redirect "${emails.lnl_}";
-          ''; 
-      };
-
+      # Dsw
       "noreply@dotace.praha3.cz" = {
         hashedPassword = hashes.dp3_;
       };
