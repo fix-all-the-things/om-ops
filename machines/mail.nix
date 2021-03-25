@@ -50,6 +50,13 @@ in
 
       ## User accounts
 
+      "diana.prsalu@otevrenamesta.cz" = {
+          hashedPassword = "${hashes.dp_}";
+          sieveScript = ''
+               redirect "${emails.dp_}";
+          '';
+      };
+
       "jiri.marek@otevrenamesta.cz" = {
           hashedPassword = "${hashes.jm_}";
           sieveScript = ''
@@ -135,7 +142,6 @@ in
       "informace@otevrenamesta.cz"        =      "info@lists.otevrenamesta.cz";
       "iot@otevrenamesta.cz"              =      [ emails.ln_ emails.zg_ ];
 
-      "alex.prsalu@otevrenamesta.cz"      =      emails.ap_;
       "daniel.kolar@otevrenamesta.cz"     =      emails.dk_;
       "jiri.hlavenka@otevrenamesta.cz"    =      emails.jh_;
       "marcel.kolaja@otevrenamesta.cz"    =      emails.mk_;
