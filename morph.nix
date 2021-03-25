@@ -3,8 +3,8 @@ let
   # update with nix-prefetch-url --unpack <URL>
   # tracks nixos-20.09 branch
   pkgs2009 = builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/2b973d233906fb0483263bca71bb789cad61513e.tar.gz";
-    sha256 = "11h21zsas7xgdax6xs2lh3mz8spvdk8i63czysr4p69yir1h1cd7";
+    url = "https://github.com/NixOS/nixpkgs/archive/223d0d733a66b46504ea6b4c15f88b7cc4db58fb.tar.gz";
+    sha256 = "073327ris0frqa3kpid3nsjr9w8yx2z83xpsc24w898mrs9r7d5v";
   };
 
   # due to geoip trouble, until https://github.com/NixOS/nixpkgs/pull/100617
