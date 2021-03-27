@@ -137,6 +137,7 @@ in
     forwards = {
       # virtual users
       "alert@otevrenamesta.cz"            =      [ emails.mm_ emails.ln_ emails.srk_ ];
+      "security@otevrenamesta.cz"         =      "alert@otevrenamesta.cz";
       "cityvizor@otevrenamesta.cz"        =      [ emails.pk_ emails.ln_ emails.cv_ ];
       "dsw2@otevrenamesta.cz"             =      "dsw2@lists.otevrenamesta.cz";
       "informace@otevrenamesta.cz"        =      "info@lists.otevrenamesta.cz";
