@@ -16,10 +16,6 @@ in
 
   om.wireguard.enable = true;
 
-  environment.systemPackages = with pkgs; [
-     nmap
-  ];
-
   virtualisation.libvirtd = {
     enable = true;
     networking = {
