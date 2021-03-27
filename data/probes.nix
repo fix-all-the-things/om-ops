@@ -12,7 +12,6 @@ in
     domains.cv
 
     domains.om
-    # "booked.${domains.om}" # broken
     "dsw2.${domains.om}"
     "forum.${domains.om}"
     "iot.${domains.om}"

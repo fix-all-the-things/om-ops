@@ -99,32 +99,7 @@ in
   services.mysql.package = pkgs.mysql;
   services.mysqlBackup = {
     enable = true;
-    databases = [ "glpi" "bookedscheduler" ];
-  };
-
-  services.httpd = {
-    enable = true;
-    enablePHP = true;
-
-    phpOptions = ''
-      extension=${pkgs.php.extensions.apcu}/lib/php/extensions/apcu.so
-      zend_extension = opcache.so
-      opcache.enable = 1
-    '';
-
-    adminAddr = "webmaster@otevrenamesta.cz";
-
-    virtualHosts = {
-      "booked.otevrenamesta.cz" = {
-        documentRoot = "/var/www/html";
-        listen = [{ ip = "127.0.0.1"; port = 8001; }];
-        extraConfig = ''
-          <Directory /var/www/html>
-            DirectoryIndex index.php
-          </Directory>
-        '';
-      };
-    };
+    databases = [ "glpi" ];
   };
 
   services.nginx = {
@@ -133,13 +108,6 @@ in
     recommendedProxySettings = true;
 
     virtualHosts = {
-      "booked.otevrenamesta.cz" = {
-        locations = {
-          "/" = {
-            proxyPass = "http://127.0.0.1:8001";
-          };
-        };
-      };
       "forum.vesp.cz" = {
         locations = {
           "/" = {

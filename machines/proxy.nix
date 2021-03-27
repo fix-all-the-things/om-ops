@@ -30,23 +30,6 @@ in
 
     virtualHosts = {
 
-      "booked.otevrenamesta.cz" = {
-        #forceSSL = true;
-        addSSL = true;
-        enableACME = true;
-
-        locations = {
-          "/" = {
-            #proxyPass = "http://[2a03:3b40:fe:32::]";
-            proxyPass = "http://37.205.14.138";
-            extraConfig = ''
-              rewrite ^/$ /Web/index.php redirect;
-              proxy_set_header Host $host;
-            '';
-          };
-        };
-      };
-
       "cityvizor.cz" = {
         serverAliases = [ "www.cityvizor.cz" "demo.cityvizor.cz" ];
         forceSSL = true;
