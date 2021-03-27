@@ -67,55 +67,6 @@ in
         };
       };
 
-      "ckan.otevrenamesta.cz" = {
-        forceSSL = true;
-        enableACME = true;
-
-        locations = {
-          "/" = {
-            proxyPass = "http://[2a01:430:17:1::ffff:27]";
-          };
-        };
-      };
-
-      "ckandevel.otevrenamesta.cz" = {
-        locations = {
-          "/" = {
-            proxyPass = "http://77.93.223.72:5000";
-          };
-        };
-      };
-
-      #"diskurz.otevrenamesta.cz" = {
-      #  forceSSL = true;
-      #  #addSSL = true;dd
-      #  enableACME = true;
-      #
-      #  locations = {
-      #    "/" = {
-      #      proxyPass = "http://[2a03:3b40:7:5:5054:ff:fe99:cc48]";
-      #      #Y/N? proxyPass = "http://37.205.14.138";
-      #    };
-      #  };
-      #};
-
-      "dsw.otevrenamesta.cz" = {
-        forceSSL = true;
-        enableACME = true;
-
-        locations = {
-          "/" = {
-            proxyPass = "http://37.205.14.138:11180";
-            extraConfig = ''
-              proxy_set_header Host $host;
-              proxy_set_header X-Real-IP $remote_addr;
-              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-              proxy_set_header X-Forwarded-Proto $scheme;
-            '';
-          };
-        };
-      };
-
       "dsw2.otevrenamesta.cz" = {
         serverAliases = [
           "novemestonm.dsw2.otevrenamesta.cz"
@@ -208,7 +159,6 @@ in
 
       "glpi.otevrenamesta.cz" = {
         forceSSL = true;
-        #addSSL = true;
         enableACME = true;
 
         locations = {
@@ -221,24 +171,12 @@ in
         };
       };
 
-      "idp.otevrenamesta.cz" = {
-        forceSSL = true;
-        enableACME = true;
-
-        locations = {
-          "/" = {
-            proxyPass = "http://[2a01:430:17:1::ffff:1382]:8080";
-          };
-        };
-      };
-
       "iot.otevrenamesta.cz" = {
         forceSSL = true;
         enableACME = true;
 
         locations = {
           "/" = {
-            #proxyPass = "http://[2a03:3b40:100::1:467]:3000";
             proxyPass = "http://37.205.14.2";
           };
         };
@@ -264,32 +202,12 @@ in
         };
       };
 
-      "kmddevel.otevrenamesta.cz" = {
-        locations = {
-          "/" = {
-            proxyPass = "http://172.16.9.47:5000";
-          };
-        };
-      };
-
-      "ldap.otevrenamesta.cz" = {
-        #forceSSL = true;
-        #enableACME = true;
-
-        locations = {
-          "/" = {
-            proxyPass = "http://172.16.9.36:9830";
-          };
-        };
-      };
-
       "lists.otevrenamesta.cz" = {
         forceSSL = true;
         enableACME = true;
 
         locations = {
           "/" = {
-            #proxyPass = "http://37.205.14.17:10180";
             proxyPass = "http://192.168.122.101";
             extraConfig = ''
               proxy_set_header Host $host;
@@ -297,22 +215,6 @@ in
               proxy_set_header Front-End-Https On;
             '';
 
-          };
-        };
-      };
-
-      "lpetl.otevrenamesta.cz" = {
-        forceSSL = true;
-        enableACME = true;
-
-        basicAuth = {
-          user1 = "heslo1";
-          user2 = "heslo2";
-        };
-
-        locations = {
-          "/" = {
-            proxyPass = "http://[2a01:430:17:1::ffff:27]:8088";
           };
         };
       };
@@ -346,7 +248,6 @@ in
 
         locations = {
           "/" = {
-            #proxyPass = "http://37.205.14.17:10280";
             proxyPass = "http://192.168.122.102:8080";
           };
         };
@@ -365,7 +266,6 @@ in
 
         locations = {
           "/" = {
-            #proxyPass = "http://37.205.14.17:10380";
             proxyPass = "http://192.168.122.103";
             extraConfig = ''
               proxy_set_header Host $host;
@@ -393,24 +293,6 @@ in
           };
         };
       };
-
-      /*
-      # disabled for now
-      "p7.otevrenamesta.cz" = {
-        forceSSL = false;
-        enableACME = true;
-
-        locations = {
-          "/" = {
-            proxyPass = "http://[2a03:3b40:3::44]";
-            extraConfig = ''
-              proxy_set_header Host $host;
-              proxy_set_header X-Forwarded-Proto $scheme;
-            '';
-          };
-        };
-      };
-      */
 
      "projekty.otevrenamesta.cz" = {
         forceSSL = true;
@@ -446,28 +328,6 @@ in
               proxy_set_header Host $host;
               proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             '';
-          };
-        };
-      };
-
-      "skmd.otevrenamesta.cz" = {
-        forceSSL = true;
-        enableACME = true;
-
-        locations = {
-          "/" = {
-            proxyPass = "http://[2a03:3b40:7:5:5054:ff:fe39:be8e]";
-          };
-        };
-      };
-
-      "skod.otevrenamesta.cz" = {
-        forceSSL = true;
-        enableACME = true;
-
-        locations = {
-          "/" = {
-            proxyPass = "http://[2a03:3b40:7:5:5054:ff:fe43:f292]";
           };
         };
       };
@@ -519,32 +379,6 @@ in
               proxy_ssl_session_reuse off;
                }
           '';
-      };
-
-      "sp.otevrenamesta.cz" = {
-        forceSSL = true;
-        enableACME = true;
-
-        locations = {
-          "/" = {
-            proxyPass = "http://[2a01:430:17:1::ffff:1383]";
-          };
-        };
-      };
-
-
-      "swww.otevrenamesta.cz" = {
-        forceSSL = true;
-        enableACME = true;
-
-        locations = {
-          "/" = {
-            proxyPass = "https://otevrenamesta.gitlab.io";
-            extraConfig = ''
-              proxy_set_header Host otevrenamesta.gitlab.io;
-            '';
-          };
-        };
       };
 
       "test.nia.otevrenamesta.cz" = {
