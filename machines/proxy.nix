@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   data = import ../data;
   recommendedProxy = ''
@@ -9,6 +9,32 @@ let
     proxy_set_header X-Forwarded-Host $host;
     proxy_set_header X-Forwarded-Server $host;
   '';
+
+  addWellKnownLocations = vhosts:
+    let contents = [
+          "Contact: mailto:security@${data.domains.om}"
+          "Preferred-Languages: cs, en"
+        ];
+    in
+    lib.mapAttrs
+      (name: vhost:
+        (lib.recursiveUpdate vhost {
+          locations = {
+
+            "/security.txt" = {
+              return = ''
+                200 "${lib.concatStringsSep "\\n" contents}"
+              '';
+            };
+            "/.well-known/security.txt" = {
+              return = ''
+                200 "${lib.concatStringsSep "\\n" contents}"
+              '';
+            };
+          };
+        })
+      )
+      vhosts;
 in
 {
   networking = {
@@ -28,7 +54,7 @@ in
     recommendedTlsSettings = true;
     recommendedGzipSettings = true;
 
-    virtualHosts = {
+    virtualHosts = addWellKnownLocations {
 
       "cityvizor.cz" = {
         serverAliases = [ "www.cityvizor.cz" "demo.cityvizor.cz" ];
