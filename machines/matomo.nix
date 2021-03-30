@@ -30,11 +30,4 @@
     enable = true;
     databases = [ "matomo" ];
   };
-
-  # see also https://github.com/NixOS/nixpkgs/pull/55867
-  services.geoip-updater.enable = true; # downloads GeoIP dbs to /var/lib/geoip-databases
-  systemd.tmpfiles.rules = let f = "GeoLite2-City.mmdb"; in [
-    "d /var/lib/matomo/misc      0770 matomo matomo - -"
-    "L /var/lib/matomo/misc/${f} -    -      -      - ${config.services.geoip-updater.databaseDir}/${f}"
-  ];
 }
