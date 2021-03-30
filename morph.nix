@@ -10,8 +10,8 @@ let
   # due to geoip trouble, until https://github.com/NixOS/nixpkgs/pull/100617
   # matomo branch
   pkgs2009omMatomo = builtins.fetchTarball {
-    url = "https://github.com/otevrenamesta/nixpkgs/archive/046a731cf1451ac0f622b93ce128123411d458ae.tar.gz";
-    sha256 = "0y68agpyr8qkyh82bji076gqc75l40ic6sinzfwm7mcnld5kvmkv";
+    url = "https://github.com/otevrenamesta/nixpkgs/archive/34bd7ac16b7da0cb6a0ef0582f7e38b551cbc163.tar.gz";
+    sha256 = "1gbs4ynf9fgi1v0613g8msmjgiyqp26k2v7qb6cyzrx55scmpmjc";
   };
 in
 {
