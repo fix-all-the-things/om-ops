@@ -63,6 +63,10 @@ in
       accessKey = (import ../secrets/minio-cityvizor-test.nix).accessKey;
       secretKey = (import ../secrets/minio-cityvizor-test.nix).secretKey;
     };
+    server = {
+      jwtSecret = (import ../secrets/cityvizor-beta.nix).jwtSecret;
+      edeskyApiKey =  (import ../secrets/cityvizor-beta.nix).edeskyApiKey;
+    };
     smtp = {
       enable = true;
       host = "mx.otevrenamesta.cz";

@@ -31,10 +31,6 @@ let
       DATABASE_USERNAME = cfg.database.user;
       DATABASE_SSL = builtins.toString cfg.database.enableSSL;
       URL = "https://${cfg.hostName}";
-      # XXX
-      EDESKY_API_KEY = "sample";
-      # XXX
-      JWT_SECRET = "secret";
       NODE_ENV = "system";
       S3_HOST = cfg.s3.host;
       S3_CDN_HOST = cfg.s3.cdnHost;
@@ -42,17 +38,27 @@ let
       S3_PRIVATE_BUCKET = cfg.s3.privateBucket;
       S3_PUBLIC_BUCKET = cfg.s3.publicBucket;
       S3_ACCESS_KEY = cfg.s3.accessKey;
-      S3_SECRET_KEY = cfg.s3.secretKey;
     } // optionalAttrs cfg.smtp.enable {
       EMAIL_SMTP = cfg.smtp.host;
       EMAIL_PORT = toString cfg.smtp.port;
       EMAIL_USER = cfg.smtp.user;
       EMAIL_ADDRESS = cfg.smtp.address;
-      EMAIL_PASSWORD = cfg.smtp.password;
     };
-    volumes = [
+    volumes =
+    let
+      dotEnv = pkgs.writeText "cv-dot-env" ''
+        EDESKY_API_KEY='${cfg.server.edeskyApiKey}'
+        JWT_SECRET='${cfg.server.jwtSecret}'
+        S3_SECRET_KEY='${cfg.s3.secretKey}'
+        ${optionalString cfg.smtp.enable ''
+          EMAIL_PASSWORD='${cfg.smtp.password}'
+        ''}
+      '';
+    in
+    [
       "/etc/hosts:/etc/hosts" # to be able to reach external pg
       "/var/lib/cityvizor/data:/home/node/data"
+      "${dotEnv}:/home/node/app/.env"
     ];
   } // optionalAttrs cfg.containers.pinned {
     imageFile = images.cityvizor-server;

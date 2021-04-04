@@ -74,6 +74,14 @@ with lib;
         type = types.int;
         default = 2;
       };
+
+      jwtSecret = mkOption {
+        type = types.str;
+      };
+
+      edeskyApiKey = mkOption {
+        type = types.str;
+      };
     };
 
     demo.enable = mkEnableOption "Demo container and endpoint";

@@ -34,6 +34,11 @@ let
           accessKey = "dummy";
           secretKey = "snake-oil";
         };
+        server = {
+          jwtSecret = "test";
+          edeskyApiKey = "test";
+          redundantInstances = 1;
+        };
         landing-page.settings.trackingHtml = "<h3>Very customized</h3>";
       };
 
