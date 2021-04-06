@@ -209,7 +209,7 @@ in
     };
 
     paro2-beta = {
-      autoStart = true;
+      autoStart = false;
       privateNetwork = true;
       hostAddress = ctHostIp;
       localAddress = ctParo2BetaIp;
