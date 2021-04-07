@@ -251,7 +251,6 @@ in
     enable = true;
     clientMaxBodySize = "2G";
     recommendedOptimisation = true;
-    recommendedProxySettings = true;
 
     virtualHosts = {
       "minio.cityvizor.cz" = {
