@@ -240,22 +240,6 @@ in
       # https://serverfault.com/questions/832945/how-to-contact-gmail-team-regarding-block/834161#834161
       smtp_address_preference = "ipv4";
     };
-
-    # disable smtpd_sender_restrictions = reject_sender_login_mismatch that SNM adds
-    # KEEP THIS IN SYNC W/ submissionOptions IN nixos-mailserver/mail-server/postfix.nix
-    submissionOptions = lib.mkForce {
-      smtpd_tls_security_level = "encrypt";
-      smtpd_sasl_auth_enable = "yes";
-      smtpd_sasl_type = "dovecot";
-      smtpd_sasl_path = "/run/dovecot2/auth";
-      smtpd_sasl_security_options = "noanonymous";
-      smtpd_sasl_local_domain = "$myhostname";
-      smtpd_client_restrictions = "permit_sasl_authenticated,reject";
-      smtpd_sender_login_maps = "hash:/etc/postfix/vaccounts";
-      #smtpd_sender_restrictions = "reject_sender_login_mismatch";
-      smtpd_recipient_restrictions = "reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject";
-      cleanup_service_name = "submission-header-cleanup";
-    };
   };
 
   services.rspamd = {
