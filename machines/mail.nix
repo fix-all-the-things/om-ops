@@ -78,6 +78,13 @@ in
           '';
       };
 
+      "lukas.sochor@otevrenamesta.cz" = {
+          hashedPassword = "${hashes.ls2_}";
+          sieveScript = ''
+               redirect "${emails.ls2_}";
+          '';
+      };
+
       "pavla.kadlecova@otevrenamesta.cz" = {
           hashedPassword = "${hashes.pk_}";
           sieveScript = ''
