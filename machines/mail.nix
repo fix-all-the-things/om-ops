@@ -44,9 +44,6 @@ in
       "projekty@otevrenamesta.cz" = {
           hashedPassword = "${hashes.pp_}";
       };
-      "universal@otevrenamesta.cz" = {
-          hashedPassword = "${hashes.uu_}";
-      };
 
       ## User accounts
 
