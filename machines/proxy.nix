@@ -101,6 +101,8 @@ in
           "dotace.praha12.cz"
           "dotace.praha8.cz"
           "dotace.praha14.cz"
+          "dotace.praha4.cz"
+          "loket.dsw2.otevrenamesta.cz"
           "praha4.dsw2.otevrenamesta.cz"
           "praha6.dsw2.otevrenamesta.cz"
           "praha11.dsw2.otevrenamesta.cz"
