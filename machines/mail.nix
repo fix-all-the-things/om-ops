@@ -47,7 +47,7 @@ in
 
       ## User accounts
 
-      "diana.prsalu@otevrenamesta.cz" = {
+      "tea.rezkova@otevrenamesta.cz" = {
           hashedPassword = "${hashes.dp_}";
           sieveScript = ''
                redirect "${emails.dp_}";
