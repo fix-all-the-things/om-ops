@@ -47,13 +47,6 @@ in
 
       ## User accounts
 
-      "tea.rezkova@otevrenamesta.cz" = {
-          hashedPassword = "${hashes.dp_}";
-          sieveScript = ''
-               redirect "${emails.dp_}";
-          '';
-      };
-
       "jiri.marek@otevrenamesta.cz" = {
           hashedPassword = "${hashes.jm_}";
           sieveScript = ''
@@ -86,6 +79,13 @@ in
           hashedPassword = "${hashes.pk_}";
           sieveScript = ''
                redirect "${emails.pk_}";
+          '';
+      };
+
+      "tea.rezkova@otevrenamesta.cz" = {
+          hashedPassword = "${hashes.tr_}";
+          sieveScript = ''
+               redirect "${emails.tr_}";
           '';
       };
 
