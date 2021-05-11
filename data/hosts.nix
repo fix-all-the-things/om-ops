@@ -114,4 +114,16 @@ rec {
   };
 
   wireguard = mesta-libvirt;
+
+  smarttabor = {
+    addr = {
+      priv = {
+        ipv4 = "10.23.42.20";
+        ipv6 = "fc00::121";
+      };
+    };
+    wg = {
+      publicKey = "EAk2ry17VtBZX7D1S3OV7AiJq9XqJnokv6GcQg4xTQc=";
+    };
+  };
 }
