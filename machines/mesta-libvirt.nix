@@ -111,6 +111,7 @@ in
       "mesta-services-2"
       "pg"
       "status"
+      "smarttabor"
     ];
   };
 }
