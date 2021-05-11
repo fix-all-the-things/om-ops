@@ -8,7 +8,10 @@
       ./smarttabor-hardware.nix
     ];
 
-  om.wireguard.enable = true;
+  om.wireguard = {
+    enable = true;
+    preferIPv4 = true;
+  };
 
   networking.useDHCP = false;
   networking.hostName = "smarttabor";
