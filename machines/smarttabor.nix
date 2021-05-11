@@ -11,6 +11,7 @@
   om.wireguard.enable = true;
 
   networking.useDHCP = false;
+  networking.hostName = "smarttabor";
   networking.interfaces.eno1.useDHCP = true;
   networking.interfaces.eno2.useDHCP = true;
 
