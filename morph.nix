@@ -364,4 +364,10 @@ in
       ./machines/cv-prod.nix
     ];
   };
+
+  smarttabor = { config, pkgs, ... }: {
+    imports = [
+      ./machines/smarttabor.nix
+    ];
+  };
 }
