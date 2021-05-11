@@ -8,11 +8,12 @@
       ./smarttabor-hardware.nix
     ];
 
+  om.wireguard.enable = true;
+
   networking.useDHCP = false;
   networking.interfaces.eno1.useDHCP = true;
   networking.interfaces.eno2.useDHCP = true;
 
-  # om.wireguard.enable = true;
   users.users.vencax = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
