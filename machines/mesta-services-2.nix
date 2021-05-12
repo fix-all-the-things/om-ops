@@ -10,6 +10,7 @@ let
   ctMinioIp = "192.168.123.2";
   ctParo2Ip = "192.168.123.3";
   ctParo2BetaIp = "192.168.123.4";
+  ctNiaIp = "192.168.123.5";
 in
 {
   imports = [
@@ -236,6 +237,64 @@ in
       };
     };
 
+    nia = {
+      autoStart = true;
+      privateNetwork = true;
+      hostAddress = ctHostIp;
+      localAddress = ctNiaIp;
+      forwardPorts = [ { protocol = "tcp"; hostPort = 9003; containerPort = 80; } ];
+
+      config = { config, pkgs, ... }: {
+        imports = [
+          ../modules/nia-otevrenamesta-cz.nix
+        ];
+
+        environment.systemPackages = with pkgs; [
+          php fish byobu git unbound
+        ];
+
+        networking = {
+          firewall.allowedTCPPorts = [ 80 ];
+
+          domain = "otevrenamesta.cz";
+          hostName =  "nia";
+        };
+
+        users.extraUsers.root.openssh.authorizedKeys.keys =
+          with import ../ssh-keys.nix; [ ms ];
+
+        services.mysql = {
+          enable = true;
+          package = pkgs.mariadb;
+          bind = "127.0.0.1";
+          ensureDatabases = [ "niatest" ];
+          ensureUsers = [
+            {
+              name = "niatest";
+              ensurePermissions = {
+                "niatest.*" = "ALL PRIVILEGES";
+              };
+            }
+          ];
+        };
+
+        services.mysqlBackup = {
+          enable = true;
+          databases = [ "niatest" ];
+        };
+
+        services.nia-otevrenamesta-cz = {
+          enable = true;
+          hostName = "${config.networking.hostName}.${config.networking.domain}";
+          configFile = "/var/lib/nia-otevrenamesta-cz/config.php";
+          privateKeyFile = "/var/lib/nia-otevrenamesta-cz/private.key";
+        };
+
+        services.nginx.virtualHosts.${config.services.nia-otevrenamesta-cz.hostName} = {
+          serverAliases = [ "test.nia.otevrenamesta.cz" ];
+        };
+      };
+    };
 
     /*
     template = {
@@ -276,6 +335,14 @@ in
         locations = {
           "/" = {
             proxyPass = "http://${ctHostIp}:9002";
+          };
+        };
+      };
+
+      "nia.otevrenamesta.cz" = {
+        locations = {
+          "/" = {
+            proxyPass = "http://${ctHostIp}:9003";
           };
         };
       };
