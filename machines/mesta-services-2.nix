@@ -160,8 +160,9 @@ in
       };
     };
 
+    # unused for now
     squid = {
-      autoStart = true;
+      autoStart = false;
       ephemeral = true;
 
       config = { config, pkgs, ... }: {
