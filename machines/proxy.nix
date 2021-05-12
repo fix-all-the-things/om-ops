@@ -314,7 +314,7 @@ in
 
         locations = {
           "/" = {
-            proxyPass = "http://37.205.14.138:10780";
+            proxyPass = "http://${data.hosts.mesta-services-2.addr.pub.ipv4}:80";
             extraConfig = ''
               proxy_set_header Host $host;
             '';
