@@ -5,8 +5,8 @@
 }:
 
 let
-  rev = "72fb78b7adc0e4b73051eedaaeb29642d18b1966";
-  sha256 = "1867y36wvgw6abz7khybhyzljgmbqsblzkjkz1z446lnsll8msw1";
+  rev = "eb47282cd836a210d289a0508360cec119c974a4";
+  sha256 = "1fxhsgy2vbhhwafqkvx7fqc8ngpxggjxbjpl67am4pinda9d73lh";
 in
 (import ./composition.nix { inherit pkgs system; }).overrideAttrs (attrs:
 {
