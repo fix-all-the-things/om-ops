@@ -20,6 +20,8 @@ in
     description = "om hosts";
   };
 
+  # * OtevrenaMesta
+  # ** mesta-libvirt
   mesta-libvirt = { config, pkgs, ... }: {
     imports = [
       ./env.nix
@@ -29,7 +31,7 @@ in
     ];
   };
 
-  # qemu guest port 10222 (consul na services)
+  # *** consul @ mesta-services
   consul = { config, pkgs, ... }: {
     imports = [
       ./env.nix
@@ -49,7 +51,7 @@ in
       };
   };
 
-  # qemu guest port 10422 (GLPI)
+  # *** glpi @ mesta-services
   glpi = { config, pkgs, ... }: {
     imports = [
       ./env.nix
@@ -69,6 +71,7 @@ in
       };
   };
 
+  # ** mesta-services
   mesta-services = { config, pkgs, ... }: {
     imports = [
       ./env.nix
@@ -78,7 +81,7 @@ in
     ];
   };
 
-  # qemu guest port 10022 (mail)
+  # *** mail @ mesta-libvirt
   mail = { config, pkgs, ... }: {
     imports = [
       ./env.nix
@@ -98,7 +101,7 @@ in
       };
   };
 
-  # qemu guest port 11322 (redmine na services)
+  # *** redmine @ mesta-services
   redmine = { config, pkgs, ... }: {
     imports = [
       ./env.nix
@@ -118,8 +121,7 @@ in
       };
   };
 
-
-  # qemu guest port 10322 (roundcube na services)
+  # *** roundcube @ mesta-services
   roundcube = { config, pkgs, ... }: {
     imports = [
       ./env.nix
@@ -139,8 +141,7 @@ in
       };
   };
 
-
-  # qemu guest port 10122 (sympa)
+  # *** sympa @ mesta-libvirt
   sympa = { config, pkgs, ... }: {
     imports = [
       ./env.nix
@@ -160,7 +161,7 @@ in
       };
   };
 
-  # qemu guest port 10222 (midpoint)
+  # *** midpoint @ mesta-libvirt
   midpoint = { config, pkgs, ... }: {
     imports = [
       ./env.nix
@@ -180,7 +181,7 @@ in
       };
   };
 
-  # qemu guest port 10322 (matomo)
+  # *** matomo @ mesta-libvirt
   matomo = { config, pkgs, ... }: {
     nixpkgs.pkgs = import pkgs2009omMatomo { };
 
@@ -202,7 +203,7 @@ in
       };
   };
 
-  # qemu guest port 10722 (registry-devel @ mesta-services)
+  # *** registry-devel @ mesta-services
   registry-devel = { config, pkgs, ... }: {
     imports = [
       ./env.nix
@@ -222,7 +223,7 @@ in
       };
   };
 
-  # qemu guest port 10822 (ucto na services)
+  # *** ucto @ mesta-services
   ucto = { config, pkgs, ... }: {
     imports = [
       ./env.nix
@@ -242,7 +243,7 @@ in
       };
   };
 
-  # qemu guest port 10922 (matrix na services)
+  # *** matrix @ mesta-libvirt
   matrix = { config, pkgs, ... }: {
     imports = [
       ./env.nix
@@ -263,7 +264,7 @@ in
   };
 
 
-  # qemu guest port 10522 (wp)
+  # *** wp @ mesta-services
   wp = { config, pkgs, ... }: {
     imports = [
       ./env.nix
@@ -283,6 +284,7 @@ in
       };
   };
 
+  # *** mediawiki @ mesta-libvirt
   mediawiki = { config, pkgs, ... }: {
     imports = [
       ./env.nix
@@ -302,6 +304,7 @@ in
       };
   };
 
+  # *** proxy @ mesta-libvirt
   proxy = { config, pkgs, ... }: {
     imports = [
       ./env.nix
@@ -321,6 +324,7 @@ in
       };
   };
 
+  # ** status
   status = { config, pkgs, ... }: {
     imports = [
       ./env.nix
@@ -329,6 +333,7 @@ in
     ];
   };
 
+  # ** mesta-services-2
   mesta-services-2 = { config, pkgs, ... }: {
     imports = [
       ./env.nix
@@ -338,6 +343,8 @@ in
     ];
   };
 
+  # * CityVizor
+  # ** pg
   pg = { config, pkgs, ...}: {
     imports = [
       ./env.nix
@@ -347,6 +354,7 @@ in
     ];
   };
 
+  # ** cv-beta
   cv-beta = { config, pkgs, ...}: {
     imports = [
       ./env.nix
@@ -356,6 +364,7 @@ in
     ];
   };
 
+  # ** cv-beta
   cv-prod = { config, pkgs, ...}: {
     imports = [
       ./env.nix
@@ -365,6 +374,8 @@ in
     ];
   };
 
+  # * Tabor
+  # ** smarttabor
   smarttabor = { config, pkgs, ... }: {
     imports = [
       ./machines/smarttabor.nix
