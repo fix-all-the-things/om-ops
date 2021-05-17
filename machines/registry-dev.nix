@@ -11,7 +11,7 @@
 
   networking = {
      domain = "otevrenamesta.cz";
-     hostName =  "registry-devel";
+     hostName =  "registry-dev";
   };
 
   om.wireguard.enable = true;

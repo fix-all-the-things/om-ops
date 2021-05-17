@@ -113,7 +113,7 @@ rec {
     };
   };
 
-  registry-devel = {
+  registry-dev = {
     addr = {
       priv = {
         ipv4 = "10.23.42.102";

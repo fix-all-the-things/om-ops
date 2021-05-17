@@ -203,13 +203,13 @@ in
       };
   };
 
-  # *** registry-devel @ mesta-services
-  registry-devel = { config, pkgs, ... }: {
+  # *** registry-dev @ mesta-services
+  registry-dev = { config, pkgs, ... }: {
     imports = [
       ./env.nix
       ./profiles/qemu.nix
       ./profiles/exporter-node.nix
-      ./machines/registry-devel.nix
+      ./machines/registry-dev.nix
     ];
 
     fileSystems."/" =
