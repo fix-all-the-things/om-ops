@@ -202,13 +202,13 @@ in
       };
   };
 
-  # qemu guest port 10722 (nia na services)
-  nia = { config, pkgs, ... }: {
+  # qemu guest port 10722 (registry-devel @ mesta-services)
+  registry-devel = { config, pkgs, ... }: {
     imports = [
       ./env.nix
       ./profiles/qemu.nix
       ./profiles/exporter-node.nix
-      ./machines/nia.nix
+      ./machines/registry-devel.nix
     ];
 
     fileSystems."/" =

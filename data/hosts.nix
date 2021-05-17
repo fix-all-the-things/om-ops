@@ -113,6 +113,18 @@ rec {
     };
   };
 
+  registry-devel = {
+    addr = {
+      priv = {
+        ipv4 = "10.23.42.102";
+        ipv6 = "fc00::122";
+      };
+    };
+    wg = {
+      publicKey = "Rut/XcVzADOzY7YUNJRz/fdMGyJAuBdowQbmVy0iMko=";
+    };
+  };
+
   wireguard = mesta-libvirt;
 
   smarttabor = {
