@@ -85,8 +85,8 @@ in
             identityFile = "~/.ssh/mesta_deploy";
           };
           "registry-dev" = {
-            hostname = "37.205.14.138";
-            port = 10722;
+            hostname = "10.23.42.102";
+            port = 22;
             user = "root";
             identityFile = "~/.ssh/mesta_deploy";
           };
