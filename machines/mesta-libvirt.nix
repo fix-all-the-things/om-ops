@@ -112,6 +112,7 @@ in
       "pg"
       "status"
       "smarttabor"
+      "registry-devel"
     ];
   };
 }
