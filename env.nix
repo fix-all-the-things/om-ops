@@ -59,8 +59,7 @@ in
   };
 
   users.extraUsers.root.openssh.authorizedKeys.keys =
-    lib.mkDefault
-      (with import ./ssh-keys.nix; [ deploy ln mm srk ]);
+    with import ./ssh-keys.nix; [ deploy ln mm srk ];
 
   system.stateVersion = lib.mkDefault "18.09";
 }
