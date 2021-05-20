@@ -319,6 +319,8 @@ in
         users.extraUsers.root.openssh.authorizedKeys.keys =
           with import ../ssh-keys.nix; [ ms vk ];
 
+        services.openssh.enable = true;
+
         services.phpapp = {
           enable = true;
           database = {
