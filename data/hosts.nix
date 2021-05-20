@@ -15,7 +15,18 @@ rec {
     };
   };
 
-  proxy = mesta-libvirt;
+  proxy = {
+    addr = {
+      pub = mesta-libvirt.addr.pub;
+      priv = {
+        ipv4 = "10.23.42.30";
+        ipv6 = "fc00::30";
+      };
+    };
+    wg = {
+      publicKey = "fA/Clr7cuq83KBMcOE4+m7YS6yXqztxfvAUE7FLxkHc=";
+    };
+  };
 
   mesta-services = {
     addr = {

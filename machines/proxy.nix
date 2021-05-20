@@ -37,6 +37,13 @@ let
       vhosts;
 in
 {
+
+  imports = [
+    ../modules/wireguard.nix
+  ];
+
+  om.wireguard.enable = true;
+
   networking = {
     firewall.allowedTCPPorts = [ 80 443 ];
   };

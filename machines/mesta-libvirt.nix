@@ -110,6 +110,7 @@ in
       "mesta-services"
       "mesta-services-2"
       "pg"
+      "proxy"
       "status"
       "smarttabor"
       "registry-dev"
