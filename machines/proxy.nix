@@ -581,6 +581,16 @@ in
         };
       };
 
+      "wp.paro2.otevrenamesta.cz" = {
+        forceSSL = true;
+        enableACME = true;
+        locations = {
+          "/" = {
+            proxyPass = "http://${data.hosts.mesta-services-2.addr.pub.ipv4}:80";
+            extraConfig = recommendedProxy;
+          };
+        };
+      };
 
     };
   };

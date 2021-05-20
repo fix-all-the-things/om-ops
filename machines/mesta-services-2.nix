@@ -11,6 +11,7 @@ let
   ctParo2Ip = "192.168.123.3";
   ctParo2BetaIp = "192.168.123.4";
   ctNiaIp = "192.168.123.5";
+  ctWpdevIp = "192.168.123.6";
 in
 {
   imports = [
@@ -296,6 +297,38 @@ in
       };
     };
 
+    # for wordpress development
+    wpdev = {
+      autoStart = true;
+      privateNetwork = true;
+      hostAddress = ctHostIp;
+      localAddress = ctWpdevIp;
+      forwardPorts = [ { protocol = "tcp"; hostPort = 9004; containerPort = 80; } ];
+
+      config = { config, pkgs, ... }: {
+        imports = [
+          ../modules/phpapp.nix
+        ];
+
+        networking = {
+          firewall.allowedTCPPorts = [ 80 ];
+          domain = "paro2.otevrenamesta.cz";
+          hostName =  "wp";
+        };
+
+        users.extraUsers.root.openssh.authorizedKeys.keys =
+          with import ../ssh-keys.nix; [ ms vk ];
+
+        services.phpapp = {
+          enable = true;
+          database = {
+            createLocally = true;
+          };
+          hostName = "wp.paro2.otevrenamesta.cz";
+        };
+      };
+    };
+
     /*
     template = {
       autoStart = true;
@@ -343,6 +376,14 @@ in
         locations = {
           "/" = {
             proxyPass = "http://${ctHostIp}:9003";
+          };
+        };
+      };
+
+      "wp.paro2.otevrenamesta.cz" = {
+        locations = {
+          "/" = {
+            proxyPass = "http://${ctHostIp}:9004";
           };
         };
       };
