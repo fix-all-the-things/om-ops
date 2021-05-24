@@ -599,6 +599,29 @@ in
         };
       };
 
+      # smarttabor
+      "new.otevrenamesta.cz" = {
+        forceSSL = true;
+        enableACME = true;
+        locations = {
+          "/" = {
+            proxyPass = "http://${data.hosts.smarttabor.addr.priv.ipv4}:80";
+            extraConfig = recommendedProxy;
+          };
+        };
+      };
+
+      "new.taborskasetkani.eu" = {
+        forceSSL = true;
+        enableACME = true;
+        locations = {
+          "/" = {
+            proxyPass = "http://${data.hosts.smarttabor.addr.priv.ipv4}:80";
+            extraConfig = recommendedProxy;
+          };
+        };
+      };
+
     };
   };
 }
