@@ -74,8 +74,8 @@ in
       inherit (cfg) user group;
       inherit phpPackage;
       settings = mapAttrs (name: mkDefault) {
-        "listen.owner" = "nginx";
-        "listen.group" = "nginx";
+        "listen.owner" = cfg.user;
+        "listen.group" = cfg.group;
         "listen.mode" = "0600";
         "pm" = "dynamic";
         "pm.max_children" = 5;

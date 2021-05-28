@@ -124,7 +124,7 @@ in
           hashedPassword = hashes.cvprod_;
       };
 
-      # Dsw
+      # DSW2
       "noreply@dotace.praha3.cz" = {
         hashedPassword = hashes.dp3_;
       };
@@ -136,6 +136,11 @@ in
       "noreply@dotace.praha14.cz" = {
         hashedPassword = hashes.dp14_;
       };
+
+      # PaRo2
+      "paro2@otevrenamesta.cz" = {
+        hashedPassword = hashes.paro2_;
+      };
     };
     # aliases for virtual users and mailing lists
     forwards = {
@@ -144,6 +149,7 @@ in
       "security@otevrenamesta.cz"         =      "alert@otevrenamesta.cz";
       "cityvizor@otevrenamesta.cz"        =      [ emails.pk_ emails.ln_ emails.cv_ ];
       "dsw2@otevrenamesta.cz"             =      "dsw2@lists.otevrenamesta.cz";
+      "paro2@otevrenamesta.cz"            =      emails.ms2_;
       "informace@otevrenamesta.cz"        =      "info@lists.otevrenamesta.cz";
       "iot@otevrenamesta.cz"              =      [ emails.ln_ emails.zg_ ];
 
