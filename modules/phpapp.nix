@@ -6,7 +6,7 @@ let
   cfg = config.services.phpapp;
   phpPackage = pkgs.php74.buildEnv {
     extensions = { enabled, all }: with all;
-      enabled ++ [ redis ];
+      enabled ++ [ redis all.imagick ];
   };
 
 in
@@ -74,9 +74,11 @@ in
       inherit (cfg) user group;
       inherit phpPackage;
       settings = mapAttrs (name: mkDefault) {
-        "listen.owner" = cfg.user;
-        "listen.group" = cfg.group;
-        "listen.mode" = "0600";
+        "listen.owner" = "nginx";
+        "listen.group" = "nginx";
+        "listen.mode" = "0660";
+        "user" = cfg.user;
+        "group" = cfg.group;
         "pm" = "dynamic";
         "pm.max_children" = 5;
         "pm.start_servers" = 2;
