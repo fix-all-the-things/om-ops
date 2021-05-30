@@ -11,7 +11,7 @@ let
 
   phpPackage = pkgs.php74.buildEnv {
     extensions = { enabled, all }: with all;
-      enabled ++ [ redis ];
+      enabled ++ [ redis all.imagick ];
   };
 
   generatedConfig = pkgs.writeText "config.php" ''
@@ -228,7 +228,7 @@ in
         git
         mariadb
         phpPackage
-        phpPackage.packages.composer
+        phpPackage.packages.composer2
       ]);
     };
 

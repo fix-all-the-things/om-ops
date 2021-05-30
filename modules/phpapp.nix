@@ -139,7 +139,7 @@ in
         git
         mariadb
         phpPackage
-        phpPackage.packages.composer
+        phpPackage.packages.composer2
       ];
     };
 
