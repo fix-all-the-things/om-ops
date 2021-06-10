@@ -52,6 +52,8 @@ in
   networking.nat.internalInterfaces = ["ve-+"];
   networking.nat.externalInterface = "venet0";
 
+  # enabled by default in 21.05, remove after update
+  # https://github.com/NixOS/nixpkgs/pull/114240
   boot.enableContainers = true;
 
   containers = {
