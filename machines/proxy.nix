@@ -630,7 +630,7 @@ in
       "taborskasetkani.eu" = {
         forceSSL = true;
         enableACME = true;
-        aliases = [
+        serverAliases = [
           "new.taborskasetkani.eu"
           "www.taborskasetkani.eu"
         ];
