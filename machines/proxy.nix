@@ -600,13 +600,13 @@ in
       };
 
       # smarttabor
-      "otevrenamesta.cz" = {
+      "new.otevrenamesta.cz" = {
         forceSSL = true;
         enableACME = true;
-        serverAliases = [ 
-          "new.otevrenamesta.cz"
-          "www.otevrenamesta.cz" 
-        ];
+        # serverAliases = [ 
+        #   "new.otevrenamesta.cz"
+        #   "www.otevrenamesta.cz" 
+        # ];
         locations = {
           "/" = {
             proxyPass = "http://${data.hosts.smarttabor.addr.priv.ipv4}:80";
@@ -627,13 +627,13 @@ in
         };
       };
 
-      "taborskasetkani.eu" = {
+      "new.taborskasetkani.eu" = {
         forceSSL = true;
         enableACME = true;
-        serverAliases = [
-          "new.taborskasetkani.eu"
-          "www.taborskasetkani.eu"
-        ];
+        # serverAliases = [
+        #   "new.taborskasetkani.eu"
+        #   "www.taborskasetkani.eu"
+        # ];
         locations = {
           "/" = {
             proxyPass = "http://${data.hosts.smarttabor.addr.priv.ipv4}:80";
