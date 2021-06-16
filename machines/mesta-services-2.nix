@@ -12,6 +12,9 @@ let
   ctParo2BetaIp = "192.168.123.4";
   ctNiaIp = "192.168.123.5";
   ctWpdevIp = "192.168.123.6";
+
+  # Shared container options
+  ctTimeoutStartSec = "10min";
 in
 {
   imports = [
@@ -59,6 +62,7 @@ in
   containers = {
     shells = {
       autoStart = true;
+      timeoutStartSec = ctTimeoutStartSec;
       config = { config, pkgs, ... }: {
         imports = [ ../env.nix ];
         environment.systemPackages = with pkgs; [
@@ -144,6 +148,7 @@ in
 
     minio = {
       autoStart = true;
+      timeoutStartSec = ctTimeoutStartSec;
       privateNetwork = true;
       hostAddress = ctHostIp;
       localAddress = ctMinioIp;
@@ -167,6 +172,7 @@ in
     # unused for now
     squid = {
       autoStart = false;
+      timeoutStartSec = ctTimeoutStartSec;
       ephemeral = true;
 
       config = { config, pkgs, ... }: {
@@ -186,6 +192,7 @@ in
 
     paro2 = {
       autoStart = true;
+      timeoutStartSec = ctTimeoutStartSec;
       privateNetwork = true;
       hostAddress = ctHostIp;
       localAddress = ctParo2Ip;
@@ -215,6 +222,7 @@ in
 
     paro2-beta = {
       autoStart = false;
+      timeoutStartSec = ctTimeoutStartSec;
       privateNetwork = true;
       hostAddress = ctHostIp;
       localAddress = ctParo2BetaIp;
@@ -242,6 +250,7 @@ in
 
     nia = {
       autoStart = true;
+      timeoutStartSec = ctTimeoutStartSec;
       privateNetwork = true;
       hostAddress = ctHostIp;
       localAddress = ctNiaIp;
@@ -302,6 +311,7 @@ in
     # for wordpress development
     wpdev = {
       autoStart = true;
+      timeoutStartSec = ctTimeoutStartSec;
       privateNetwork = true;
       hostAddress = ctHostIp;
       localAddress = ctWpdevIp;
@@ -336,6 +346,7 @@ in
     /*
     template = {
       autoStart = true;
+      timeoutStartSec = ctTimeoutStartSec;
       config = { config, pkgs, ... }: {
         imports = [ ];
       };
