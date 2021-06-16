@@ -89,6 +89,13 @@ in
           '';
       };
 
+      "vlastimil.holer@otevrenamesta.cz" = {
+          hashedPassword = "${hashes.vh_}";
+          sieveScript = ''
+               redirect "${emails.vh_}";
+          '';
+      };
+
       "dmarc@otevrenamesta.cz" = {
         hashedPassword = hashes.dmarc_;
 
