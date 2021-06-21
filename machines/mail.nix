@@ -123,6 +123,11 @@ in
           hashedPassword = hashes.matrix_;
       };
 
+      # Scanner
+      "scanner@otevrenamesta.cz" = {
+          hashedPassword = hashes.scanner_;
+      };
+
       # Cityvizor feedback
       "cvbeta@otevrenamesta.cz" = {
           hashedPassword = hashes.cvbeta_;
