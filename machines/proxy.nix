@@ -631,7 +631,6 @@ in
         forceSSL = true;
         enableACME = true;
         serverAliases = [
-          "new.taborskasetkani.eu"
           "www.taborskasetkani.eu"
         ];
         locations = {
