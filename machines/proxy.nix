@@ -627,13 +627,13 @@ in
         };
       };
 
-      "new.taborskasetkani.eu" = {
+      "taborskasetkani.eu" = {
         forceSSL = true;
         enableACME = true;
-        # serverAliases = [
-        #   "new.taborskasetkani.eu"
-        #   "www.taborskasetkani.eu"
-        # ];
+        serverAliases = [
+          "new.taborskasetkani.eu"
+          "www.taborskasetkani.eu"
+        ];
         locations = {
           "/" = {
             proxyPass = "http://${data.hosts.smarttabor.addr.priv.ipv4}:80";
