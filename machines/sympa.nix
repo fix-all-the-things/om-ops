@@ -14,6 +14,7 @@ in
   environment.systemPackages = with pkgs; [ vim ];
 
   networking = {
+     # VH: 443 not used
      firewall.allowedTCPPorts = [ 80 25 443 ];
 
      domain = "otevrenamesta.cz";
@@ -60,7 +61,7 @@ in
         webHost = "lists.otevrenamesta.cz";
       };
     };
-    listMasters = [ "ladislav.nesnera@otevrenamesta.cz" "ladislav.nesnera@liberix.cz" ];
+    listMasters = [ "ladislav.nesnera@otevrenamesta.cz" "ladislav.nesnera@liberix.cz" "vlastimil.holer@gmail.com" ];
     web = {
       enable = true;
       fcgiProcs = 2;
