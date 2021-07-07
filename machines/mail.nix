@@ -160,7 +160,7 @@ in
       "alert@otevrenamesta.cz"            =      [ emails.mm_ emails.ln_ emails.srk_ ];
       "security@otevrenamesta.cz"         =      "alert@otevrenamesta.cz";
       "cityvizor@otevrenamesta.cz"        =      [ emails.pk_ emails.ln_ emails.cv_ ];
-      "dsw2@otevrenamesta.cz"             =      "dsw2@lists.otevrenamesta.cz";
+      "dsw2@otevrenamesta.cz"             =      [ emails.ls_ emails.jm_ emails.ls2_ ];   # was: "dsw2@lists.otevrenamesta.cz"
       "paro2@otevrenamesta.cz"            =      emails.ms2_;
       "informace@otevrenamesta.cz"        =      "info@lists.otevrenamesta.cz";
       "iot@otevrenamesta.cz"              =      [ emails.ln_ emails.zg_ ];
