@@ -61,7 +61,7 @@ in
         webHost = "lists.otevrenamesta.cz";
       };
     };
-    listMasters = [ "ladislav.nesnera@otevrenamesta.cz" "ladislav.nesnera@liberix.cz" "vlastimil.holer@gmail.com" ];
+    listMasters = [ "lucie.smolka@otevrenamesta.cz" "lucie@opencontent.cz" "vlastimil.holer@gmail.com" ];
     web = {
       enable = true;
       fcgiProcs = 2;
