@@ -157,7 +157,7 @@ in
     # aliases for virtual users and mailing lists
     forwards = {
       # virtual users
-      "alert@otevrenamesta.cz"            =      [ emails.mm_ emails.ln_ emails.srk_ ];
+      "alert@otevrenamesta.cz"            =      "spravci@lists.otevrenamesta.cz";
       "security@otevrenamesta.cz"         =      "alert@otevrenamesta.cz";
       "cityvizor@otevrenamesta.cz"        =      [ emails.pk_ emails.ln_ emails.cv_ ];
       "dsw2@otevrenamesta.cz"             =      [ emails.ls_ emails.jm_ emails.ls2_ ];   # was: "dsw2@lists.otevrenamesta.cz"
