@@ -618,7 +618,12 @@ in
       "web.otevrenamesta.cz" = {
         forceSSL = true;
         enableACME = true;
-        serverAliases = [ "example.web.otevrenamesta.cz" ];
+        serverAliases = [ 
+          "example.web.otevrenamesta.cz"
+          "web.otevrenamesta.cz"
+          "stredni.web.otevrenamesta.cz"
+          "mala.web.otevrenamesta.cz"
+        ];
         locations = {
           "/" = {
             proxyPass = "http://${data.hosts.smarttabor.addr.priv.ipv4}:80";
