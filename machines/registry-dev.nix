@@ -6,7 +6,8 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    php fish byobu git unbound phpPackage.packages.composer2 openssl byobu
+    fish byobu git unbound openssl byobu
+    php74 php74Packages.composer2
   ];
 
   networking = {
