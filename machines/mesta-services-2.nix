@@ -328,6 +328,7 @@ in
           hostName =  "wp";
         };
 
+        # TODO import env.nix to include core admins?
         users.extraUsers.root.openssh.authorizedKeys.keys =
           with import ../ssh-keys.nix; [ ms vk ];
 

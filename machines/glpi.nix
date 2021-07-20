@@ -14,8 +14,8 @@
 
   };
 
-  users.extraUsers.root.openssh.authorizedKeys.keys =
-    with import ../ssh-keys.nix; [ ln srk deploy rp1 rp2 rp3 ];
+#  users.extraUsers.root.openssh.authorizedKeys.keys =
+#    with import ../ssh-keys.nix; [ deploy2 vh jm ls ];
 
   services.mysql.enable = true;
   services.mysql.package = pkgs.mysql;
@@ -27,8 +27,8 @@
   services.nginx.enable = true;
   services.nginx.virtualHosts."glpi.otevrenamesta.cz" = {
     forceSSL = false;
-    enableACME = false; 
-    
+    enableACME = false;
+
     root = "/var/www/glpi";
     extraConfig = ''
       location = /index.php {

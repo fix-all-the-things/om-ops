@@ -12,7 +12,7 @@
      hostName =  "ucto";
   };
 
-  users.extraUsers.root.openssh.authorizedKeys.keys = with import ../ssh-keys.nix; [ jh ];
+#  users.extraUsers.root.openssh.authorizedKeys.keys = with import ../ssh-keys.nix; [ jh ];
 
   services.proplaceni = {
     enable = true;
@@ -25,7 +25,7 @@
     enable = true;
     virtualHosts."ucto.otevrenamesta.cz" = {
       forceSSL = false;
-      enableACME = false; 
+      enableACME = false;
     };
   };
 
