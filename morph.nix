@@ -31,25 +31,26 @@ in
     ];
   };
 
-  # *** consul @ mesta-services
-  consul = { config, pkgs, ... }: {
-    imports = [
-      ./env.nix
-      ./profiles/qemu.nix
-      ./profiles/exporter-node.nix
-      ./machines/consul.nix
-    ];
-
-    fileSystems."/" =
-      { device = "/dev/disk/by-uuid/292f707d-271c-4864-9e44-9d5c3d3b4243";
-        fsType = "ext4";
-      };
-
-    fileSystems."/boot" =
-      { device = "/dev/disk/by-uuid/c7affbc7-a187-4e3d-ad8d-7a603bd15a4d";
-        fsType = "ext4";
-      };
-  };
+# VH: down (2021/07)
+#  # *** consul @ mesta-services
+#  consul = { config, pkgs, ... }: {
+#    imports = [
+#      ./env.nix
+#      ./profiles/qemu.nix
+#      ./profiles/exporter-node.nix
+#      ./machines/consul.nix
+#    ];
+#
+#    fileSystems."/" =
+#      { device = "/dev/disk/by-uuid/292f707d-271c-4864-9e44-9d5c3d3b4243";
+#        fsType = "ext4";
+#      };
+#
+#    fileSystems."/boot" =
+#      { device = "/dev/disk/by-uuid/c7affbc7-a187-4e3d-ad8d-7a603bd15a4d";
+#        fsType = "ext4";
+#      };
+#  };
 
   # *** glpi @ mesta-services
   glpi = { config, pkgs, ... }: {
@@ -101,45 +102,47 @@ in
       };
   };
 
-  # *** redmine @ mesta-services
-  redmine = { config, pkgs, ... }: {
-    imports = [
-      ./env.nix
-      ./profiles/qemu.nix
-      ./profiles/exporter-node.nix
-      ./machines/redmine.nix
-    ];
+# VH: down (2021/07)
+#  # *** redmine @ mesta-services
+#  redmine = { config, pkgs, ... }: {
+#    imports = [
+#      ./env.nix
+#      ./profiles/qemu.nix
+#      ./profiles/exporter-node.nix
+#      ./machines/redmine.nix
+#    ];
+#
+#    fileSystems."/" =
+#      { device = "/dev/disk/by-uuid/2fe5b280-91fe-40e1-af64-9c814f03726b";
+#        fsType = "ext4";
+#      };
+#
+#    fileSystems."/boot" =
+#      { device = "/dev/disk/by-uuid/9af35a3b-7073-4fdb-afba-fc3d995016c9";
+#        fsType = "ext4";
+#      };
+#  };
 
-    fileSystems."/" =
-      { device = "/dev/disk/by-uuid/2fe5b280-91fe-40e1-af64-9c814f03726b";
-        fsType = "ext4";
-      };
-
-    fileSystems."/boot" =
-      { device = "/dev/disk/by-uuid/9af35a3b-7073-4fdb-afba-fc3d995016c9";
-        fsType = "ext4";
-      };
-  };
-
-  # *** roundcube @ mesta-services
-  roundcube = { config, pkgs, ... }: {
-    imports = [
-      ./env.nix
-      ./profiles/qemu.nix
-      ./profiles/exporter-node.nix
-      ./machines/roundcube.nix
-    ];
-
-    fileSystems."/" =
-      { device = "/dev/disk/by-uuid/26380b05-91d2-4521-816c-b6e3c226e127";
-        fsType = "ext4";
-      };
-
-    fileSystems."/boot" =
-      { device = "/dev/disk/by-uuid/0d79a0bc-a9bf-4c62-872e-fc68132263e1";
-        fsType = "ext4";
-      };
-  };
+# VH: down (2021/07)
+#  # *** roundcube @ mesta-services
+#  roundcube = { config, pkgs, ... }: {
+#    imports = [
+#      ./env.nix
+#      ./profiles/qemu.nix
+#      ./profiles/exporter-node.nix
+#      ./machines/roundcube.nix
+#    ];
+#
+#    fileSystems."/" =
+#      { device = "/dev/disk/by-uuid/26380b05-91d2-4521-816c-b6e3c226e127";
+#        fsType = "ext4";
+#      };
+#
+#    fileSystems."/boot" =
+#      { device = "/dev/disk/by-uuid/0d79a0bc-a9bf-4c62-872e-fc68132263e1";
+#        fsType = "ext4";
+#      };
+#  };
 
   # *** sympa @ mesta-libvirt
   sympa = { config, pkgs, ... }: {
@@ -161,25 +164,26 @@ in
       };
   };
 
-  # *** midpoint @ mesta-libvirt
-  midpoint = { config, pkgs, ... }: {
-    imports = [
-      ./env.nix
-      ./profiles/qemu.nix
-      ./profiles/exporter-node.nix
-      ./machines/midpoint.nix
-    ];
-
-    fileSystems."/" =
-      { device = "/dev/disk/by-uuid/86171d08-b62d-4c99-b1d6-ea075e8183d0";
-         fsType = "ext4";
-      };
-
-    fileSystems."/boot" =
-      { device = "/dev/disk/by-uuid/a821424a-1ffd-4c08-acf9-74078ee1eeff";
-        fsType = "ext4";
-      };
-  };
+# VH: down (2021/07)
+#  # *** midpoint @ mesta-libvirt
+#  midpoint = { config, pkgs, ... }: {
+#    imports = [
+#      ./env.nix
+#      ./profiles/qemu.nix
+#      ./profiles/exporter-node.nix
+#      ./machines/midpoint.nix
+#    ];
+#
+#    fileSystems."/" =
+#      { device = "/dev/disk/by-uuid/86171d08-b62d-4c99-b1d6-ea075e8183d0";
+#         fsType = "ext4";
+#      };
+#
+#    fileSystems."/boot" =
+#      { device = "/dev/disk/by-uuid/a821424a-1ffd-4c08-acf9-74078ee1eeff";
+#        fsType = "ext4";
+#      };
+#  };
 
   # *** matomo @ mesta-libvirt
   matomo = { config, pkgs, ... }: {
@@ -264,25 +268,26 @@ in
   };
 
 
-  # *** wp @ mesta-services
-  wp = { config, pkgs, ... }: {
-    imports = [
-      ./env.nix
-      ./profiles/qemu.nix
-      ./profiles/exporter-node.nix
-      ./machines/wp.nix
-    ];
-
-    fileSystems."/" =
-      { device = "/dev/disk/by-uuid/2e1eef19-5376-4c21-a6d2-a543b22cb079";
-        fsType = "ext4";
-      };
-
-    fileSystems."/boot" =
-      { device = "/dev/disk/by-uuid/1b2e41d9-9034-47a6-80eb-21f16215af54";
-        fsType = "ext4";
-      };
-  };
+# VH: down (2021/07)
+#  # *** wp @ mesta-services
+#  wp = { config, pkgs, ... }: {
+#    imports = [
+#      ./env.nix
+#      ./profiles/qemu.nix
+#      ./profiles/exporter-node.nix
+#      ./machines/wp.nix
+#    ];
+#
+#    fileSystems."/" =
+#      { device = "/dev/disk/by-uuid/2e1eef19-5376-4c21-a6d2-a543b22cb079";
+#        fsType = "ext4";
+#      };
+#
+#    fileSystems."/boot" =
+#      { device = "/dev/disk/by-uuid/1b2e41d9-9034-47a6-80eb-21f16215af54";
+#        fsType = "ext4";
+#      };
+#  };
 
   # *** mediawiki @ mesta-libvirt
   mediawiki = { config, pkgs, ... }: {
