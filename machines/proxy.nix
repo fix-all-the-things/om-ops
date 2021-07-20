@@ -217,7 +217,7 @@ in
         };
         locations."/ws" = {
           proxyPass = "http://37.205.14.2";
-          extraConfig = '' 
+          extraConfig = ''
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection "upgrade";
@@ -277,6 +277,7 @@ in
         };
       };
 
+      # VH: down (2021/06)
       "midpoint.otevrenamesta.cz" = {
         forceSSL = true;
         enableACME = true;
@@ -375,7 +376,7 @@ in
         extraConfig = ''
           location ^~ /loleaflet {
                    proxy_pass http://172.16.9.44:9980;
-                   #proxyPass = "http://[2a01:430:17:1::ffff:689]"; 
+                   #proxyPass = "http://[2a01:430:17:1::ffff:689]";
                    proxy_set_header Host $host;
                }
           location ^~ /hosting/discovery {
@@ -416,6 +417,7 @@ in
           '';
       };
 
+      # VH: down (2021/06)
       "test.nia.otevrenamesta.cz" = {
         forceSSL = true;
         enableACME = true;
@@ -475,6 +477,7 @@ in
         };
       };
 
+      # VH: down (2021/06)
       "webmail.otevrenamesta.cz" = {
         forceSSL = true;
         enableACME = true;
@@ -509,6 +512,7 @@ in
         };
       };
 
+      # VH: down (2021/06)
       "wp.otevrenamesta.cz" = {
         forceSSL = true;
         enableACME = true;
@@ -577,6 +581,7 @@ in
         };
       };
 
+      # VH: down (2021/06)
       "beta.paro2.otevrenamesta.cz" = {
         forceSSL = true;
         enableACME = true;
@@ -603,9 +608,9 @@ in
       "new.otevrenamesta.cz" = {
         forceSSL = true;
         enableACME = true;
-        # serverAliases = [ 
+        # serverAliases = [
         #   "new.otevrenamesta.cz"
-        #   "www.otevrenamesta.cz" 
+        #   "www.otevrenamesta.cz"
         # ];
         locations = {
           "/" = {
@@ -618,7 +623,7 @@ in
       "web.otevrenamesta.cz" = {
         forceSSL = true;
         enableACME = true;
-        serverAliases = [ 
+        serverAliases = [
           "example.web.otevrenamesta.cz"
           "web.otevrenamesta.cz"
           "stredni.web.otevrenamesta.cz"
