@@ -83,10 +83,10 @@ stdenv.mkDerivation {
   pname = "proplaceni";
   version = "0.0.9";
 
-  src = fetchgit {
+  src = fetchGit {
     url = "git@gitlab.com:Jarmil/pp.git";
     rev = "584a60f56588f4b1a88a6330bbac337caea89b20"; # jh @ 2019-09-25
-    sha256 = "1y6kb9k51r1i3bb27vflk9pvl3yr7l2nbq2ccazl9hjkm70ffybc";
+    ref = "jh";
   };
   propagatedBuildInputs = [ myEnv ];
 
