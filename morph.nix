@@ -227,26 +227,25 @@ in
       };
   };
 
-#VH: don't run for now, not sure it machine won't break (2021/07)
-#  # *** ucto @ mesta-services
-#  ucto = { config, pkgs, ... }: {
-#    imports = [
-#      ./env.nix
-#      ./profiles/qemu.nix
-#      ./profiles/exporter-node.nix
-#      ./machines/ucto.nix
-#    ];
-#
-#    fileSystems."/" =
-#      { device = "/dev/disk/by-uuid/586ee5e6-778f-4a0e-978d-639ac1a9f605";
-#        fsType = "ext4";
-#      };
-#
-#    fileSystems."/boot" =
-#      { device = "/dev/disk/by-uuid/8bd49f91-0b35-4574-9f9d-cf2ce0d9efe4";
-#        fsType = "ext4";
-#      };
-#  };
+  # *** ucto @ mesta-services
+  ucto = { config, pkgs, ... }: {
+    imports = [
+      ./env.nix
+      ./profiles/qemu.nix
+      ./profiles/exporter-node.nix
+      ./machines/ucto.nix
+    ];
+
+    fileSystems."/" =
+      { device = "/dev/disk/by-uuid/586ee5e6-778f-4a0e-978d-639ac1a9f605";
+        fsType = "ext4";
+      };
+
+    fileSystems."/boot" =
+      { device = "/dev/disk/by-uuid/8bd49f91-0b35-4574-9f9d-cf2ce0d9efe4";
+        fsType = "ext4";
+      };
+  };
 
   # *** matrix @ mesta-libvirt
   matrix = { config, pkgs, ... }: {
