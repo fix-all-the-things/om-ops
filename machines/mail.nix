@@ -35,7 +35,7 @@ in
     enablePop3 = true;
     enablePop3Ssl = true;
     fqdn = "mx.otevrenamesta.cz";
-    domains = [ "otevrenamesta.cz" "try.otevrenamesta.cz" "dotace.praha3.cz" "dotace.praha12.cz" "dotace.praha14.cz" ];
+    domains = [ "otevrenamesta.cz" "try.otevrenamesta.cz" "dotace.praha3.cz" "dotace.praha12.cz" "dotace.praha14.cz" "dotace.praha4.cz" ];
     certificateScheme = 3; # use LetsEncrypt, requires vhost on proxy
     loginAccounts = {
 
@@ -149,6 +149,10 @@ in
         hashedPassword = hashes.dp14_;
       };
 
+      "noreply@dotace.praha4.cz" = {
+        hashedPassword = hashes.dp4_;
+      };
+
       # PaRo2
       "paro2@otevrenamesta.cz" = {
         hashedPassword = hashes.paro2_;
@@ -232,6 +236,8 @@ in
   services.postsrsd = {
     enable = true;
     domain = "otevrenamesta.cz";
+    # ?TODO?: dotace.praha14.cz
+    # ?TODO?: dotace.praha4.cz
     excludeDomains = [ "lists.otevrenamesta.cz" "dotace.praha3.cz" "dotace.praha12.cz" ];
     forwardPort = 10001;
     reversePort = 10002;
