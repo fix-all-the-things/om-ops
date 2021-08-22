@@ -330,17 +330,6 @@ in
         };
       };
 
-     "projekty.otevrenamesta.cz" = {
-        forceSSL = true;
-        enableACME = true;
-
-        locations = {
-          "/" = {
-            proxyPass = "http://[2a01:430:17:1::ffff:1381]:8080";
-          };
-        };
-      };
-
       "proxy.otevrenamesta.cz" = {
         forceSSL = true;
         enableACME = true;
