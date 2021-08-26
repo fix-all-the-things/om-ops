@@ -226,17 +226,6 @@ in
         };
       };
 
-      "kmd.otevrenamesta.cz" = {
-        forceSSL = true;
-        enableACME = true;
-
-        locations = {
-          "/" = {
-            proxyPass = "http://[2a01:430:17:1::ffff:643]";
-          };
-        };
-      };
-
       "lists.otevrenamesta.cz" = {
         forceSSL = true;
         enableACME = true;
