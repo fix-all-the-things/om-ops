@@ -172,18 +172,8 @@ in
           };
 
           # legacy
-          "redmine" = {
-            hostname = "2a01:430:17:1::ffff:1381";
-            user = "root";
-            identityFile = "~/.ssh/mesta_deploy2";
-          };
           "az" = {
             hostname = "2a01:430:17:1::ffff:689";
-            user = "root";
-            identityFile = "~/.ssh/mesta_deploy2";
-          };
-          "kmd" = {
-            hostname = "2a01:430:17:1::ffff:643";
             user = "root";
             identityFile = "~/.ssh/mesta_deploy2";
           };
