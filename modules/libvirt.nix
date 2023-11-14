@@ -1,7 +1,5 @@
 # Module for configuring libvirt with static NixOS networking
 # instead of using libvirt managed bridge.
-#
-# Note: Make sure to enable KVM and TUN/TAP features if running in VPS
 
 { config, lib, pkgs, ... }:
 with lib;
@@ -151,8 +149,6 @@ in
        '';
      };
 
-     # XXX ${vpsadminos}/os/lib/nixos-container/build.nix disables the service, enable it
-     systemd.services.systemd-sysctl.enable = lib.mkForce true;
 
      boot.kernel.sysctl = mkIf v6Enabled {
        "net.ipv6.conf.all.forwarding" = true;
